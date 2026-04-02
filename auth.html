@@ -1,0 +1,1607 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In — Show Task Manager</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6c63ff;
+            --primary-dark: #4f46e5;
+            --primary-light: #ede9fe;
+            --success: #10b981;
+            --success-light: #d1fae5;
+            --danger: #ef4444;
+            --danger-light: #fee2e2;
+            --warning: #f59e0b;
+            --warning-light: #fef3c7;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 35%, #4c1d95 65%, #7c3aed 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bg-blobs {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: blobFloat ease-in-out infinite alternate;
+        }
+
+        .blob1 {
+            width: 400px;
+            height: 400px;
+            background: rgba(108, 99, 255, 0.25);
+            top: -100px;
+            left: -100px;
+            animation-duration: 8s;
+        }
+
+        .blob2 {
+            width: 350px;
+            height: 350px;
+            background: rgba(139, 92, 246, 0.2);
+            bottom: -80px;
+            right: -80px;
+            animation-duration: 10s;
+            animation-delay: 2s;
+        }
+
+        .blob3 {
+            width: 250px;
+            height: 250px;
+            background: rgba(196, 181, 253, 0.15);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-duration: 12s;
+            animation-delay: 4s;
+        }
+
+        @keyframes blobFloat {
+            from {
+                transform: translate(0, 0) scale(1)
+            }
+
+            to {
+                transform: translate(30px, 20px) scale(1.05)
+            }
+        }
+
+        .auth-wrapper {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            width: 100%;
+            max-width: 980px;
+            min-height: 640px;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.35), 0 10px 40px rgba(108, 99, 255, 0.2);
+        }
+
+        /* LEFT PANEL */
+        .auth-left {
+            flex: 1;
+            background: linear-gradient(160deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04));
+            backdrop-filter: blur(40px);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 52px 44px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: white;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 36px;
+        }
+
+        .brand-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #6c63ff, #4f46e5);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            box-shadow: 0 6px 20px rgba(108, 99, 255, 0.5);
+        }
+
+        .brand-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: white;
+        }
+
+        .brand-tag {
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 500;
+        }
+
+        .domain-notice {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            border-radius: 14px;
+            padding: 16px 18px;
+            margin-bottom: 26px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .domain-notice-icon {
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+        .domain-notice-title {
+            font-weight: 700;
+            color: #6ee7b7;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+
+        .domain-notice-sub {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.5;
+        }
+
+        .left-headline {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.03em;
+            margin-bottom: 14px;
+        }
+
+        .left-headline .hl1 {
+            background: linear-gradient(135deg, #fff, #e0e7ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+        }
+
+        .left-headline .hl2 {
+            background: linear-gradient(135deg, #a5b4fc, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+        }
+
+        .left-sub {
+            font-size: 0.87rem;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.7;
+            margin-bottom: 28px;
+        }
+
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature-dot {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.82rem;
+            flex-shrink: 0;
+        }
+
+        .fd-purple {
+            background: rgba(108, 99, 255, 0.3)
+        }
+
+        .fd-green {
+            background: rgba(16, 185, 129, 0.3)
+        }
+
+        .fd-blue {
+            background: rgba(59, 130, 246, 0.3)
+        }
+
+        .fd-orange {
+            background: rgba(249, 115, 22, 0.3)
+        }
+
+        .feature-text {
+            font-size: 0.83rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 500;
+        }
+
+        /* RIGHT PANEL */
+        .auth-right {
+            width: 440px;
+            flex-shrink: 0;
+            background: white;
+            padding: 44px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .auth-right::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark), #7c3aed);
+        }
+
+        /* TABS */
+        .auth-tabs {
+            display: flex;
+            background: var(--gray-100);
+            border-radius: 12px;
+            padding: 4px;
+            margin-bottom: 20px;
+            gap: 4px;
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 9px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.86rem;
+            font-weight: 700;
+            transition: all 0.22s;
+            background: transparent;
+            color: var(--gray-500);
+        }
+
+        .auth-tab.active {
+            background: white;
+            color: var(--primary-dark);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .auth-tab:hover:not(.active) {
+            color: var(--primary);
+        }
+
+        .form-header {
+            margin-bottom: 18px;
+        }
+
+        .form-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--gray-800);
+            margin-bottom: 4px;
+            letter-spacing: -0.02em;
+        }
+
+        .form-sub {
+            font-size: 0.83rem;
+            color: var(--gray-500);
+        }
+
+        .field-group {
+            margin-bottom: 13px;
+        }
+
+        .field-label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--gray-600);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .field-wrap {
+            position: relative;
+        }
+
+        .field-icon {
+            position: absolute;
+            left: 13px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1rem;
+            pointer-events: none;
+            line-height: 1;
+        }
+
+        .field-input {
+            width: 100%;
+            padding: 12px 13px 12px 40px;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            font-size: 0.88rem;
+            font-family: 'Inter', sans-serif;
+            color: var(--gray-800);
+            background: var(--gray-50);
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .field-input:focus {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(108, 99, 255, 0.1);
+        }
+
+        .field-input.field-error {
+            border-color: var(--danger);
+            box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.08);
+        }
+
+        .field-input::placeholder {
+            color: var(--gray-400);
+        }
+
+        .field-eye {
+            position: absolute;
+            right: 13px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            color: var(--gray-400);
+            padding: 4px;
+            transition: color 0.2s;
+            line-height: 1;
+        }
+
+        .field-eye:hover {
+            color: var(--gray-600);
+        }
+
+        .domain-hint {
+            font-size: 0.74rem;
+            color: var(--gray-500);
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .domain-hint.valid {
+            color: #059669;
+        }
+
+        .domain-hint.error {
+            color: #dc2626;
+        }
+
+        /* ALERT */
+        .auth-msg {
+            display: none;
+            padding: 12px 14px;
+            border-radius: 10px;
+            font-size: 0.83rem;
+            font-weight: 600;
+            margin-bottom: 14px;
+            border: 1px solid;
+            animation: slideIn 0.3s ease;
+            line-height: 1.5;
+        }
+
+        .auth-msg.error {
+            background: var(--danger-light);
+            color: #7f1d1d;
+            border-color: #fca5a5;
+            display: block;
+        }
+
+        .auth-msg.success {
+            background: var(--success-light);
+            color: #065f46;
+            border-color: #6ee7b7;
+            display: block;
+        }
+
+        .auth-msg.info {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            border-color: #c4b5fd;
+            display: block;
+        }
+
+        .auth-msg.warning {
+            background: var(--warning-light);
+            color: #78350f;
+            border-color: #fcd34d;
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-6px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        /* VERIFY BANNER */
+        .verify-banner {
+            background: linear-gradient(135deg, #ede9fe, #dbeafe);
+            border: 2px solid #6c63ff;
+            border-radius: 16px;
+            padding: 22px 18px;
+            text-align: center;
+            animation: slideIn 0.4s ease;
+        }
+
+        .verify-banner-icon {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            display: block;
+            animation: bounce 2s ease infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-8px)
+            }
+        }
+
+        .verify-banner-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            margin-bottom: 6px;
+        }
+
+        .verify-banner-email {
+            display: inline-block;
+            background: white;
+            border: 1.5px solid #c4b5fd;
+            border-radius: 8px;
+            padding: 5px 12px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+            word-break: break-all;
+        }
+
+        .verify-banner-sub {
+            font-size: 0.8rem;
+            color: var(--gray-600);
+            line-height: 1.6;
+            margin-bottom: 14px;
+        }
+
+        .verify-steps {
+            background: white;
+            border-radius: 10px;
+            padding: 11px 14px;
+            margin-bottom: 14px;
+            text-align: left;
+        }
+
+        .verify-steps-title {
+            font-size: 0.71rem;
+            font-weight: 700;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 7px;
+        }
+
+        .verify-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 7px;
+            margin-bottom: 5px;
+            font-size: 0.79rem;
+            color: var(--gray-700);
+            line-height: 1.4;
+        }
+
+        .verify-step-num {
+            width: 17px;
+            height: 17px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        /* password input inside verify screen */
+        .verify-pw-wrap {
+            margin-bottom: 12px;
+            text-align: left;
+        }
+
+        .verify-pw-label {
+            font-size: 0.73rem;
+            font-weight: 700;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .verify-pw-field {
+            position: relative;
+        }
+
+        .verify-pw-input {
+            width: 100%;
+            padding: 10px 40px 10px 12px;
+            border: 2px solid var(--gray-200);
+            border-radius: 10px;
+            font-size: 0.86rem;
+            font-family: 'Inter', sans-serif;
+            color: var(--gray-800);
+            background: var(--gray-50);
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .verify-pw-input:focus {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1);
+        }
+
+        .verify-pw-eye {
+            position: absolute;
+            right: 11px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            color: var(--gray-400);
+        }
+
+        .verify-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .verify-done-btn {
+            padding: 11px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .verify-done-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(108, 99, 255, 0.35);
+        }
+
+        .verify-done-btn:disabled {
+            opacity: 0.65;
+            pointer-events: none;
+        }
+
+        .verify-resend-btn {
+            padding: 9px;
+            background: white;
+            color: var(--primary-dark);
+            border: 2px solid #c4b5fd;
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.83rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .verify-resend-btn:hover {
+            background: var(--primary-light);
+        }
+
+        .verify-resend-btn:disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .verify-change-btn {
+            padding: 7px;
+            background: transparent;
+            color: var(--gray-500);
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.79rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .verify-change-btn:hover {
+            color: var(--primary);
+        }
+
+        .resend-countdown {
+            font-size: 0.74rem;
+            color: var(--gray-500);
+            text-align: center;
+        }
+
+        /* SUBMIT BTN */
+        .submit-btn {
+            width: 100%;
+            padding: 13px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s;
+            box-shadow: 0 6px 20px rgba(108, 99, 255, 0.38);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(108, 99, 255, 0.48);
+        }
+
+        .submit-btn:disabled {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .btn-spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+
+        .btn-spinner-dark {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(79, 70, 229, 0.3);
+            border-top-color: var(--primary-dark);
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        .forgot-link {
+            text-align: right;
+            margin-bottom: 10px;
+            font-size: 0.78rem;
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            display: block;
+            width: 100%;
+        }
+
+        .forgot-link:hover {
+            text-decoration: underline;
+        }
+
+        .or-divider {
+            text-align: center;
+            color: var(--gray-400);
+            font-size: 0.78rem;
+            font-weight: 600;
+            margin: 12px 0;
+            position: relative;
+        }
+
+        .or-divider::before,
+        .or-divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            height: 1px;
+            background: var(--gray-200);
+            width: calc(50% - 24px);
+        }
+
+        .or-divider::before {
+            left: 0
+        }
+
+        .or-divider::after {
+            right: 0
+        }
+
+        .or-divider span {
+            background: white;
+            padding: 0 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .google-btn {
+            width: 100%;
+            padding: 11px;
+            background: white;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--gray-700);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .google-btn:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 16px rgba(108, 99, 255, 0.15);
+            transform: translateY(-1px);
+        }
+
+        .google-btn:disabled {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .google-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%234285F4' d='M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z'/%3E%3Cpath fill='%2334A853' d='M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z'/%3E%3Cpath fill='%23FBBC05' d='M10.53 28.59c-.5-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z'/%3E%3Cpath fill='%23EA4335' d='M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z'/%3E%3C/svg%3E") center/contain no-repeat;
+        }
+
+        .reset-back-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 16px;
+            padding: 0;
+        }
+
+        .reset-back-btn:hover {
+            text-decoration: underline;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--gray-500);
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 14px;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--primary);
+        }
+
+        /* LOADING OVERLAY */
+        .auth-loading-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(4px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .auth-loading-overlay.active {
+            display: flex;
+        }
+
+        .auth-loading-ring {
+            width: 52px;
+            height: 52px;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        .auth-loading-text {
+            color: white;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        @media(max-width:760px) {
+            .auth-left {
+                display: none;
+            }
+
+            .auth-wrapper {
+                max-width: 460px;
+                border-radius: 24px;
+            }
+
+            .auth-right {
+                width: 100%;
+                padding: 32px 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bg-blobs">
+        <div class="blob blob1"></div>
+        <div class="blob blob2"></div>
+        <div class="blob blob3"></div>
+    </div>
+
+    <!-- Loading overlay -->
+    <div class="auth-loading-overlay" id="authLoadingOverlay">
+        <div class="auth-loading-ring"></div>
+        <div class="auth-loading-text" id="authLoadingText">Signing you in…</div>
+    </div>
+
+    <div class="auth-wrapper">
+
+        <!-- LEFT PANEL -->
+        <div class="auth-left">
+            <div class="brand-logo">
+                <div class="brand-icon">🎬</div>
+                <div>
+                    <div class="brand-name">Show Task Manager</div>
+                    <div class="brand-tag">Scrapping Discussion</div>
+                </div>
+            </div>
+            <div class="domain-notice">
+                <div class="domain-notice-icon">🔒</div>
+                <div>
+                    <div class="domain-notice-title">Restricted Access</div>
+                    <div class="domain-notice-sub">
+                        Only <strong style="color:#6ee7b7">@dashverse.ai</strong> email addresses are permitted.
+                        A verification email will be sent after registration.
+                    </div>
+                </div>
+            </div>
+            <div class="left-headline">
+                <span class="hl1">Welcome back</span>
+                <span class="hl2">to your workspace</span>
+            </div>
+            <p class="left-sub">Manage your entire show pipeline — from scraping to final delivery — with your team in
+                real time.</p>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <div class="feature-dot fd-purple">📋</div><span class="feature-text">Full pipeline tracking — 6
+                        task stages</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-dot fd-green">✉️</div><span class="feature-text">Email verification — accounts
+                        are verified</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-dot fd-blue">📊</div><span class="feature-text">Live dashboard with team
+                        performance</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-dot fd-orange">🔥</div><span class="feature-text">Firebase Auth — secure &
+                        trusted</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT PANEL -->
+        <div class="auth-right">
+
+            <div class="auth-tabs" id="authTabsBar">
+                <button class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">🔑 Sign In</button>
+                <button class="auth-tab" id="tabRegister" onclick="switchAuthTab('register')">✨ Register</button>
+            </div>
+
+            <div class="auth-msg" id="authMsg"></div>
+
+            <!-- LOGIN FORM -->
+            <div id="loginForm">
+                <div class="form-header">
+                    <div class="form-title">Sign In</div>
+                    <div class="form-sub">Use your verified <strong>@dashverse.ai</strong> account</div>
+                </div>
+                <button class="google-btn" id="googleSignInBtn" onclick="handleGoogleSignIn()">
+                    <div class="google-icon"></div>
+                    Continue with Google (@dashverse.ai)
+                </button>
+                <div class="or-divider"><span>or use email & password</span></div>
+                <div class="field-group">
+                    <label class="field-label">📧 Email Address</label>
+                    <div class="field-wrap">
+                        <span class="field-icon">📧</span>
+                        <input class="field-input" type="email" id="loginEmail" placeholder="yourname@dashverse.ai"
+                            autocomplete="email" oninput="checkDomainHint('loginEmail','loginEmailHint')">
+                    </div>
+                    <div class="domain-hint" id="loginEmailHint">Must end with @dashverse.ai</div>
+                </div>
+                <div class="field-group">
+                    <label class="field-label">🔒 Password</label>
+                    <div class="field-wrap">
+                        <span class="field-icon">🔒</span>
+                        <input class="field-input" type="password" id="loginPassword" placeholder="Enter your password"
+                            autocomplete="current-password">
+                        <button class="field-eye" type="button" onclick="togglePw('loginPassword',this)">👁️</button>
+                    </div>
+                </div>
+                <button class="forgot-link" type="button" onclick="switchAuthTab('reset')">Forgot password?</button>
+                <button class="submit-btn" id="loginBtn" onclick="handleEmailLogin()">
+                    <span>🚀</span> Sign In
+                </button>
+            </div>
+
+            <!-- REGISTER FORM -->
+            <div id="registerForm" style="display:none">
+                <div class="form-header">
+                    <div class="form-title">Create Account</div>
+                    <div class="form-sub">A verification link will be sent to your email</div>
+                </div>
+                <button class="google-btn" id="googleRegisterBtn" onclick="handleGoogleSignIn()">
+                    <div class="google-icon"></div>
+                    Sign up with Google (@dashverse.ai)
+                </button>
+                <div class="or-divider"><span>or use email & password</span></div>
+                <div class="field-group">
+                    <label class="field-label">👤 Full Name</label>
+                    <div class="field-wrap">
+                        <span class="field-icon">👤</span>
+                        <input class="field-input" type="text" id="regName" placeholder="e.g. Masthan Ali">
+                    </div>
+                </div>
+                <div class="field-group">
+                    <label class="field-label">📧 Email Address</label>
+                    <div class="field-wrap">
+                        <span class="field-icon">📧</span>
+                        <input class="field-input" type="email" id="regEmail" placeholder="yourname@dashverse.ai"
+                            autocomplete="email" oninput="checkDomainHint('regEmail','regEmailHint')">
+                    </div>
+                    <div class="domain-hint" id="regEmailHint">Must end with @dashverse.ai</div>
+                </div>
+                <div class="field-group">
+                    <label class="field-label">🔒 Password</label>
+                    <div class="field-wrap">
+                        <span class="field-icon">🔒</span>
+                        <input class="field-input" type="password" id="regPassword" placeholder="Min 6 characters">
+                        <button class="field-eye" type="button" onclick="togglePw('regPassword',this)">👁️</button>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <label class="field-label">🔒 Confirm Password</label>
+                    <div class="field-wrap">
+                        <span class="field-icon">🔒</span>
+                        <input class="field-input" type="password" id="regConfirm" placeholder="Re-enter password">
+                        <button class="field-eye" type="button" onclick="togglePw('regConfirm',this)">👁️</button>
+                    </div>
+                </div>
+                <button class="submit-btn" id="registerBtn" onclick="handleEmailRegister()">
+                    <span>✨</span> Create Account & Send Verification
+                </button>
+            </div>
+
+            <!-- VERIFICATION PENDING SCREEN -->
+            <div id="verifyForm" style="display:none">
+                <div class="verify-banner">
+                    <span class="verify-banner-icon">📧</span>
+                    <div class="verify-banner-title">Verify Your Email</div>
+                    <div class="verify-banner-email" id="verifyEmailDisplay">—</div>
+                    <div class="verify-banner-sub">
+                        We've sent a verification link. Click it in your inbox, then enter your password below and click
+                        <strong>"I've Verified"</strong>.
+                    </div>
+
+                    <div class="verify-steps">
+                        <div class="verify-steps-title">Steps:</div>
+                        <div class="verify-step"><span class="verify-step-num">1</span><span>Open your inbox & click
+                                <strong>"Verify email address"</strong></span></div>
+                        <div class="verify-step"><span class="verify-step-num">2</span><span>Enter your password
+                                below</span></div>
+                        <div class="verify-step"><span class="verify-step-num">3</span><span>Click <strong>"I've
+                                    Verified — Sign Me In"</strong></span></div>
+                    </div>
+
+                    <!-- ✅ PASSWORD INPUT INSIDE VERIFY SCREEN -->
+                    <div class="verify-pw-wrap">
+                        <label class="verify-pw-label">🔒 Your Password</label>
+                        <div class="verify-pw-field">
+                            <input class="verify-pw-input" type="password" id="verifyPassword"
+                                placeholder="Enter your password to continue">
+                            <button class="verify-pw-eye" type="button"
+                                onclick="togglePw('verifyPassword',this)">👁️</button>
+                        </div>
+                    </div>
+
+                    <div class="verify-actions">
+                        <button class="verify-done-btn" id="verifiedCheckBtn" onclick="checkEmailVerified()">
+                            ✅ I've Verified — Sign Me In
+                        </button>
+                        <button class="verify-resend-btn" id="resendBtn" onclick="resendVerificationEmail()">
+                            📨 Resend Verification Email
+                        </button>
+                        <div class="resend-countdown" id="resendCountdown"></div>
+                        <button class="verify-change-btn" onclick="cancelVerification()">
+                            ← Use a different email
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RESET PASSWORD FORM -->
+            <div id="resetForm" style="display:none">
+                <button class="reset-back-btn" onclick="switchAuthTab('login')">← Back to Sign In</button>
+                <div class="form-header">
+                    <div class="form-title">Reset Password</div>
+                    <div class="form-sub">We'll send a reset link to your @dashverse.ai email</div>
+                </div>
+                <div class="field-group">
+                    <label class="field-label">📧 Email Address</label>
+                    <div class="field-wrap">
+                        <span class="field-icon">📧</span>
+                        <input class="field-input" type="email" id="resetEmail" placeholder="yourname@dashverse.ai"
+                            oninput="checkDomainHint('resetEmail','resetEmailHint')">
+                    </div>
+                    <div class="domain-hint" id="resetEmailHint">Must end with @dashverse.ai</div>
+                </div>
+                <button class="submit-btn" id="resetBtn" onclick="handlePasswordReset()">
+                    <span>📧</span> Send Reset Link
+                </button>
+            </div>
+
+            <a href="index.html" class="back-link">← Back to Home</a>
+        </div>
+    </div>
+
+    <!-- FIREBASE MODULE -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-analytics.js";
+        import {
+            getAuth,
+            signInWithEmailAndPassword,
+            createUserWithEmailAndPassword,
+            signInWithPopup,
+            GoogleAuthProvider,
+            sendPasswordResetEmail,
+            sendEmailVerification,
+            updateProfile,
+            onAuthStateChanged,
+            signOut,
+            reload
+        } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+
+        // ── Config ──────────────────────────────────────────────
+        const firebaseConfig = {
+            apiKey: "AIzaSyC3gBKL67nLgjE1JS5xA0huJ0PUVwBzkrI",
+            authDomain: "teamtask-10d67.firebaseapp.com",
+            projectId: "teamtask-10d67",
+            storageBucket: "teamtask-10d67.firebasestorage.app",
+            messagingSenderId: "904157957123",
+            appId: "1:904157957123:web:bd8a90c9793eef126d1236",
+            measurementId: "G-EMP3DC5CEC"
+        };
+
+        const ALLOWED_DOMAIN = "@dashverse.ai";
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth(app);
+        auth.useDeviceLanguage();
+
+        const googleProvider = new GoogleAuthProvider();
+        googleProvider.setCustomParameters({ prompt: 'select_account', hd: 'dashverse.ai' });
+
+        // ── State ────────────────────────────────────────────────
+        // Stores the pending email after registration so verify screen works
+        let pendingEmail = '';
+        let pendingPassword = '';
+        let resendTimer = null;
+        let resendCooldown = 0;
+
+        // ── Error Messages ────────────────────────────────────────
+        function getFriendlyError(code) {
+            const map = {
+                'auth/user-not-found': 'No account found with this email. Please register first.',
+                'auth/wrong-password': 'Incorrect password. Please try again.',
+                'auth/invalid-credential': 'Invalid email or password. Please try again.',
+                'auth/email-already-in-use': 'An account with this email already exists. Please sign in.',
+                'auth/weak-password': 'Password must be at least 6 characters.',
+                'auth/invalid-email': 'Please enter a valid email address.',
+                'auth/too-many-requests': 'Too many failed attempts. Please wait a few minutes.',
+                'auth/popup-closed-by-user': 'Sign-in popup was closed. Please try again.',
+                'auth/popup-blocked': 'Popup was blocked. Please allow popups for this site.',
+                'auth/network-request-failed': 'Network error. Please check your connection.',
+                'auth/user-disabled': 'This account has been disabled. Contact your admin.',
+            };
+            return map[code] || 'Something went wrong. Please try again.';
+        }
+
+        // ── UI Helpers ────────────────────────────────────────────
+        function showMsg(type, text) {
+            const el = document.getElementById('authMsg');
+            el.className = 'auth-msg ' + type;
+            el.innerHTML = text;
+        }
+        function clearMsg() {
+            const el = document.getElementById('authMsg');
+            el.className = 'auth-msg';
+            el.style.display = 'none';
+        }
+        function setBtnLoading(id, loading, originalHTML) {
+            const btn = document.getElementById(id);
+            if (!btn) return;
+            btn.disabled = loading;
+            btn.innerHTML = loading ? '<div class="btn-spinner"></div> Please wait…' : originalHTML;
+        }
+        function setGoogleBtnsLoading(loading) {
+            ['googleSignInBtn', 'googleRegisterBtn'].forEach(id => {
+                const btn = document.getElementById(id);
+                if (!btn) return;
+                btn.disabled = loading;
+                btn.innerHTML = loading
+                    ? '<div class="btn-spinner-dark"></div> Connecting…'
+                    : '<div class="google-icon"></div> Continue with Google (@dashverse.ai)';
+            });
+        }
+        function showLoadingOverlay(text) {
+            document.getElementById('authLoadingText').textContent = text || 'Loading…';
+            document.getElementById('authLoadingOverlay').classList.add('active');
+        }
+        function hideLoadingOverlay() {
+            document.getElementById('authLoadingOverlay').classList.remove('active');
+        }
+        function saveSessionAndRedirect(user) {
+            localStorage.setItem('stm_fb_session', JSON.stringify({
+                uid: user.uid, email: user.email,
+                name: user.displayName || user.email.split('@')[0],
+                photoURL: user.photoURL || '',
+                emailVerified: true
+            }));
+            showLoadingOverlay('✅ Verified! Redirecting to dashboard…');
+            setTimeout(() => { window.location.href = 'app.html'; }, 900);
+        }
+
+        // ── Resend Cooldown ───────────────────────────────────────
+        function startResendCooldown(seconds = 60) {
+            resendCooldown = seconds;
+            const btn = document.getElementById('resendBtn');
+            const cd = document.getElementById('resendCountdown');
+            if (btn) btn.disabled = true;
+            clearInterval(resendTimer);
+            resendTimer = setInterval(() => {
+                resendCooldown--;
+                if (cd) cd.textContent = `You can resend in ${resendCooldown}s`;
+                if (resendCooldown <= 0) {
+                    clearInterval(resendTimer);
+                    if (btn) btn.disabled = false;
+                    if (cd) cd.textContent = '';
+                }
+            }, 1000);
+        }
+
+        // ── Show Verify Screen ────────────────────────────────────
+        function showVerifyScreen(email, password) {
+            pendingEmail = email;
+            pendingPassword = password;
+
+            document.getElementById('verifyEmailDisplay').textContent = email;
+            document.getElementById('verifyPassword').value = password || '';
+
+            // Hide tabs + other forms
+            document.getElementById('authTabsBar').style.display = 'none';
+            ['loginForm', 'registerForm', 'resetForm'].forEach(id => {
+                document.getElementById(id).style.display = 'none';
+            });
+            document.getElementById('verifyForm').style.display = 'block';
+            clearMsg();
+            startResendCooldown(60);
+        }
+
+        // ── Auth State — only for Google (email handled manually) ─
+        onAuthStateChanged(auth, async user => {
+            if (user && user.emailVerified && user.email.endsWith(ALLOWED_DOMAIN)) {
+                saveSessionAndRedirect(user);
+            }
+        });
+
+        // ── GOOGLE SIGN-IN ────────────────────────────────────────
+        window.handleGoogleSignIn = async function () {
+            clearMsg();
+            setGoogleBtnsLoading(true);
+            try {
+                const result = await signInWithPopup(auth, googleProvider);
+                const user = result.user;
+                if (!user.email.endsWith(ALLOWED_DOMAIN)) {
+                    await signOut(auth);
+                    setGoogleBtnsLoading(false);
+                    showMsg('error', `❌ Only ${ALLOWED_DOMAIN} Google accounts are allowed. You used: ${user.email}`);
+                    return;
+                }
+                // onAuthStateChanged handles redirect for verified Google accounts
+            } catch (err) {
+                setGoogleBtnsLoading(false);
+                if (err.code !== 'auth/popup-closed-by-user') {
+                    showMsg('error', '❌ ' + getFriendlyError(err.code));
+                }
+            }
+        };
+
+        // ── EMAIL LOGIN ───────────────────────────────────────────
+        window.handleEmailLogin = async function () {
+            clearMsg();
+            const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+            const pw = document.getElementById('loginPassword').value;
+
+            if (!email || !pw) { showMsg('error', '⚠️ Please enter your email and password.'); return; }
+            if (!email.endsWith(ALLOWED_DOMAIN)) {
+                showMsg('error', `❌ Only ${ALLOWED_DOMAIN} accounts are allowed.`);
+                document.getElementById('loginEmail').classList.add('field-error');
+                return;
+            }
+
+            setBtnLoading('loginBtn', true, '<span>🚀</span> Sign In');
+            try {
+                const cred = await signInWithEmailAndPassword(auth, email, pw);
+                const user = cred.user;
+
+                // Reload to get the very latest emailVerified flag
+                await reload(user);
+
+                if (!user.emailVerified) {
+                    // Send a fresh verification email and show verify screen
+                    await sendEmailVerification(user);
+                    await signOut(auth);
+                    setBtnLoading('loginBtn', false, '<span>🚀</span> Sign In');
+                    showVerifyScreen(email, pw);
+                    return;
+                }
+
+                // ✅ Verified — go to app
+                saveSessionAndRedirect(user);
+
+            } catch (err) {
+                setBtnLoading('loginBtn', false, '<span>🚀</span> Sign In');
+                showMsg('error', '❌ ' + getFriendlyError(err.code));
+                document.getElementById('loginEmail').classList.add('field-error');
+                document.getElementById('loginPassword').classList.add('field-error');
+            }
+        };
+
+        // ── EMAIL REGISTER ────────────────────────────────────────
+        window.handleEmailRegister = async function () {
+            clearMsg();
+            const name = document.getElementById('regName').value.trim();
+            const email = document.getElementById('regEmail').value.trim().toLowerCase();
+            const pw = document.getElementById('regPassword').value;
+            const confirm = document.getElementById('regConfirm').value;
+
+            if (!name || !email || !pw || !confirm) { showMsg('error', '⚠️ Please fill in all fields.'); return; }
+            if (!email.endsWith(ALLOWED_DOMAIN)) {
+                showMsg('error', `❌ Only ${ALLOWED_DOMAIN} accounts are allowed.`);
+                document.getElementById('regEmail').classList.add('field-error');
+                return;
+            }
+            if (pw.length < 6) { showMsg('error', '⚠️ Password must be at least 6 characters.'); return; }
+            if (pw !== confirm) { showMsg('error', '⚠️ Passwords do not match.'); return; }
+
+            setBtnLoading('registerBtn', true, '<span>✨</span> Create Account & Send Verification');
+            try {
+                // 1. Create account
+                const cred = await createUserWithEmailAndPassword(auth, email, pw);
+                const user = cred.user;
+
+                // 2. Set display name
+                await updateProfile(user, { displayName: name });
+
+                // 3. Send verification email
+                await sendEmailVerification(user);
+
+                // 4. Sign out — must verify before entering
+                await signOut(auth);
+
+                setBtnLoading('registerBtn', false, '<span>✨</span> Create Account & Send Verification');
+
+                // 5. Show verify screen WITH the password pre-filled
+                showVerifyScreen(email, pw);
+
+            } catch (err) {
+                setBtnLoading('registerBtn', false, '<span>✨</span> Create Account & Send Verification');
+                showMsg('error', '❌ ' + getFriendlyError(err.code));
+            }
+        };
+
+        // ── CHECK VERIFICATION ────────────────────────────────────
+        // KEY FIX: We sign in fresh, reload(), check emailVerified
+        window.checkEmailVerified = async function () {
+            const email = pendingEmail || document.getElementById('verifyEmailDisplay').textContent.trim();
+            const pw = document.getElementById('verifyPassword').value;
+
+            if (!pw) {
+                showMsg('warning', '⚠️ Please enter your password above to continue.');
+                document.getElementById('verifyPassword').focus();
+                return;
+            }
+
+            const btn = document.getElementById('verifiedCheckBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<div class="btn-spinner"></div> Checking…';
+
+            try {
+                // Sign in fresh to get the latest user object
+                const cred = await signInWithEmailAndPassword(auth, email, pw);
+                const user = cred.user;
+
+                // Force reload so Firebase fetches the latest emailVerified from server
+                await reload(user);
+
+                if (user.emailVerified) {
+                    // ✅ Email confirmed — redirect!
+                    clearInterval(resendTimer);
+                    saveSessionAndRedirect(user);
+                } else {
+                    // ❌ Not yet verified
+                    await signOut(auth);
+                    btn.disabled = false;
+                    btn.innerHTML = '✅ I\'ve Verified — Sign Me In';
+                    showMsg('warning', '⚠️ Your email is not verified yet. Please click the link in your inbox first, then try again.');
+                }
+            } catch (err) {
+                btn.disabled = false;
+                btn.innerHTML = '✅ I\'ve Verified — Sign Me In';
+                showMsg('error', '❌ ' + getFriendlyError(err.code));
+            }
+        };
+
+        // ── RESEND VERIFICATION ───────────────────────────────────
+        window.resendVerificationEmail = async function () {
+            const email = pendingEmail || document.getElementById('verifyEmailDisplay').textContent.trim();
+            const pw = document.getElementById('verifyPassword').value;
+
+            if (!pw) {
+                showMsg('warning', '⚠️ Please enter your password to resend the verification email.');
+                document.getElementById('verifyPassword').focus();
+                return;
+            }
+
+            const btn = document.getElementById('resendBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<div class="btn-spinner-dark"></div> Sending…';
+
+            try {
+                const cred = await signInWithEmailAndPassword(auth, email, pw);
+                const user = cred.user;
+
+                // Check if already verified
+                await reload(user);
+                if (user.emailVerified) {
+                    clearInterval(resendTimer);
+                    saveSessionAndRedirect(user);
+                    return;
+                }
+
+                await sendEmailVerification(user);
+                await signOut(auth);
+                btn.innerHTML = '📨 Resend Verification Email';
+                showMsg('success', `✅ Verification email resent to ${email}! Check your inbox.`);
+                startResendCooldown(60);
+
+            } catch (err) {
+                btn.disabled = false;
+                btn.innerHTML = '📨 Resend Verification Email';
+                showMsg('error', '❌ ' + getFriendlyError(err.code));
+            }
+        };
+
+        // ── CANCEL VERIFICATION ───────────────────────────────────
+        window.cancelVerification = function () {
+            pendingEmail = '';
+            pendingPassword = '';
+            clearInterval(resendTimer);
+            switchAuthTab('register');
+        };
+
+        // ── PASSWORD RESET ────────────────────────────────────────
+        window.handlePasswordReset = async function () {
+            clearMsg();
+            const email = document.getElementById('resetEmail').value.trim().toLowerCase();
+            if (!email) { showMsg('error', '⚠️ Please enter your email address.'); return; }
+            if (!email.endsWith(ALLOWED_DOMAIN)) {
+                showMsg('error', `❌ Only ${ALLOWED_DOMAIN} accounts are allowed.`); return;
+            }
+            setBtnLoading('resetBtn', true, '<span>📧</span> Send Reset Link');
+            try {
+                await sendPasswordResetEmail(auth, email);
+                setBtnLoading('resetBtn', false, '<span>📧</span> Send Reset Link');
+                showMsg('success', `✅ Password reset link sent to ${email}. Check your inbox!`);
+            } catch (err) {
+                setBtnLoading('resetBtn', false, '<span>📧</span> Send Reset Link');
+                showMsg('error', '❌ ' + getFriendlyError(err.code));
+            }
+        };
+
+        // ── Expose clearMsg ───────────────────────────────────────
+        window._clearAuthMsg = clearMsg;
+
+        // ── Enter key support ─────────────────────────────────────
+        document.getElementById('loginEmail').addEventListener('keydown', e => { if (e.key === 'Enter') window.handleEmailLogin(); });
+        document.getElementById('loginPassword').addEventListener('keydown', e => { if (e.key === 'Enter') window.handleEmailLogin(); });
+        ['regName', 'regEmail', 'regPassword', 'regConfirm'].forEach(id => {
+            document.getElementById(id)?.addEventListener('keydown', e => { if (e.key === 'Enter') window.handleEmailRegister(); });
+        });
+        document.getElementById('resetEmail')?.addEventListener('keydown', e => { if (e.key === 'Enter') window.handlePasswordReset(); });
+        document.getElementById('verifyPassword')?.addEventListener('keydown', e => { if (e.key === 'Enter') window.checkEmailVerified(); });
+
+        // ── Clear field errors on input ───────────────────────────
+        document.querySelectorAll('.field-input').forEach(inp => {
+            inp.addEventListener('input', () => inp.classList.remove('field-error'));
+        });
+    </script>
+
+    <!-- NON-MODULE HELPERS -->
+    <script>
+        function togglePw(id, btn) {
+            const inp = document.getElementById(id);
+            if (inp.type === 'password') { inp.type = 'text'; btn.textContent = '🙈'; }
+            else { inp.type = 'password'; btn.textContent = '👁️'; }
+        }
+
+        function checkDomainHint(inputId, hintId) {
+            const val = document.getElementById(inputId).value.trim().toLowerCase();
+            const hint = document.getElementById(hintId);
+            if (!val) {
+                hint.className = 'domain-hint';
+                hint.textContent = 'Must end with @dashverse.ai';
+                return;
+            }
+            if (val.endsWith('@dashverse.ai')) {
+                hint.className = 'domain-hint valid';
+                hint.innerHTML = '✅ Valid @dashverse.ai email';
+            } else if (val.includes('@')) {
+                hint.className = 'domain-hint error';
+                hint.innerHTML = '❌ Only @dashverse.ai emails are allowed';
+            } else {
+                hint.className = 'domain-hint';
+                hint.textContent = 'Must end with @dashverse.ai';
+            }
+        }
+
+        function switchAuthTab(tab) {
+            if (window._clearAuthMsg) window._clearAuthMsg();
+            else {
+                const el = document.getElementById('authMsg');
+                el.className = 'auth-msg';
+                el.style.display = 'none';
+            }
+
+            const tabsBar = document.getElementById('authTabsBar');
+            tabsBar.style.display = (tab === 'reset' || tab === 'verify') ? 'none' : 'flex';
+
+            document.getElementById('tabLogin')?.classList.toggle('active', tab === 'login');
+            document.getElementById('tabRegister')?.classList.toggle('active', tab === 'register');
+
+            ['login', 'register', 'verify', 'reset'].forEach(t => {
+                const el = document.getElementById(t + 'Form');
+                if (el) el.style.display = (t === tab) ? 'block' : 'none';
+            });
+        }
+
+        // Init from URL param
+        (function () {
+            const p = new URLSearchParams(window.location.search);
+            if (p.get('tab') === 'register') switchAuthTab('register');
+        })();
+    </script>
+
+</body>
+
+</html>

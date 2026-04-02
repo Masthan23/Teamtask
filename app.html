@@ -1,0 +1,3370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Task Manager — App</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6c63ff;
+            --primary-dark: #4f46e5;
+            --primary-light: #ede9fe;
+            --success: #10b981;
+            --success-light: #d1fae5;
+            --danger: #ef4444;
+            --danger-light: #fee2e2;
+            --warning: #f59e0b;
+            --warning-light: #fef3c7;
+            --info: #3b82f6;
+            --info-light: #dbeafe;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+            --radius-sm: 6px;
+            --radius: 12px;
+            --radius-lg: 18px;
+            --radius-xl: 24px;
+            --shadow: 0 4px 16px rgba(108, 99, 255, .10), 0 2px 6px rgba(0, 0, 0, .06);
+            --shadow-lg: 0 10px 40px rgba(108, 99, 255, .15), 0 4px 12px rgba(0, 0, 0, .08);
+            --shadow-xl: 0 20px 60px rgba(108, 99, 255, .20), 0 8px 24px rgba(0, 0, 0, .10);
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 30%, #4c1d95 60%, #6d28d9 100%);
+            min-height: 100vh;
+            color: var(--gray-800);
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--gray-100);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        /* ── AUTH CHECK SCREEN ── */
+        .auth-check-screen {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #1e1b4b, #312e81, #4c1d95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            gap: 20px;
+        }
+
+        .auth-check-ring {
+            width: 56px;
+            height: 56px;
+            border: 4px solid rgba(255, 255, 255, 0.15);
+            border-top-color: #a5b4fc;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        .auth-check-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ── TOP NAV ── */
+        .top-nav {
+            position: sticky;
+            top: 0;
+            z-index: 200;
+            background: rgba(30, 27, 75, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 62px;
+            flex-shrink: 0;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-brand-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #6c63ff, #4f46e5);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            box-shadow: 0 4px 12px rgba(108, 99, 255, 0.4);
+        }
+
+        .nav-brand-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: white;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-chip {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50px;
+            padding: 5px 14px 5px 5px;
+        }
+
+        .user-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #a855f7, #6c63ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: white;
+            overflow: hidden;
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .user-name {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .user-domain-badge {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 20px;
+            padding: 2px 8px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: #6ee7b7;
+            letter-spacing: 0.02em;
+        }
+
+        .user-verified-badge {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 20px;
+            padding: 2px 8px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: #6ee7b7;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 6px 12px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.25);
+            border-color: rgba(239, 68, 68, 0.4);
+            color: #fca5a5;
+        }
+
+        /* ── PAGE BODY ── */
+        .page-body {
+            padding: 24px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 28px;
+        }
+
+        .header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            padding: 6px 16px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 12px;
+        }
+
+        .header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(1.6rem, 4vw, 2.5rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #fff 0%, #c7d2fe 50%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 6px;
+        }
+
+        .header p {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.58);
+        }
+
+        /* ── TABS ── */
+        .tabs-wrapper {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50px;
+            padding: 5px;
+            display: inline-flex;
+            gap: 4px;
+            margin-bottom: 26px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 9px 20px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.86rem;
+            font-weight: 600;
+            transition: all 0.25s;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.65);
+            white-space: nowrap;
+        }
+
+        .tab-btn.active {
+            background: white;
+            color: var(--primary-dark);
+            box-shadow: var(--shadow);
+        }
+
+        .tab-btn:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.12);
+            color: white;
+        }
+
+        /* ── CARD ── */
+        .card {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 26px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark), #7c3aed);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .card-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--gray-800);
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--primary-light);
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        /* ── FORM ── */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 14px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            font-size: 0.76rem;
+            font-weight: 700;
+            color: var(--gray-600);
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 10px 12px;
+            border: 1.5px solid var(--gray-200);
+            border-radius: var(--radius);
+            font-size: 0.87rem;
+            font-family: 'Inter', sans-serif;
+            color: var(--gray-800);
+            background: var(--gray-50);
+            transition: all 0.2s;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: var(--gray-400);
+        }
+
+        /* ── BUTTONS ── */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.84rem;
+            font-weight: 600;
+            transition: all 0.22s;
+            outline: none;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 4px 12px rgba(108, 99, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(108, 99, 255, 0.4);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            padding: 6px 11px;
+            font-size: 0.76rem;
+            border-radius: var(--radius-sm);
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-edit {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            color: white;
+            padding: 6px 11px;
+            font-size: 0.76rem;
+            border-radius: var(--radius-sm);
+        }
+
+        .btn-edit:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-ghost {
+            background: var(--gray-100);
+            color: var(--gray-600);
+            border: 1.5px solid var(--gray-200);
+        }
+
+        .btn-ghost:hover {
+            background: var(--gray-200);
+        }
+
+        .btn-sm {
+            padding: 7px 13px;
+            font-size: 0.79rem;
+        }
+
+        .btn-danger-full {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.28);
+        }
+
+        .btn-danger-full:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(239, 68, 68, 0.38);
+        }
+
+        /* ── ALERTS ── */
+        .alert {
+            display: none;
+            padding: 11px 15px;
+            border-radius: var(--radius);
+            margin-bottom: 14px;
+            font-size: 0.84rem;
+            font-weight: 500;
+            border-left: 4px solid;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-7px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .alert-success {
+            background: var(--success-light);
+            color: #065f46;
+            border-color: var(--success);
+        }
+
+        .alert-error {
+            background: var(--danger-light);
+            color: #7f1d1d;
+            border-color: var(--danger);
+        }
+
+        .alert-warning {
+            background: var(--warning-light);
+            color: #78350f;
+            border-color: var(--warning);
+        }
+
+        /* ── TAB CONTENT ── */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeUp 0.3s ease;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        /* ── LOADING ── */
+        .loading {
+            display: none;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .spinner-ring {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--gray-200);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.75s linear infinite;
+            margin: 0 auto 12px;
+        }
+
+        .loading-text {
+            font-size: 0.87rem;
+            font-weight: 600;
+            color: var(--gray-500);
+        }
+
+        /* ── EMPTY STATE ── */
+        .empty-state {
+            text-align: center;
+            padding: 48px 20px;
+            color: var(--gray-400);
+        }
+
+        .empty-icon {
+            font-size: 3rem;
+            margin-bottom: 12px;
+        }
+
+        .empty-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--gray-600);
+            margin-bottom: 6px;
+        }
+
+        .empty-sub {
+            font-size: 0.83rem;
+            color: var(--gray-400);
+            line-height: 1.6;
+        }
+
+        /* ── CONN BADGE ── */
+        .conn-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 11px;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .conn-badge .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .conn-ok {
+            background: var(--success-light);
+            color: #065f46;
+        }
+
+        .conn-ok .dot {
+            background: var(--success);
+            box-shadow: 0 0 6px var(--success);
+            animation: pulseDot 2s infinite;
+        }
+
+        .conn-fail {
+            background: var(--danger-light);
+            color: #7f1d1d;
+        }
+
+        .conn-fail .dot {
+            background: var(--danger);
+        }
+
+        .conn-none {
+            background: var(--gray-100);
+            color: var(--gray-500);
+        }
+
+        .conn-none .dot {
+            background: var(--gray-400);
+        }
+
+        @keyframes pulseDot {
+
+            0%,
+            100% {
+                box-shadow: 0 0 4px var(--success)
+            }
+
+            50% {
+                box-shadow: 0 0 10px var(--success)
+            }
+        }
+
+        .count-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            border-radius: 8px;
+            padding: 2px 9px;
+            font-size: 0.76rem;
+            font-weight: 800;
+        }
+
+        /* ── FILTER BAR ── */
+        .filter-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-wrap {
+            position: relative;
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .search-wrap input {
+            width: 100%;
+            padding: 9px 12px 9px 34px;
+            border: 1.5px solid var(--gray-200);
+            border-radius: var(--radius);
+            font-size: 0.85rem;
+            font-family: 'Inter', sans-serif;
+            background: var(--gray-50);
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .search-wrap input:focus {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.84rem;
+            color: var(--gray-400);
+            pointer-events: none;
+        }
+
+        .filter-select {
+            padding: 9px 12px;
+            border: 1.5px solid var(--gray-200);
+            border-radius: var(--radius);
+            font-size: 0.85rem;
+            font-family: 'Inter', sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-700);
+            outline: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-select:focus {
+            border-color: var(--primary);
+            background: white;
+        }
+
+        /* ── TABLE ── */
+        .pipeline-wrap {
+            overflow-x: auto;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--gray-200);
+            max-height: 68vh;
+            overflow-y: auto;
+        }
+
+        .pipeline-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.79rem;
+            min-width: 1200px;
+        }
+
+        .pipeline-table thead tr {
+            background: linear-gradient(135deg, #1e1b4b, #312e81);
+        }
+
+        .pipeline-table thead th {
+            padding: 11px 9px;
+            text-align: left;
+            font-size: 0.69rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.85);
+            white-space: nowrap;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: linear-gradient(135deg, #1e1b4b, #312e81);
+        }
+
+        .pipeline-table thead th.group-header {
+            text-align: center;
+            border-left: 2px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .pipeline-table tbody tr {
+            border-bottom: 1px solid var(--gray-100);
+            transition: all 0.15s;
+        }
+
+        .pipeline-table tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        .pipeline-table tbody tr:hover {
+            background: rgba(108, 99, 255, 0.04);
+        }
+
+        .pipeline-table td {
+            padding: 9px;
+            vertical-align: middle;
+            color: var(--gray-700);
+        }
+
+        .pipeline-table td.group-sep {
+            border-left: 2px solid var(--gray-200);
+        }
+
+        .row-done {
+            opacity: 0.62;
+        }
+
+        /* ── STATUS BADGES ── */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 9px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .status-badge::before {
+            content: '';
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .st-completed-badge {
+            background: var(--success-light);
+            color: #065f46;
+        }
+
+        .st-completed-badge::before {
+            background: var(--success);
+        }
+
+        .st-progress-badge {
+            background: var(--info-light);
+            color: #1e40af;
+        }
+
+        .st-progress-badge::before {
+            background: var(--info);
+            animation: pulse 2s infinite;
+        }
+
+        .st-pending-badge {
+            background: var(--warning-light);
+            color: #92400e;
+        }
+
+        .st-pending-badge::before {
+            background: var(--warning);
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0.4
+            }
+        }
+
+        .show-name-cell {
+            font-weight: 700;
+            color: var(--gray-800);
+            min-width: 130px;
+        }
+
+        .show-name-cell .sn {
+            font-size: 0.83rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 190px;
+            display: block;
+        }
+
+        .table-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.76rem;
+            font-weight: 500;
+        }
+
+        .table-link:hover {
+            text-decoration: underline;
+        }
+
+        .row-num {
+            font-size: 0.73rem;
+            font-weight: 700;
+            color: var(--gray-400);
+        }
+
+        .date-cell {
+            font-size: 0.76rem;
+            color: var(--gray-500);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .source-drive {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 3px 7px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        .source-youtube {
+            background: #ffebee;
+            color: #c62828;
+            padding: 3px 7px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        .source-dailymotion {
+            background: #e3f2fd;
+            color: #1565c0;
+            padding: 3px 7px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        .source-other {
+            background: var(--gray-100);
+            color: var(--gray-600);
+            padding: 3px 7px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        /* ── MODAL ── */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(6px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 26px;
+            max-width: 640px;
+            width: 100%;
+            position: relative;
+            box-shadow: var(--shadow-xl);
+            animation: scaleIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-content-lg {
+            max-width: 860px;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.95);
+                opacity: 0
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .modal-icon {
+            width: 38px;
+            height: 38px;
+            background: var(--primary-light);
+            border-radius: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .modal-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--gray-800);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: var(--gray-100);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            color: var(--gray-500);
+            transition: all 0.15s;
+        }
+
+        .modal-close:hover {
+            background: var(--gray-200);
+        }
+
+        .modal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
+            gap: 13px;
+        }
+
+        .modal-field {
+            margin-bottom: 12px;
+        }
+
+        .modal-label {
+            display: block;
+            font-size: 0.73rem;
+            font-weight: 700;
+            color: var(--gray-600);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 9px 12px;
+            border: 1.5px solid var(--gray-200);
+            border-radius: var(--radius);
+            font-size: 0.87rem;
+            font-family: 'Inter', sans-serif;
+            color: var(--gray-800);
+            background: var(--gray-50);
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .modal-input:focus {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1);
+        }
+
+        .modal-section-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin: 16px 0 9px;
+            padding: 7px 11px;
+            background: var(--primary-light);
+            border-radius: var(--radius-sm);
+            border-left: 3px solid var(--primary);
+        }
+
+        /* ── DELETE MODAL ── */
+        .delete-modal-content {
+            max-width: 420px;
+        }
+
+        .delete-modal-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #fee2e2, #fecaca);
+            border: 2px solid #fca5a5;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.7rem;
+            margin: 0 auto 14px;
+        }
+
+        .delete-modal-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--gray-800);
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .delete-modal-sub {
+            font-size: 0.85rem;
+            color: var(--gray-500);
+            text-align: center;
+            line-height: 1.7;
+            margin-bottom: 6px;
+        }
+
+        .delete-show-name-display {
+            background: var(--gray-50);
+            border: 1.5px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 10px 14px;
+            text-align: center;
+            margin-bottom: 16px;
+            font-weight: 700;
+            color: var(--gray-800);
+            font-size: 0.9rem;
+        }
+
+        .delete-warning-text {
+            background: var(--warning-light);
+            border: 1px solid #fcd34d;
+            border-radius: var(--radius);
+            padding: 9px 13px;
+            font-size: 0.79rem;
+            color: #78350f;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 18px;
+        }
+
+        .delete-modal-btns {
+            display: flex;
+            gap: 10px;
+        }
+
+        .delete-modal-btns .btn {
+            flex: 1;
+            justify-content: center;
+        }
+
+        /* ── STATS ── */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 18px 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray-100);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+            margin-bottom: 11px;
+        }
+
+        .stat-number {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.9rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            color: var(--gray-800);
+            margin-bottom: 2px;
+        }
+
+        .stat-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--gray-500);
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+        }
+
+        .s1 .stat-icon {
+            background: var(--primary-light)
+        }
+
+        .s2 .stat-icon {
+            background: var(--success-light)
+        }
+
+        .s3 .stat-icon {
+            background: var(--info-light)
+        }
+
+        .s4 .stat-icon {
+            background: var(--warning-light)
+        }
+
+        .s5 .stat-icon {
+            background: var(--danger-light)
+        }
+
+        /* ── TEAM ── */
+        .person-row {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--gray-100);
+            gap: 12px;
+        }
+
+        .person-row:last-child {
+            border-bottom: none;
+        }
+
+        .person-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.95rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .person-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .person-name {
+            font-weight: 700;
+            color: var(--gray-800);
+            font-size: 0.88rem;
+        }
+
+        .person-tasks {
+            font-size: 0.74rem;
+            color: var(--gray-500);
+            margin-top: 2px;
+        }
+
+        .person-bar-wrap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .person-bar {
+            width: 90px;
+            height: 6px;
+            background: var(--gray-200);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .person-bar-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .person-pct {
+            font-size: 0.74rem;
+            font-weight: 700;
+            color: var(--gray-600);
+            min-width: 30px;
+            text-align: right;
+        }
+
+        /* ── WORKER ── */
+        .worker-task-card {
+            background: var(--gray-50);
+            border: 1.5px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            padding: 17px;
+            margin-bottom: 13px;
+            transition: all 0.2s;
+        }
+
+        .worker-task-card:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow);
+        }
+
+        .worker-task-card.done {
+            opacity: 0.6;
+        }
+
+        .wtc-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .wtc-title {
+            font-weight: 700;
+            font-size: 0.93rem;
+            color: var(--gray-800);
+        }
+
+        .wtc-subtitle {
+            font-size: 0.76rem;
+            color: var(--gray-500);
+            margin-top: 2px;
+        }
+
+        .wtc-tasks {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+            gap: 9px;
+        }
+
+        .wtc-task-item {
+            background: white;
+            border: 1.5px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 9px 11px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .wtc-task-label {
+            font-size: 0.71rem;
+            font-weight: 700;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        /* ── DATE FILTER ── */
+        .date-filter-tabs {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .date-filter-tab {
+            padding: 7px 15px;
+            border: 1.5px solid var(--gray-200);
+            border-radius: 50px;
+            background: var(--gray-50);
+            color: var(--gray-600);
+            font-size: 0.81rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .date-filter-tab.active,
+        .date-filter-tab:hover {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
+
+        .completed-show-row {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 11px 15px;
+            border-radius: var(--radius);
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            margin-bottom: 7px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .completed-show-row:hover {
+            background: var(--success-light);
+            border-color: var(--success);
+        }
+
+        .completed-show-name {
+            font-weight: 700;
+            color: var(--gray-800);
+            font-size: 0.87rem;
+        }
+
+        .completed-show-meta {
+            font-size: 0.74rem;
+            color: var(--gray-500);
+            margin-top: 2px;
+        }
+
+        .completed-show-date {
+            background: var(--success-light);
+            color: #065f46;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.73rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gray-200), transparent);
+            margin: 16px 0;
+        }
+
+        /* ── SETTINGS ── */
+        .conn-status-card {
+            border-radius: var(--radius-lg);
+            padding: 18px 22px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 18px;
+            border: 2px solid;
+            transition: all 0.3s;
+        }
+
+        .conn-status-card.ok {
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            border-color: #10b981;
+        }
+
+        .conn-status-card.fail {
+            background: linear-gradient(135deg, #fee2e2, #fecaca);
+            border-color: #ef4444;
+        }
+
+        .conn-status-card.none {
+            background: var(--gray-100);
+            border-color: var(--gray-300);
+        }
+
+        .conn-status-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .conn-status-card.ok .conn-status-title {
+            color: #065f46;
+        }
+
+        .conn-status-card.fail .conn-status-title {
+            color: #7f1d1d;
+        }
+
+        .conn-status-card.none .conn-status-title {
+            color: var(--gray-600);
+        }
+
+        .conn-status-sub {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .conn-status-card.ok .conn-status-sub {
+            color: #065f46;
+        }
+
+        .conn-status-card.fail .conn-status-sub {
+            color: #7f1d1d;
+        }
+
+        .conn-status-card.none .conn-status-sub {
+            color: var(--gray-500);
+        }
+
+        .pulse-ring {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .pulse-ring.ok {
+            background: #10b981;
+        }
+
+        .pulse-ring.fail {
+            background: #ef4444;
+        }
+
+        .pulse-ring.none {
+            background: var(--gray-400);
+        }
+
+        .pulse-ring::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 2px solid;
+            animation: ringPulse 2s infinite;
+        }
+
+        .pulse-ring.ok::after {
+            border-color: #10b981;
+        }
+
+        .pulse-ring.fail::after {
+            border-color: #ef4444;
+            animation: none;
+        }
+
+        .pulse-ring.none::after {
+            border-color: var(--gray-400);
+            animation: none;
+        }
+
+        .pulse-ring span {
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes ringPulse {
+            0% {
+                transform: scale(1);
+                opacity: 1
+            }
+
+            100% {
+                transform: scale(1.6);
+                opacity: 0
+            }
+        }
+
+        .url-display-box {
+            background: var(--gray-50);
+            border: 1.5px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 11px 13px;
+            margin-bottom: 16px;
+            word-break: break-all;
+            font-size: 0.77rem;
+            color: var(--gray-600);
+            font-family: 'Courier New', monospace;
+        }
+
+        .settings-info-box {
+            background: linear-gradient(135deg, var(--primary-light), #ede9fe);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            border-radius: var(--radius-lg);
+            padding: 16px 18px;
+            margin-bottom: 18px;
+        }
+
+        .settings-info-box p {
+            font-size: 0.85rem;
+            color: var(--primary-dark);
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .settings-info-box ol {
+            padding-left: 16px;
+            color: var(--gray-600);
+            font-size: 0.82rem;
+            line-height: 2;
+        }
+
+        .duplicate-banner {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border: 2px solid #f59e0b;
+            border-radius: var(--radius);
+            padding: 11px 15px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideIn 0.3s ease;
+        }
+
+        .duplicate-banner-text {
+            flex: 1;
+            font-size: 0.83rem;
+            font-weight: 600;
+            color: #78350f;
+        }
+
+        .duplicate-banner-show {
+            font-weight: 800;
+            color: #92400e;
+        }
+
+        /* ── USER INFO CARD ── */
+        .user-info-card {
+            background: linear-gradient(135deg, var(--primary-light), #ede9fe);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            border-radius: var(--radius-lg);
+            padding: 18px 20px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .user-info-avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #a855f7, #6c63ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: white;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .user-info-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 14px;
+        }
+
+        .user-info-name {
+            font-weight: 700;
+            color: var(--primary-dark);
+            font-size: 0.95rem;
+        }
+
+        .user-info-email {
+            font-size: 0.8rem;
+            color: var(--gray-600);
+            margin-top: 2px;
+        }
+
+        .user-info-badges {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+
+        .user-info-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            border-radius: 20px;
+            padding: 2px 8px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        .badge-domain {
+            background: rgba(108, 99, 255, 0.12);
+            border: 1px solid rgba(108, 99, 255, 0.25);
+            color: var(--primary-dark);
+        }
+
+        .badge-verified {
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #059669;
+        }
+
+        @media(max-width:768px) {
+            .page-body {
+                padding: 14px 10px;
+            }
+
+            .tabs-wrapper {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .card {
+                padding: 16px 12px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .wtc-tasks {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .nav-brand-text {
+                display: none;
+            }
+
+            .user-verified-badge {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ══ AUTH CHECK SCREEN ══ -->
+    <div class="auth-check-screen" id="authCheckScreen">
+        <div class="auth-check-ring"></div>
+        <div class="auth-check-text" id="authCheckText">Verifying your session…</div>
+    </div>
+
+    <!-- ══ MAIN APP ══ -->
+    <div id="mainApp" style="display:none">
+
+        <!-- TOP NAV -->
+        <nav class="top-nav">
+            <div class="nav-brand">
+                <div class="nav-brand-icon">🎬</div>
+                <span class="nav-brand-text">Show Task Manager</span>
+            </div>
+            <div class="nav-right">
+                <span class="user-domain-badge">@dashverse.ai</span>
+                <span class="user-verified-badge">✅ Verified</span>
+                <div class="user-chip">
+                    <div class="user-avatar" id="userAvatarEl">A</div>
+                    <span class="user-name" id="userDisplayName">Loading…</span>
+                </div>
+                <button class="logout-btn" onclick="handleLogout()">↩ Sign Out</button>
+            </div>
+        </nav>
+
+        <div class="page-body">
+
+            <div class="header">
+                <div class="header-badge">✦ Team Workflow Tool</div>
+                <h1>Show Task Manager</h1>
+                <p>Scrapping Discussion — manage pipeline from scraping to final delivery</p>
+            </div>
+
+            <div style="text-align:center">
+                <div class="tabs-wrapper">
+                    <button class="tab-btn active" onclick="switchTab('manager',this)">👔 Manager</button>
+                    <button class="tab-btn" onclick="switchTab('worker',this)">👷 Worker</button>
+                    <button class="tab-btn" onclick="switchTab('dashboard',this)">📊 Dashboard</button>
+                    <button class="tab-btn" onclick="switchTab('completed-filter',this)">✅ Completed</button>
+                    <button class="tab-btn" onclick="switchTab('settings',this)">⚙️ Settings</button>
+                </div>
+            </div>
+
+            <!-- ══ MANAGER TAB ══ -->
+            <div id="tab-manager" class="tab-content active">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <div class="card-title-icon">➕</div> Add New Show
+                        </div>
+                        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                            <span id="conn-badge" class="conn-badge conn-none">
+                                <span class="dot"></span> Connecting…
+                            </span>
+                        </div>
+                    </div>
+                    <div id="add-alert" class="alert"></div>
+                    <div id="duplicate-warning" style="display:none"></div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>📺 Show Name <span style="color:#dc2626">*</span></label>
+                            <input type="text" id="showName" placeholder="e.g. The Beautiful Creditor"
+                                oninput="checkDuplicate(this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label>🔗 Scraped File Link <span style="color:#dc2626">*</span></label>
+                            <input type="url" id="showLink" placeholder="https://drive.google.com/...">
+                        </div>
+                        <div class="form-group">
+                            <label>📦 Source Place</label>
+                            <select id="sourcePlace">
+                                <option value="">— Select —</option>
+                                <option value="Drive">Drive</option>
+                                <option value="YouTube">YouTube</option>
+                                <option value="Dailymotion">Dailymotion</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>👤 Task Done By</label>
+                            <input type="text" id="taskDoneBy" placeholder="e.g. Masthan">
+                        </div>
+                        <div class="form-group">
+                            <label>🗓️ Task Assign Date</label>
+                            <input type="date" id="taskAssignDate">
+                        </div>
+                    </div>
+                    <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+                        <button class="btn btn-primary" onclick="addShow()">➕ Add Show</button>
+                        <button class="btn btn-ghost" onclick="loadShows()">🔄 Refresh</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <div class="card-title-icon">📋</div>
+                            Pipeline
+                            <span class="count-badge" id="shows-count">0</span>
+                        </div>
+                        <button class="btn btn-ghost btn-sm" onclick="saveAllChanges()">💾 Save All</button>
+                    </div>
+                    <div class="filter-bar">
+                        <div class="search-wrap">
+                            <span class="search-icon">🔍</span>
+                            <input type="text" id="searchInput" placeholder="Search shows or people…"
+                                oninput="filterShows()">
+                        </div>
+                        <select class="filter-select" id="filterStatus" onchange="filterShows()">
+                            <option value="">📌 All Status</option>
+                            <option value="Pending">⏳ Pending</option>
+                            <option value="In Progress">🔄 In Progress</option>
+                            <option value="Completed">✅ Completed</option>
+                        </select>
+                        <select class="filter-select" id="filterPerson" onchange="filterShows()">
+                            <option value="">👤 All People</option>
+                        </select>
+                    </div>
+                    <div class="loading" id="loading-shows">
+                        <div class="spinner-ring"></div>
+                        <div class="loading-text">Loading from Google Sheets…</div>
+                    </div>
+                    <div id="shows-container"></div>
+                </div>
+            </div>
+
+            <!-- ══ WORKER TAB ══ -->
+            <div id="tab-worker" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <div class="card-title-icon">👷</div> Worker View
+                        </div>
+                    </div>
+                    <p style="font-size:0.87rem;color:var(--gray-500);margin-bottom:16px;line-height:1.6">
+                        Enter your name to see all tasks assigned to you.
+                    </p>
+                    <div id="worker-alert" class="alert"></div>
+                    <div class="form-group" style="max-width:280px">
+                        <label>👤 Your Name</label>
+                        <input type="text" id="workerNameInput" placeholder="e.g. Masthan, Shibraj…"
+                            oninput="loadWorkerView()">
+                    </div>
+                </div>
+                <div id="worker-shows-container"></div>
+            </div>
+
+            <!-- ══ DASHBOARD TAB ══ -->
+            <div id="tab-dashboard" class="tab-content">
+                <div class="stats-grid">
+                    <div class="stat-card s1">
+                        <div class="stat-icon">📺</div>
+                        <div class="stat-number" id="stat-total">0</div>
+                        <div class="stat-label">Total Shows</div>
+                    </div>
+                    <div class="stat-card s2">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-number" id="stat-completed">0</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                    <div class="stat-card s3">
+                        <div class="stat-icon">🔄</div>
+                        <div class="stat-number" id="stat-progress">0</div>
+                        <div class="stat-label">In Progress</div>
+                    </div>
+                    <div class="stat-card s4">
+                        <div class="stat-icon">⏳</div>
+                        <div class="stat-number" id="stat-pending">0</div>
+                        <div class="stat-label">Pending</div>
+                    </div>
+                    <div class="stat-card s5">
+                        <div class="stat-icon">📋</div>
+                        <div class="stat-number" id="stat-tasks">0</div>
+                        <div class="stat-label">Total Tasks</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <div class="card-title-icon">👥</div> Team Performance
+                        </div>
+                        <button class="btn btn-ghost btn-sm" onclick="loadDashboard()">🔄 Refresh</button>
+                    </div>
+                    <div id="team-performance">
+                        <div class="empty-state">
+                            <div class="empty-icon">📊</div>
+                            <div class="empty-title">No data</div>
+                            <div class="empty-sub">Connect sheet and load data.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <div class="card-title-icon">📈</div> Task Completion Overview
+                        </div>
+                    </div>
+                    <div id="task-overview"></div>
+                </div>
+            </div>
+
+            <!-- ══ COMPLETED FILTER TAB ══ -->
+            <div id="tab-completed-filter" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <div class="card-title-icon">✅</div>
+                            Completed Shows
+                            <span class="count-badge" id="completed-count">0</span>
+                        </div>
+                        <button class="btn btn-ghost btn-sm" onclick="renderCompletedFilter()">🔄 Refresh</button>
+                    </div>
+                    <div class="date-filter-tabs">
+                        <button class="date-filter-tab active" onclick="setCompletedFilter('today',this)">📅
+                            Today</button>
+                        <button class="date-filter-tab" onclick="setCompletedFilter('yesterday',this)">◀
+                            Yesterday</button>
+                        <button class="date-filter-tab" onclick="setCompletedFilter('week',this)">📆 This Week</button>
+                        <button class="date-filter-tab" onclick="setCompletedFilter('month',this)">🗓️ This
+                            Month</button>
+                        <button class="date-filter-tab" onclick="setCompletedFilter('all',this)">📋 All Time</button>
+                    </div>
+                    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px">
+                        <label style="font-size:0.79rem;font-weight:600;color:var(--gray-600)">📅 Pick Month:</label>
+                        <select class="filter-select" id="monthPicker"
+                            onchange="setCompletedFilter('custom-month',null)">
+                            <option value="">— Select Month —</option>
+                        </select>
+                        <label style="font-size:0.79rem;font-weight:600;color:var(--gray-600)">📅 Pick Day:</label>
+                        <input type="date" id="dayPicker" class="filter-select"
+                            onchange="setCompletedFilter('custom-day',null)"
+                            style="padding:8px 11px;font-family:Inter,sans-serif">
+                    </div>
+                    <div id="completed-summary" style="margin-bottom:14px"></div>
+                    <div id="completed-results">
+                        <div class="empty-state">
+                            <div class="empty-icon">✅</div>
+                            <div class="empty-title">Select a filter above</div>
+                            <div class="empty-sub">Choose a date range to see completed shows.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══ SETTINGS TAB ══ -->
+            <div id="tab-settings" class="tab-content">
+
+                <!-- User Info Card -->
+                <div class="user-info-card">
+                    <div class="user-info-avatar" id="settingsUserAvatar">A</div>
+                    <div style="flex:1;min-width:0">
+                        <div class="user-info-name" id="settingsUserName">—</div>
+                        <div class="user-info-email" id="settingsUserEmail">—</div>
+                        <div class="user-info-badges">
+                            <span class="user-info-badge badge-domain">🎯 @dashverse.ai</span>
+                            <span class="user-info-badge badge-verified">✅ Email Verified</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="conn-status-card none" id="settingsConnCard">
+                    <div class="pulse-ring none" id="settingsPulseRing"><span id="settingsConnIcon">⚡</span></div>
+                    <div style="flex:1">
+                        <div class="conn-status-title" id="settingsConnTitle">Not Connected</div>
+                        <div class="conn-status-sub" id="settingsConnSub">Enter your Apps Script URL below to connect.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <div class="card-title-icon">⚙️</div> Google Sheets Setup
+                        </div>
+                    </div>
+                    <div class="settings-info-box">
+                        <p>📌 Sheet: <strong>"Scrapping Discussion"</strong> — How to connect:</p>
+                        <ol>
+                            <li>Open Google Sheet → <strong>Extensions → Apps Script</strong></li>
+                            <li>Delete existing code → Paste the script → Save (Ctrl+S)</li>
+                            <li>Click <strong>Deploy → New Deployment → Web App</strong></li>
+                            <li>Execute as: <strong>Me</strong> · Who has access: <strong>Anyone</strong></li>
+                            <li>Deploy → Authorize → Copy the <strong>/exec</strong> URL → Paste below</li>
+                        </ol>
+                    </div>
+                    <div class="form-group" style="margin-bottom:8px">
+                        <label>Deployment URL</label>
+                        <div class="url-display-box" id="current-url-text">Not configured</div>
+                    </div>
+                    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px">
+                        <input type="url" id="sheetUrl" placeholder="https://script.google.com/macros/s/.../exec"
+                            style="flex:1;min-width:220px;padding:10px 12px;border:1.5px solid var(--gray-200);border-radius:var(--radius);font-size:0.85rem;outline:none;font-family:Inter,sans-serif;background:var(--gray-50)">
+                        <button class="btn btn-primary" onclick="saveSheetUrl()">💾 Save & Test</button>
+                        <button class="btn btn-ghost" onclick="clearSheetUrl()">🗑️ Clear</button>
+                    </div>
+                    <div id="url-alert" class="alert"></div>
+                    <div class="divider"></div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+                        <p style="font-weight:700;color:var(--gray-700);font-size:0.87rem;margin:0">📋 Apps Script Code
+                        </p>
+                        <button class="btn btn-ghost btn-sm" onclick="toggleScript()" id="scriptToggleBtn">👁️ Show
+                            Script</button>
+                    </div>
+                    <div id="scriptWrapper" style="display:none">
+                        <pre id="scriptCode"
+                            style="background:#0f172a;border-radius:var(--radius-lg);padding:16px;overflow-x:auto;font-family:'Courier New',monospace;font-size:0.74rem;line-height:1.7;color:#e2e8f0;white-space:pre-wrap;max-height:300px;overflow-y:auto;border:1px solid rgba(255,255,255,0.08)">const SHEET_NAME = "Scrapping Discussion";
+
+function doGet(e) {
+  try {
+    const action = e.parameter.action;
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const sheet = ss.getSheetByName(SHEET_NAME);
+    if (!sheet) return jsonOut({ success: false, message: "Sheet not found: " + SHEET_NAME });
+    if (action === "ping") {
+      return jsonOut({ success: true, message: "Connected to " + SHEET_NAME + " (" + (sheet.getLastRow()-1) + " rows)" });
+    }
+    if (action === "getAll") {
+      const lastRow = sheet.getLastRow();
+      if (lastRow <= 1) return jsonOut({ success: true, rows: [] });
+      const data = sheet.getRange(1, 1, lastRow, 20).getValues();
+      function fmtDate(val) {
+        if (!val) return "";
+        if (val instanceof Date && !isNaN(val)) {
+          const d=String(val.getDate()).padStart(2,'0'),m=String(val.getMonth()+1).padStart(2,'0'),y=val.getFullYear();
+          if (y<2000||y>2100) return "";
+          return d+"/"+m+"/"+y;
+        }
+        const s=String(val).trim();
+        return (s==="0"||s==="NaN")?"":s;
+      }
+      function clean(val) {
+        if (val===null||val===undefined) return "";
+        const s=String(val).trim();
+        return (s==="0"||s==="false")?"":s;
+      }
+      const rows=data.slice(1).map((row,i)=>({
+        rowNum:clean(row[0])||String(i+1), showName:clean(row[1]),
+        status:clean(row[2])||"Pending", taskDoneBy:clean(row[3]),
+        sourcePlace:clean(row[4]), scrapedFile:clean(row[5]),
+        chineseFile:clean(row[6]), chineseBy:clean(row[7]),
+        chineseSrt:clean(row[8]), chineseSrtBy:clean(row[9]),
+        englishSrt:clean(row[10]), englishSrtBy:clean(row[11]),
+        merging:clean(row[12]), mergingBy:clean(row[13]),
+        subtitleDocx:clean(row[14]), subtitleDocxBy:clean(row[15]),
+        toolScript:clean(row[16]), toolScriptBy:clean(row[17]),
+        assignDate:fmtDate(row[18]), completedDate:fmtDate(row[19]),
+        _sheetRowIndex:i+2
+      })).filter(r=>r.showName!=="");
+      return jsonOut({ success:true, rows:rows, total:rows.length });
+    }
+    return jsonOut({ success:false, message:"Unknown action: "+action });
+  } catch(err) { return jsonOut({ success:false, message:"Error: "+err.toString() }); }
+}
+
+function doPost(e) {
+  try {
+    const data=JSON.parse(e.postData.contents), action=data.action;
+    const ss=SpreadsheetApp.getActiveSpreadsheet();
+    const sheet=ss.getSheetByName(SHEET_NAME);
+    if (!sheet) return jsonOut({ success:false, message:"Sheet not found" });
+    if (action==="addRow") {
+      sheet.appendRow([sheet.getLastRow(),data.showName||"",data.status||"Pending",data.taskDoneBy||"",
+        data.sourcePlace||"",data.scrapedFile||"",data.chineseFile||"",data.chineseBy||"",
+        data.chineseSrt||"",data.chineseSrtBy||"",data.englishSrt||"",data.englishSrtBy||"",
+        data.merging||"",data.mergingBy||"",data.subtitleDocx||"",data.subtitleDocxBy||"",
+        data.toolScript||"",data.toolScriptBy||"",data.assignDate||"",data.completedDate||""]);
+      SpreadsheetApp.flush();
+      return jsonOut({ success:true, message:"Added" });
+    }
+    if (action==="updateRow") {
+      const allData=sheet.getDataRange().getValues(), idx=parseInt(data.sheetRowIndex);
+      const makeRow=(orig)=>[orig,data.showName||"",data.status||"Pending",data.taskDoneBy||"",
+        data.sourcePlace||"",data.scrapedFile||"",data.chineseFile||"",data.chineseBy||"",
+        data.chineseSrt||"",data.chineseSrtBy||"",data.englishSrt||"",data.englishSrtBy||"",
+        data.merging||"",data.mergingBy||"",data.subtitleDocx||"",data.subtitleDocxBy||"",
+        data.toolScript||"",data.toolScriptBy||"",data.assignDate||"",data.completedDate||""];
+      if (idx>=2&&idx<=allData.length) {
+        const rn=String(allData[idx-1][1]).trim().toLowerCase(),dn=String(data.oldShowName||data.showName||"").trim().toLowerCase();
+        if (rn===dn||rn===String(data.showName||"").trim().toLowerCase()) {
+          sheet.getRange(idx,1,1,20).setValues([makeRow(allData[idx-1][0])]);
+          SpreadsheetApp.flush(); return jsonOut({ success:true, message:"Updated row "+idx });
+        }
+      }
+      for (let i=1;i<allData.length;i++) {
+        const rn=String(allData[i][1]).trim().toLowerCase(),dn=String(data.oldShowName||data.showName||"").trim().toLowerCase();
+        if (rn===dn) { sheet.getRange(i+1,1,1,20).setValues([makeRow(allData[i][0])]); SpreadsheetApp.flush(); return jsonOut({ success:true, message:"Updated row "+(i+1) }); }
+      }
+      return jsonOut({ success:false, message:"Not found: "+data.showName });
+    }
+    if (action==="deleteRow") {
+      const allData=sheet.getDataRange().getValues(), idx=parseInt(data.sheetRowIndex);
+      if (idx>=2&&idx<=allData.length) {
+        if (String(allData[idx-1][1]).trim().toLowerCase()===String(data.showName||"").trim().toLowerCase()) {
+          sheet.deleteRow(idx); SpreadsheetApp.flush(); return jsonOut({ success:true, message:"Deleted row "+idx });
+        }
+      }
+      for (let i=allData.length-1;i>=1;i--) {
+        if (String(allData[i][1]).trim().toLowerCase()===String(data.showName||"").trim().toLowerCase()) {
+          sheet.deleteRow(i+1); SpreadsheetApp.flush(); return jsonOut({ success:true, message:"Deleted row "+(i+1) });
+        }
+      }
+      return jsonOut({ success:false, message:"Not found: "+data.showName });
+    }
+    return jsonOut({ success:false, message:"Unknown action: "+action });
+  } catch(err) { return jsonOut({ success:false, message:"Error: "+err.toString() }); }
+}
+
+function jsonOut(obj) {
+  return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
+}</pre>
+                        <button class="btn btn-ghost" onclick="copyScript()"
+                            style="margin-top:10px;font-size:0.79rem;padding:6px 13px">📋 Copy Script</button>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /page-body -->
+    </div><!-- /mainApp -->
+
+    <!-- ══ EDIT MODAL ══ -->
+    <div class="modal" id="editModal">
+        <div class="modal-content modal-content-lg">
+            <button class="modal-close" onclick="closeEditModal()">✕</button>
+            <div class="modal-header">
+                <div class="modal-icon">✏️</div>
+                <div>
+                    <div class="modal-title">Edit Show</div>
+                    <div style="font-size:0.78rem;color:var(--gray-500);margin-top:2px" id="editModalSubtitle"></div>
+                </div>
+            </div>
+            <input type="hidden" id="editIdx">
+            <div class="modal-section-title">📺 Show Info</div>
+            <div class="modal-grid">
+                <div class="modal-field"><label class="modal-label">Show Name *</label><input class="modal-input"
+                        type="text" id="em-showName"></div>
+                <div class="modal-field"><label class="modal-label">Scraped File Link</label><input class="modal-input"
+                        type="url" id="em-scrapedFile"></div>
+                <div class="modal-field"><label class="modal-label">Source Place</label>
+                    <select class="modal-input" id="em-sourcePlace">
+                        <option value="">— Select —</option>
+                        <option value="Drive">Drive</option>
+                        <option value="YouTube">YouTube</option>
+                        <option value="Dailymotion">Dailymotion</option>
+                    </select>
+                </div>
+                <div class="modal-field"><label class="modal-label">Task Done By</label><input class="modal-input"
+                        type="text" id="em-taskDoneBy"></div>
+                <div class="modal-field"><label class="modal-label">Overall Status</label>
+                    <select class="modal-input" id="em-status">
+                        <option value="Pending">⏳ Pending</option>
+                        <option value="In Progress">🔄 In Progress</option>
+                        <option value="Completed">✅ Completed</option>
+                    </select>
+                </div>
+                <div class="modal-field"><label class="modal-label">Assign Date</label><input class="modal-input"
+                        type="date" id="em-assignDate"></div>
+                <div class="modal-field"><label class="modal-label">Completed Date</label><input class="modal-input"
+                        type="date" id="em-completedDate"></div>
+            </div>
+            <div class="modal-section-title">🔧 Task Pipeline</div>
+            <div class="modal-grid">
+                <div class="modal-field"><label class="modal-label">Chinese File</label>
+                    <select class="modal-input" id="em-chineseFile">
+                        <option value="">— Not Started</option>
+                        <option value="Pending">⏳ Pending</option>
+                        <option value="In Progress">🔄 In Progress</option>
+                        <option value="Completed">✅ Completed</option>
+                    </select>
+                </div>
+                <div class="modal-field"><label class="modal-label">Chinese File — By</label><input class="modal-input"
+                        type="text" id="em-chineseBy"></div>
+                <div class="modal-field"><label class="modal-label">Chinese SRT</label>
+                    <select class="modal-input" id="em-chineseSrt">
+                        <option value="">— Not Started</option>
+                        <option value="Pending">⏳ Pending</option>
+                        <option value="In Progress">🔄 In Progress</option>
+                        <option value="Completed">✅ Completed</option>
+                    </select>
+                </div>
+                <div class="modal-field"><label class="modal-label">Chinese SRT — By</label><input class="modal-input"
+                        type="text" id="em-chineseSrtBy"></div>
+                <div class="modal-field"><label class="modal-label">English SRT</label>
+                    <select class="modal-input" id="em-englishSrt">
+                        <option value="">— Not Started</option>
+                        <option value="Pending">⏳ Pending</option>
+                        <option value="In Progress">🔄 In Progress</option>
+                        <option value="Completed">✅ Completed</option>
+                    </select>
+                </div>
+                <div class="modal-field"><label class="modal-label">English SRT — By</label><input class="modal-input"
+                        type="text" id="em-englishSrtBy"></div>
+                <div class="modal-field"><label class="modal-label">Merging</label>
+                    <select class="modal-input" id="em-merging">
+                        <option value="">— Not Started</option>
+                        <option value="Pending">⏳ Pending</option>
+                        <option value="In Progress">🔄 In Progress</option>
+                        <option value="Completed">✅ Completed</option>
+                    </select>
+                </div>
+                <div class="modal-field"><label class="modal-label">Merging — By</label><input class="modal-input"
+                        type="text" id="em-mergingBy"></div>
+                <div class="modal-field"><label class="modal-label">Subtitle DOCX</label>
+                    <select class="modal-input" id="em-subtitleDocx">
+                        <option value="">— Not Started</option>
+                        <option value="Pending">⏳ Pending</option>
+                        <option value="In Progress">🔄 In Progress</option>
+                        <option value="Completed">✅ Completed</option>
+                    </select>
+                </div>
+                <div class="modal-field"><label class="modal-label">Subtitle DOCX — By</label><input class="modal-input"
+                        type="text" id="em-subtitleDocxBy"></div>
+                <div class="modal-field"><label class="modal-label">Tool Script</label>
+                    <select class="modal-input" id="em-toolScript">
+                        <option value="">— Not Started</option>
+                        <option value="Pending">⏳ Pending</option>
+                        <option value="In Progress">🔄 In Progress</option>
+                        <option value="Completed">✅ Completed</option>
+                    </select>
+                </div>
+                <div class="modal-field"><label class="modal-label">Tool Script — By</label><input class="modal-input"
+                        type="text" id="em-toolScriptBy"></div>
+            </div>
+            <div style="display:flex;gap:10px;margin-top:8px">
+                <button class="btn btn-primary" onclick="saveEditModal()" style="flex:1;justify-content:center">💾 Save
+                    Changes</button>
+                <button class="btn btn-ghost" onclick="closeEditModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══ DELETE MODAL ══ -->
+    <div class="modal" id="deleteModal">
+        <div class="modal-content delete-modal-content">
+            <div style="text-align:center;padding:8px 0">
+                <div class="delete-modal-icon">🗑️</div>
+                <div class="delete-modal-title">Delete Show?</div>
+                <div class="delete-modal-sub">You are about to permanently delete:</div>
+                <div class="delete-show-name-display" id="deleteShowName">—</div>
+                <div class="delete-warning-text">⚠️ This action <strong>cannot be undone</strong>. Data will be
+                    permanently removed.</div>
+                <div class="delete-modal-btns">
+                    <button class="btn btn-ghost" onclick="closeDeleteModal()">✕ Cancel</button>
+                    <button class="btn btn-danger-full" id="deleteConfirmBtn">🗑️ Yes, Delete It</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══ WORKER MODAL ══ -->
+    <div class="modal" id="workerModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeWorkerModal()">✕</button>
+            <div class="modal-header">
+                <div class="modal-icon">✏️</div>
+                <div>
+                    <div class="modal-title">Update Task</div>
+                    <div style="font-size:0.78rem;color:var(--gray-500);margin-top:2px" id="workerModalTitle"></div>
+                </div>
+            </div>
+            <input type="hidden" id="wm-showIdx">
+            <input type="hidden" id="wm-taskKey">
+            <div class="modal-field">
+                <label class="modal-label">Task</label>
+                <div id="wm-taskLabel" style="font-weight:700;color:var(--gray-700);padding:8px 0;font-size:0.9rem">
+                </div>
+            </div>
+            <div class="modal-field">
+                <label class="modal-label">Status</label>
+                <select class="modal-input" id="wm-status">
+                    <option value="Pending">⏳ Pending</option>
+                    <option value="In Progress">🔄 In Progress</option>
+                    <option value="Completed">✅ Completed</option>
+                </select>
+            </div>
+            <button class="btn btn-success" onclick="saveWorkerUpdate()"
+                style="width:100%;justify-content:center;margin-top:6px">✅ Save Update</button>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════
+         FIREBASE AUTH MODULE
+    ══════════════════════════════════════════════════════ -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-analytics.js";
+        import {
+            getAuth,
+            onAuthStateChanged,
+            signOut
+        } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+
+        // ─── Config ────────────────────────────────────────────
+        const firebaseConfig = {
+            apiKey: "AIzaSyC3gBKL67nLgjE1JS5xA0huJ0PUVwBzkrI",
+            authDomain: "teamtask-10d67.firebaseapp.com",
+            projectId: "teamtask-10d67",
+            storageBucket: "teamtask-10d67.firebasestorage.app",
+            messagingSenderId: "904157957123",
+            appId: "1:904157957123:web:bd8a90c9793eef126d1236",
+            measurementId: "G-EMP3DC5CEC"
+        };
+
+        const ALLOWED_DOMAIN = "@dashverse.ai";
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth(app);
+
+        // Expose sign-out for the logout button
+        window._fbSignOut = () => signOut(auth);
+
+        // ─── Auth State Observer ───────────────────────────────
+        onAuthStateChanged(auth, user => {
+            const checkScreen = document.getElementById('authCheckScreen');
+            const checkText = document.getElementById('authCheckText');
+            const mainApp = document.getElementById('mainApp');
+
+            // ── No user ──────────────────────────────────────
+            if (!user) {
+                localStorage.removeItem('stm_fb_session');
+                window.location.href = 'auth.html';
+                return;
+            }
+
+            // ── Email not verified ────────────────────────────
+            if (!user.emailVerified) {
+                checkText.textContent = 'Email not verified. Redirecting…';
+                signOut(auth);
+                localStorage.removeItem('stm_fb_session');
+                setTimeout(() => { window.location.href = 'auth.html'; }, 1200);
+                return;
+            }
+
+            // ── Wrong domain ──────────────────────────────────
+            if (!user.email.endsWith(ALLOWED_DOMAIN)) {
+                checkText.textContent = 'Access denied. Redirecting…';
+                signOut(auth);
+                localStorage.removeItem('stm_fb_session');
+                setTimeout(() => { window.location.href = 'auth.html'; }, 1200);
+                return;
+            }
+
+            // ── ✅ Valid — verified @dashverse.ai user ─────────
+            const session = {
+                uid: user.uid,
+                email: user.email,
+                name: user.displayName || user.email.split('@')[0],
+                photoURL: user.photoURL || '',
+                emailVerified: user.emailVerified
+            };
+            localStorage.setItem('stm_fb_session', JSON.stringify(session));
+
+            // Update nav user chip
+            const nameEl = document.getElementById('userDisplayName');
+            const avatarEl = document.getElementById('userAvatarEl');
+            const initials = session.name.charAt(0).toUpperCase();
+
+            if (nameEl) nameEl.textContent = session.name;
+            if (avatarEl) {
+                avatarEl.innerHTML = session.photoURL
+                    ? `<img src="${session.photoURL}" alt="${initials}">`
+                    : initials;
+            }
+
+            // Update settings user card
+            const settingsNameEl = document.getElementById('settingsUserName');
+            const settingsEmailEl = document.getElementById('settingsUserEmail');
+            const settingsAvEl = document.getElementById('settingsUserAvatar');
+
+            if (settingsNameEl) settingsNameEl.textContent = session.name;
+            if (settingsEmailEl) settingsEmailEl.textContent = session.email;
+            if (settingsAvEl) {
+                settingsAvEl.innerHTML = session.photoURL
+                    ? `<img src="${session.photoURL}" alt="${initials}">`
+                    : initials;
+            }
+
+            // Show app
+            checkScreen.style.display = 'none';
+            mainApp.style.display = 'block';
+
+            // Boot app logic
+            window.initApp();
+        });
+    </script>
+
+    <!-- ══════════════════════════════════════════════════════
+         APP LOGIC
+    ══════════════════════════════════════════════════════ -->
+    <script>
+
+        // ── Logout ────────────────────────────────────────────
+        function handleLogout() {
+            localStorage.removeItem('stm_fb_session');
+            if (window._fbSignOut) {
+                window._fbSignOut().finally(() => { window.location.href = 'auth.html'; });
+            } else {
+                window.location.href = 'auth.html';
+            }
+        }
+
+        // ── Config & State ────────────────────────────────────
+        let CONFIG = { sheetUrl: localStorage.getItem('sheetUrl') || '' };
+        let allShows = [];
+        let pendingDeletes = {};
+        let deleteTarget = null;
+        let activeCompletedFilter = 'today';
+
+        const TASK_FIELDS = [
+            { key: 'chineseFile', label: '🇨🇳 Chinese File', byKey: 'chineseBy' },
+            { key: 'chineseSrt', label: '📝 Chinese SRT', byKey: 'chineseSrtBy' },
+            { key: 'englishSrt', label: '📝 English SRT', byKey: 'englishSrtBy' },
+            { key: 'merging', label: '🔀 Merging', byKey: 'mergingBy' },
+            { key: 'subtitleDocx', label: '📄 Subtitle DOCX', byKey: 'subtitleDocxBy' },
+            { key: 'toolScript', label: '🛠️ Tool Script', byKey: 'toolScriptBy' },
+        ];
+
+        const AVATAR_COLORS = ['#6c63ff', '#f59e0b', '#10b981', '#ef4444', '#3b82f6', '#8b5cf6', '#06b6d4', '#f97316'];
+
+        // ── Helpers ───────────────────────────────────────────
+        function showKey(s) { return (s.showName + '||' + (s.assignDate || '')).toLowerCase().trim(); }
+
+        function esc(s) {
+            if (!s) return '';
+            return String(s)
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        function dateToInput(v) {
+            if (!v) return '';
+            const s = String(v).trim(), p = s.split('/');
+            if (p.length === 3 && p[2].length === 4)
+                return `${p[2]}-${p[1].padStart(2, '0')}-${p[0].padStart(2, '0')}`;
+            if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
+            return '';
+        }
+
+        function inputToDate(v) {
+            if (!v) return '';
+            const p = v.split('-');
+            if (p.length === 3) return `${p[2]}/${p[1]}/${p[0]}`;
+            return v;
+        }
+
+        function parseDate(v) {
+            if (!v) return null;
+            const s = String(v).trim();
+            const a = s.split('/');
+            if (a.length === 3 && a[2].length === 4) {
+                const d = new Date(parseInt(a[2]), parseInt(a[1]) - 1, parseInt(a[0]));
+                return isNaN(d) ? null : d;
+            }
+            const b = s.split('-');
+            if (b.length === 3 && b[0].length === 4) {
+                const d = new Date(parseInt(b[0]), parseInt(b[1]) - 1, parseInt(b[2]));
+                return isNaN(d) ? null : d;
+            }
+            return null;
+        }
+
+        function formatDisplayDate(v) {
+            const d = parseDate(v);
+            if (!d) return v || '—';
+            return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+        }
+
+        function sourceTag(src) {
+            if (!src) return '<em style="color:var(--gray-400);font-size:0.76rem">—</em>';
+            const s = src.toLowerCase();
+            const cls = s === 'drive' ? 'source-drive'
+                : s === 'youtube' ? 'source-youtube'
+                    : s === 'dailymotion' ? 'source-dailymotion'
+                        : 'source-other';
+            return `<span class="${cls}">${esc(src)}</span>`;
+        }
+
+        function showAlert(id, type, msg) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.className = `alert alert-${type}`;
+            el.textContent = msg;
+            el.style.display = 'block';
+            clearTimeout(el._t);
+            el._t = setTimeout(() => el.style.display = 'none', 7000);
+        }
+
+        function statusBadgeClass(s) {
+            if (!s) return '';
+            if (s === 'Completed') return 'st-completed-badge';
+            if (s === 'In Progress') return 'st-progress-badge';
+            if (s === 'Pending') return 'st-pending-badge';
+            return '';
+        }
+
+        // ── Duplicate Check ───────────────────────────────────
+        function checkDuplicate(val) {
+            const dw = document.getElementById('duplicate-warning');
+            if (!dw) return;
+            const v = val.trim().toLowerCase();
+            if (!v || v.length < 2) { dw.style.display = 'none'; return; }
+            const exists = allShows.find(s => s.showName.trim().toLowerCase() === v);
+            if (exists) {
+                dw.style.display = 'block';
+                dw.innerHTML = `
+                  <div class="duplicate-banner">
+                    <span style="font-size:1.1rem">⚠️</span>
+                    <span class="duplicate-banner-text">A show named
+                      <span class="duplicate-banner-show">"${esc(exists.showName)}"</span> already exists!
+                    </span>
+                    <button onclick="document.getElementById('duplicate-warning').style.display='none'"
+                      style="background:none;border:none;cursor:pointer;font-size:1rem;color:#78350f">✕</button>
+                  </div>`;
+            } else { dw.style.display = 'none'; }
+        }
+
+        // ── Connection Badge ──────────────────────────────────
+        function setConn(state, rowCount) {
+            const b = document.getElementById('conn-badge');
+            if (b) {
+                const m = { ok: ['conn-ok', '✅ Connected'], fail: ['conn-fail', '❌ Error'], none: ['conn-none', '💾 Local'] };
+                const [c, l] = m[state] || m.none;
+                b.className = `conn-badge ${c}`;
+                b.innerHTML = `<span class="dot"></span> ${l}`;
+            }
+            const card = document.getElementById('settingsConnCard');
+            const ring = document.getElementById('settingsPulseRing');
+            const icon = document.getElementById('settingsConnIcon');
+            const title = document.getElementById('settingsConnTitle');
+            const sub = document.getElementById('settingsConnSub');
+            if (!card) return;
+            card.className = `conn-status-card ${state}`;
+            ring.className = `pulse-ring ${state}`;
+            if (state === 'ok') {
+                icon.textContent = '✓';
+                title.textContent = '✅ Connected & Working';
+                sub.textContent = rowCount !== undefined ? `Sheet is live · ${rowCount} rows loaded` : 'Sheet is connected.';
+            } else if (state === 'fail') {
+                icon.textContent = '✕';
+                title.textContent = '❌ Connection Failed';
+                sub.textContent = 'Could not reach Apps Script. Check URL or re-deploy.';
+            } else {
+                icon.textContent = '⚡';
+                title.textContent = 'Not Connected';
+                sub.textContent = 'Enter your Apps Script URL below.';
+            }
+        }
+
+        // ── Init — called by Firebase observer ────────────────
+        window.initApp = function () {
+            const d = document.getElementById('current-url-text');
+            if (d) d.textContent = CONFIG.sheetUrl || 'Not configured';
+            const u = document.getElementById('sheetUrl');
+            if (u && CONFIG.sheetUrl) u.value = CONFIG.sheetUrl;
+            const ad = document.getElementById('taskAssignDate');
+            if (ad) ad.value = new Date().toISOString().split('T')[0];
+            setConn('none');
+            populateMonthPicker();
+            loadShows();
+        };
+
+        // ── Tab Switching ─────────────────────────────────────
+        function switchTab(name, btn) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('tab-' + name).classList.add('active');
+            if (btn) btn.classList.add('active');
+            if (name === 'dashboard') loadDashboard();
+            if (name === 'completed-filter') renderCompletedFilter();
+        }
+
+        // ── API Calls ─────────────────────────────────────────
+        async function callGet(params = {}) {
+            if (!CONFIG.sheetUrl) return null;
+            try {
+                const url = new URL(CONFIG.sheetUrl);
+                Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v));
+                const r = await fetch(url.toString(), { method: 'GET', redirect: 'follow' });
+                if (!r.ok) throw new Error('HTTP ' + r.status);
+                return JSON.parse(await r.text());
+            } catch (e) { console.error('GET:', e); return null; }
+        }
+
+        async function callPost(action, data = {}) {
+            if (!CONFIG.sheetUrl) return null;
+            try {
+                const r = await fetch(CONFIG.sheetUrl, {
+                    method: 'POST', redirect: 'follow',
+                    headers: { 'Content-Type': 'text/plain' },
+                    body: JSON.stringify({ action, ...data })
+                });
+                if (!r.ok) throw new Error('HTTP ' + r.status);
+                return JSON.parse(await r.text());
+            } catch (e) { console.error('POST:', e); return null; }
+        }
+
+        function saveLocal() { try { localStorage.setItem('showsData', JSON.stringify(allShows)); } catch (e) { } }
+        function loadLocal() { try { return JSON.parse(localStorage.getItem('showsData') || '[]'); } catch (e) { return []; } }
+
+        // ── Load Shows ────────────────────────────────────────
+        async function loadShows() {
+            document.getElementById('loading-shows').style.display = 'block';
+            document.getElementById('shows-container').innerHTML = '';
+            let rawRows = [], fromSheet = false;
+
+            if (CONFIG.sheetUrl) {
+                const data = await callGet({ action: 'getAll' });
+                if (data && data.success) {
+                    rawRows = data.rows || []; fromSheet = true; setConn('ok', rawRows.length);
+                } else {
+                    setConn('fail'); rawRows = loadLocal();
+                    if (data && data.message) showAlert('add-alert', 'warning', '⚠️ Sheet: ' + data.message);
+                }
+            } else {
+                setConn('none'); rawRows = loadLocal();
+                if (rawRows.length === 0) showAlert('add-alert', 'warning', '⚠️ No Sheet URL. Go to ⚙️ Settings.');
+            }
+
+            allShows = rawRows.filter(row => !pendingDeletes[showKey(row)]);
+            if (fromSheet) saveLocal();
+            document.getElementById('loading-shows').style.display = 'none';
+            buildPersonFilter();
+            renderShows(allShows);
+            updateStats();
+        }
+
+        function buildPersonFilter() {
+            const sel = document.getElementById('filterPerson');
+            const cur = sel.value;
+            sel.innerHTML = '<option value="">👤 All People</option>';
+            const nameSet = new Set();
+            allShows.forEach(s => {
+                if (s.taskDoneBy) nameSet.add(s.taskDoneBy.trim());
+                TASK_FIELDS.forEach(tf => { if (s[tf.byKey]) nameSet.add(s[tf.byKey].trim()); });
+            });
+            [...nameSet].sort().forEach(n => {
+                const o = document.createElement('option');
+                o.value = n; o.textContent = n; sel.appendChild(o);
+            });
+            if (cur) sel.value = cur;
+        }
+
+        // ── Add Show ──────────────────────────────────────────
+        async function addShow() {
+            const showName = document.getElementById('showName').value.trim();
+            const showLink = document.getElementById('showLink').value.trim();
+            const sourcePlace = document.getElementById('sourcePlace').value;
+            const taskDoneBy = document.getElementById('taskDoneBy').value.trim();
+            const adVal = document.getElementById('taskAssignDate').value;
+
+            if (!showName || !showLink) {
+                showAlert('add-alert', 'error', '⚠️ Show Name and Scraped File Link are required!'); return;
+            }
+            const dup = allShows.find(s => s.showName.trim().toLowerCase() === showName.toLowerCase());
+            if (dup) { showAlert('add-alert', 'error', `❌ "${showName}" already exists!`); return; }
+
+            const assignDate = adVal ? inputToDate(adVal) : inputToDate(new Date().toISOString().split('T')[0]);
+            const newShow = {
+                rowNum: allShows.length + 1, showName, status: 'Pending',
+                taskDoneBy, sourcePlace, scrapedFile: showLink,
+                chineseFile: '', chineseBy: '', chineseSrt: '', chineseSrtBy: '',
+                englishSrt: '', englishSrtBy: '', merging: '', mergingBy: '',
+                subtitleDocx: '', subtitleDocxBy: '', toolScript: '', toolScriptBy: '',
+                assignDate, completedDate: ''
+            };
+
+            allShows.push(newShow);
+            saveLocal();
+            document.getElementById('showName').value = '';
+            document.getElementById('showLink').value = '';
+            document.getElementById('sourcePlace').value = '';
+            document.getElementById('taskDoneBy').value = '';
+            document.getElementById('taskAssignDate').value = new Date().toISOString().split('T')[0];
+            document.getElementById('duplicate-warning').style.display = 'none';
+            buildPersonFilter(); renderShows(allShows); updateStats();
+
+            if (CONFIG.sheetUrl) {
+                showAlert('add-alert', 'success', '⏳ Saving to Google Sheets…');
+                const r = await callPost('addRow', newShow);
+                if (r && r.success) {
+                    showAlert('add-alert', 'success', '✅ Saved to Google Sheets!');
+                    setConn('ok');
+                    setTimeout(loadShows, 1500);
+                } else {
+                    showAlert('add-alert', 'warning', '⚠️ Saved locally. Sheet: ' + (r ? r.message : 'no response'));
+                    setConn('fail');
+                }
+            } else {
+                showAlert('add-alert', 'warning', '⚠️ No Sheet URL. Saved locally only.');
+            }
+        }
+
+        // ── Render Shows Table ────────────────────────────────
+        function renderShows(shows) {
+            const container = document.getElementById('shows-container');
+            const countEl = document.getElementById('shows-count');
+            if (countEl) countEl.textContent = shows.length;
+
+            if (!shows || shows.length === 0) {
+                container.innerHTML = `
+                  <div class="empty-state">
+                    <div class="empty-icon">📭</div>
+                    <div class="empty-title">No shows found</div>
+                    <div class="empty-sub">${CONFIG.sheetUrl ? 'No data loaded.' : 'Configure your Sheet URL in ⚙️ Settings first.'}</div>
+                  </div>`;
+                return;
+            }
+
+            let html = `
+<div class="pipeline-wrap"><table class="pipeline-table">
+<thead><tr>
+  <th rowspan="2">#</th><th rowspan="2">Show Name</th><th rowspan="2">Source</th>
+  <th rowspan="2">Scraped Link</th><th rowspan="2">Done By</th><th rowspan="2">Status</th>
+  <th rowspan="2">Assign Date</th><th rowspan="2">Done Date</th>
+  <th class="group-header" colspan="2">🇨🇳 Chinese File</th>
+  <th class="group-header" colspan="2">📝 Chinese SRT</th>
+  <th class="group-header" colspan="2">📝 English SRT</th>
+  <th class="group-header" colspan="2">🔀 Merging</th>
+  <th class="group-header" colspan="2">📄 Subtitle DOCX</th>
+  <th class="group-header" colspan="2">🛠️ Tool Script</th>
+  <th rowspan="2">Actions</th>
+</tr>
+<tr>
+  <th>Status</th><th>By</th><th>Status</th><th>By</th>
+  <th>Status</th><th>By</th><th>Status</th><th>By</th>
+  <th>Status</th><th>By</th><th>Status</th><th>By</th>
+</tr>
+</thead><tbody>`;
+
+            shows.forEach((show, vi) => {
+                const ri = allShows.indexOf(show);
+                const rc = show.status === 'Completed' ? 'row-done' : '';
+                const sc = statusBadgeClass(show.status);
+                const sl = show.scrapedFile
+                    ? (show.scrapedFile.length > 28 ? show.scrapedFile.substring(0, 28) + '…' : show.scrapedFile)
+                    : '';
+
+                html += `<tr class="${rc}" id="show-row-${ri}">
+  <td><span class="row-num">${vi + 1}</span></td>
+  <td><div class="show-name-cell"><span class="sn" title="${esc(show.showName)}">🎬 ${esc(show.showName)}</span></div></td>
+  <td>${sourceTag(show.sourcePlace)}</td>
+  <td>${show.scrapedFile ? `<a href="${esc(show.scrapedFile)}" target="_blank" class="table-link">🔗 ${esc(sl)}</a>` : '<em style="color:var(--gray-400);font-size:0.76rem">—</em>'}</td>
+  <td><span style="font-size:0.79rem;font-weight:600;color:var(--gray-700)">${esc(show.taskDoneBy) || '<em style="color:var(--gray-400)">—</em>'}</span></td>
+  <td><span class="status-badge ${sc}">${show.status || 'Pending'}</span></td>
+  <td><span class="date-cell">${esc(show.assignDate) || '—'}</span></td>
+  <td><span class="date-cell">${esc(show.completedDate) || '—'}</span></td>`;
+
+                TASK_FIELDS.forEach(tf => {
+                    const sv = show[tf.key] || '';
+                    const bv = show[tf.byKey] || '';
+                    const sc2 = statusBadgeClass(sv);
+                    html += `
+  <td class="group-sep">${sv ? `<span class="status-badge ${sc2}">${sv}</span>` : '<em style="color:var(--gray-400);font-size:0.76rem">—</em>'}</td>
+  <td><span style="font-size:0.76rem;color:var(--gray-600);font-weight:500">${esc(bv) || '<em style="color:var(--gray-400)">—</em>'}</span></td>`;
+                });
+
+                html += `
+  <td>
+    <div style="display:flex;gap:4px;flex-wrap:wrap">
+      <button class="btn btn-edit"   onclick="openEditModal(${ri})">✏️</button>
+      <button class="btn btn-danger" onclick="confirmDelete(${ri})">🗑️</button>
+    </div>
+  </td>
+</tr>`;
+            });
+
+            html += `</tbody></table></div>`;
+            container.innerHTML = html;
+        }
+
+        function filterShows() {
+            const s = document.getElementById('searchInput').value.toLowerCase();
+            const st = document.getElementById('filterStatus').value;
+            const per = document.getElementById('filterPerson').value.toLowerCase();
+            renderShows(allShows.filter(show => {
+                const ms = !s || show.showName.toLowerCase().includes(s) || (show.taskDoneBy || '').toLowerCase().includes(s) || TASK_FIELDS.some(tf => (show[tf.byKey] || '').toLowerCase().includes(s));
+                const mt = !st || show.status === st;
+                const mp = !per || (show.taskDoneBy || '').toLowerCase().includes(per) || TASK_FIELDS.some(tf => (show[tf.byKey] || '').toLowerCase().includes(per));
+                return ms && mt && mp;
+            }));
+        }
+
+        // ── Delete ────────────────────────────────────────────
+        function confirmDelete(index) {
+            const show = allShows[index];
+            if (!show) return;
+            deleteTarget = { index, show };
+            document.getElementById('deleteShowName').textContent = '🎬 ' + show.showName;
+            document.getElementById('deleteModal').classList.add('active');
+            document.getElementById('deleteConfirmBtn').onclick = executeDelete;
+        }
+
+        async function executeDelete() {
+            if (!deleteTarget) return;
+            const { index, show } = deleteTarget;
+            closeDeleteModal();
+            const key = showKey(show);
+            pendingDeletes[key] = true;
+            allShows.splice(index, 1);
+            saveLocal(); buildPersonFilter(); renderShows(allShows); updateStats();
+            showAlert('add-alert', 'success', `⏳ Deleting "${show.showName}"…`);
+
+            if (CONFIG.sheetUrl) {
+                const r = await callPost('deleteRow', {
+                    showName: show.showName, assignDate: show.assignDate || '',
+                    sheetRowIndex: show._sheetRowIndex || null
+                });
+                if (r && r.success) {
+                    delete pendingDeletes[key];
+                    showAlert('add-alert', 'success', `✅ "${show.showName}" deleted!`);
+                    setConn('ok');
+                } else {
+                    showAlert('add-alert', 'warning', `⚠️ Removed locally. Sheet: ${r ? r.message : 'no response'}`);
+                    setConn('fail');
+                }
+            } else {
+                delete pendingDeletes[key];
+                showAlert('add-alert', 'success', `✅ "${show.showName}" deleted locally.`);
+            }
+            deleteTarget = null;
+        }
+
+        function closeDeleteModal() { document.getElementById('deleteModal').classList.remove('active'); }
+
+        // ── Edit Modal ────────────────────────────────────────
+        function openEditModal(idx) {
+            const s = allShows[idx];
+            if (!s) return;
+            document.getElementById('editIdx').value = idx;
+            document.getElementById('editModalSubtitle').textContent = '🎬 ' + s.showName;
+            document.getElementById('em-showName').value = s.showName || '';
+            document.getElementById('em-scrapedFile').value = s.scrapedFile || '';
+            document.getElementById('em-sourcePlace').value = s.sourcePlace || '';
+            document.getElementById('em-taskDoneBy').value = s.taskDoneBy || '';
+            document.getElementById('em-status').value = s.status || 'Pending';
+            document.getElementById('em-assignDate').value = dateToInput(s.assignDate);
+            document.getElementById('em-completedDate').value = dateToInput(s.completedDate);
+            document.getElementById('em-chineseFile').value = s.chineseFile || '';
+            document.getElementById('em-chineseBy').value = s.chineseBy || '';
+            document.getElementById('em-chineseSrt').value = s.chineseSrt || '';
+            document.getElementById('em-chineseSrtBy').value = s.chineseSrtBy || '';
+            document.getElementById('em-englishSrt').value = s.englishSrt || '';
+            document.getElementById('em-englishSrtBy').value = s.englishSrtBy || '';
+            document.getElementById('em-merging').value = s.merging || '';
+            document.getElementById('em-mergingBy').value = s.mergingBy || '';
+            document.getElementById('em-subtitleDocx').value = s.subtitleDocx || '';
+            document.getElementById('em-subtitleDocxBy').value = s.subtitleDocxBy || '';
+            document.getElementById('em-toolScript').value = s.toolScript || '';
+            document.getElementById('em-toolScriptBy').value = s.toolScriptBy || '';
+            document.getElementById('editModal').classList.add('active');
+        }
+
+        async function saveEditModal() {
+            const idx = parseInt(document.getElementById('editIdx').value);
+            const old = { ...allShows[idx] };
+            const aRaw = document.getElementById('em-assignDate').value;
+            const cRaw = document.getElementById('em-completedDate').value;
+
+            allShows[idx] = {
+                ...old,
+                showName: document.getElementById('em-showName').value.trim(),
+                scrapedFile: document.getElementById('em-scrapedFile').value.trim(),
+                sourcePlace: document.getElementById('em-sourcePlace').value,
+                taskDoneBy: document.getElementById('em-taskDoneBy').value.trim(),
+                status: document.getElementById('em-status').value,
+                assignDate: aRaw ? inputToDate(aRaw) : (old.assignDate || ''),
+                completedDate: cRaw ? inputToDate(cRaw) : '',
+                chineseFile: document.getElementById('em-chineseFile').value,
+                chineseBy: document.getElementById('em-chineseBy').value.trim(),
+                chineseSrt: document.getElementById('em-chineseSrt').value,
+                chineseSrtBy: document.getElementById('em-chineseSrtBy').value.trim(),
+                englishSrt: document.getElementById('em-englishSrt').value,
+                englishSrtBy: document.getElementById('em-englishSrtBy').value.trim(),
+                merging: document.getElementById('em-merging').value,
+                mergingBy: document.getElementById('em-mergingBy').value.trim(),
+                subtitleDocx: document.getElementById('em-subtitleDocx').value,
+                subtitleDocxBy: document.getElementById('em-subtitleDocxBy').value.trim(),
+                toolScript: document.getElementById('em-toolScript').value,
+                toolScriptBy: document.getElementById('em-toolScriptBy').value.trim(),
+            };
+
+            saveLocal();
+            closeEditModal();
+            buildPersonFilter();
+            renderShows(allShows);
+            filterShows();
+            updateStats();
+
+            if (CONFIG.sheetUrl) {
+                const r = await callPost('updateRow', { ...allShows[idx], oldShowName: old.showName });
+                if (r && r.success) { setConn('ok'); showAlert('add-alert', 'success', '✅ Updated in Google Sheets!'); }
+                else { setConn('fail'); showAlert('add-alert', 'warning', '⚠️ Update: ' + (r ? r.message : 'no response')); }
+            }
+        }
+
+        function closeEditModal() { document.getElementById('editModal').classList.remove('active'); }
+
+        // ── Save All ──────────────────────────────────────────
+        async function saveAllChanges() {
+            if (!CONFIG.sheetUrl) { showAlert('add-alert', 'warning', '⚠️ No Sheet URL set.'); return; }
+            showAlert('add-alert', 'success', '⏳ Syncing all rows…');
+            let ok = 0, fail = 0;
+            for (const show of allShows) {
+                const r = await callPost('updateRow', { ...show, oldShowName: show.showName });
+                if (r && r.success) ok++; else fail++;
+            }
+            saveLocal();
+            showAlert('add-alert', fail === 0 ? 'success' : 'warning',
+                `✅ ${ok} synced${fail > 0 ? ' · ⚠️ ' + fail + ' failed' : ''}`);
+            setConn(fail === 0 ? 'ok' : 'fail');
+        }
+
+        // ── Worker View ───────────────────────────────────────
+        function loadWorkerView() {
+            const name = document.getElementById('workerNameInput').value.trim().toLowerCase();
+            const container = document.getElementById('worker-shows-container');
+
+            if (!name || name.length < 2) {
+                container.innerHTML = `<div class="card"><div class="empty-state"><div class="empty-icon">👆</div><div class="empty-title">Enter your name</div><div class="empty-sub">Type at least 2 characters.</div></div></div>`;
+                return;
+            }
+
+            const myShows = allShows.filter(show =>
+                (show.taskDoneBy || '').toLowerCase().includes(name) ||
+                TASK_FIELDS.some(tf => (show[tf.byKey] || '').toLowerCase().includes(name))
+            );
+
+            if (!myShows.length) {
+                container.innerHTML = `<div class="card"><div class="empty-state"><div class="empty-icon">📭</div><div class="empty-title">No tasks found</div><div class="empty-sub">No tasks match "<strong>${esc(name)}</strong>".</div></div></div>`;
+                return;
+            }
+
+            let html = '';
+            myShows.forEach(show => {
+                const ri = allShows.indexOf(show);
+                const myTasks = TASK_FIELDS.filter(tf => (show[tf.byKey] || '').toLowerCase().includes(name));
+                const allDone = myTasks.length > 0 && myTasks.every(tf => show[tf.key] === 'Completed');
+                const sc = statusBadgeClass(show.status);
+
+                html += `
+<div class="card worker-task-card ${allDone ? 'done' : ''}">
+  <div class="wtc-header">
+    <div>
+      <div class="wtc-title">🎬 ${esc(show.showName)}</div>
+      <div class="wtc-subtitle">
+        ${show.scrapedFile ? `<a href="${esc(show.scrapedFile)}" target="_blank" class="table-link">🔗 File</a> &nbsp;·&nbsp; ` : ''}
+        ${sourceTag(show.sourcePlace)}
+        ${show.assignDate ? ` &nbsp;·&nbsp; 📅 ${esc(show.assignDate)}` : ''}
+      </div>
+    </div>
+    <span class="status-badge ${sc}">${show.status || 'Pending'}</span>
+  </div>
+  <div class="wtc-tasks">`;
+
+                myTasks.forEach(tf => {
+                    const sv = show[tf.key] || 'Pending';
+                    const sc2 = statusBadgeClass(sv);
+                    html += `
+    <div class="wtc-task-item">
+      <div class="wtc-task-label">${tf.label}</div>
+      <span class="status-badge ${sc2}">${sv}</span>
+      <button class="btn btn-edit" style="margin-top:3px;font-size:0.73rem;padding:4px 9px"
+        onclick="openWorkerModal(${ri},'${tf.key}','${esc(tf.label)}')">✏️ Update</button>
+    </div>`;
+                });
+
+                html += `</div></div>`;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function openWorkerModal(idx, taskKey, taskLabel) {
+            const show = allShows[idx];
+            if (!show) return;
+            document.getElementById('wm-showIdx').value = idx;
+            document.getElementById('wm-taskKey').value = taskKey;
+            document.getElementById('wm-taskLabel').textContent = taskLabel;
+            document.getElementById('workerModalTitle').textContent = '🎬 ' + show.showName;
+            document.getElementById('wm-status').value = show[taskKey] || 'Pending';
+            document.getElementById('workerModal').classList.add('active');
+        }
+
+        async function saveWorkerUpdate() {
+            const idx = parseInt(document.getElementById('wm-showIdx').value);
+            const taskKey = document.getElementById('wm-taskKey').value;
+            const newStatus = document.getElementById('wm-status').value;
+            const old = { ...allShows[idx] };
+
+            allShows[idx][taskKey] = newStatus;
+
+            const taskVals = TASK_FIELDS.map(tf => allShows[idx][tf.key] || '');
+            const anyActive = taskVals.some(s => s === 'In Progress' || s === 'Completed');
+            const allDone = taskVals.filter(Boolean).length > 0 && taskVals.every(s => s === 'Completed');
+
+            if (allDone) {
+                allShows[idx].status = 'Completed';
+                if (!allShows[idx].completedDate)
+                    allShows[idx].completedDate = inputToDate(new Date().toISOString().split('T')[0]);
+            } else if (anyActive) {
+                allShows[idx].status = 'In Progress';
+            }
+
+            saveLocal(); closeWorkerModal(); loadWorkerView(); renderShows(allShows); updateStats();
+
+            if (CONFIG.sheetUrl) {
+                const r = await callPost('updateRow', { ...allShows[idx], oldShowName: old.showName });
+                if (r && r.success) showAlert('worker-alert', 'success', '✅ Updated in Google Sheets!');
+                else showAlert('worker-alert', 'warning', '⚠️ Saved locally. ' + (r ? r.message : ''));
+            } else {
+                showAlert('worker-alert', 'success', '✅ Status saved locally!');
+            }
+        }
+
+        function closeWorkerModal() { document.getElementById('workerModal').classList.remove('active'); }
+
+        // ── Dashboard ─────────────────────────────────────────
+        function loadDashboard() { loadShows(); }
+
+        function updateStats() {
+            const t = allShows.length;
+            const c = allShows.filter(s => s.status === 'Completed').length;
+            const ip = allShows.filter(s => s.status === 'In Progress').length;
+            const p = allShows.filter(s => !s.status || s.status === 'Pending').length;
+            let tasks = 0;
+            allShows.forEach(s => TASK_FIELDS.forEach(tf => { if (s[tf.key]) tasks++; }));
+
+            const setN = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+            setN('stat-total', t); setN('stat-completed', c); setN('stat-progress', ip);
+            setN('stat-pending', p); setN('stat-tasks', tasks);
+
+            renderTeamPerformance();
+            renderTaskOverview();
+        }
+
+        function renderTeamPerformance() {
+            const container = document.getElementById('team-performance');
+            if (!container) return;
+            const wm = {};
+            allShows.forEach(show => {
+                TASK_FIELDS.forEach(tf => {
+                    const w = (show[tf.byKey] || '').trim();
+                    if (!w) return;
+                    if (!wm[w]) wm[w] = { total: 0, done: 0, progress: 0 };
+                    wm[w].total++;
+                    if (show[tf.key] === 'Completed') wm[w].done++;
+                    else if (show[tf.key] === 'In Progress') wm[w].progress++;
+                });
+            });
+            const people = Object.keys(wm).sort();
+            if (!people.length) {
+                container.innerHTML = `<div class="empty-state"><div class="empty-icon">👥</div><div class="empty-title">No data</div><div class="empty-sub">Assign tasks to see performance.</div></div>`;
+                return;
+            }
+            container.innerHTML = '';
+            people.forEach((person, i) => {
+                const d = wm[person];
+                const pct = d.total > 0 ? Math.round((d.done / d.total) * 100) : 0;
+                const col = AVATAR_COLORS[i % AVATAR_COLORS.length];
+                const row = document.createElement('div');
+                row.className = 'person-row';
+                row.innerHTML = `
+                  <div class="person-avatar" style="background:${col}">${person.charAt(0).toUpperCase()}</div>
+                  <div class="person-info">
+                    <div class="person-name">${esc(person)}</div>
+                    <div class="person-tasks">${d.total} tasks · ${d.done} done · ${d.progress} in progress</div>
+                  </div>
+                  <div class="person-bar-wrap">
+                    <div class="person-bar">
+                      <div class="person-bar-fill" style="width:${pct}%;background:${col}"></div>
+                    </div>
+                    <span class="person-pct">${pct}%</span>
+                  </div>`;
+                container.appendChild(row);
+            });
+        }
+
+        function renderTaskOverview() {
+            const container = document.getElementById('task-overview');
+            if (!container) return;
+            if (!allShows.length) {
+                container.innerHTML = `<div class="empty-state"><div class="empty-icon">📈</div><div class="empty-title">No data</div></div>`;
+                return;
+            }
+            let html = `
+<div style="overflow-x:auto">
+<table class="pipeline-table" style="min-width:480px">
+<thead><tr>
+  <th>Task</th><th>Total</th>
+  <th style="color:#d1fae5">✅ Done</th>
+  <th style="color:#bfdbfe">🔄 Progress</th>
+  <th style="color:#fde68a">⏳ Rest</th>
+  <th>Completion</th>
+</tr></thead><tbody>`;
+
+            TASK_FIELDS.forEach(tf => {
+                const vals = allShows.map(s => s[tf.key] || '');
+                const total = allShows.length;
+                const done = vals.filter(v => v === 'Completed').length;
+                const inpr = vals.filter(v => v === 'In Progress').length;
+                const rest = total - done - inpr;
+                const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+                html += `
+<tr>
+  <td style="font-weight:700;font-size:0.84rem">${tf.label}</td>
+  <td><span class="count-badge">${total}</span></td>
+  <td><span class="status-badge st-completed-badge">${done}</span></td>
+  <td><span class="status-badge st-progress-badge">${inpr}</span></td>
+  <td><span class="status-badge st-pending-badge">${rest}</span></td>
+  <td>
+    <div style="display:flex;align-items:center;gap:7px">
+      <div style="flex:1;height:6px;background:var(--gray-200);border-radius:10px;overflow:hidden;min-width:70px">
+        <div style="width:${pct}%;height:100%;background:var(--success);border-radius:10px"></div>
+      </div>
+      <span style="font-size:0.76rem;font-weight:700;color:var(--gray-600);min-width:30px">${pct}%</span>
+    </div>
+  </td>
+</tr>`;
+            });
+
+            html += `</tbody></table></div>`;
+            container.innerHTML = html;
+        }
+
+        // ── Completed Filter ──────────────────────────────────
+        function populateMonthPicker() {
+            const sel = document.getElementById('monthPicker');
+            if (!sel) return;
+            const now = new Date();
+            sel.innerHTML = '<option value="">— Select Month —</option>';
+            for (let i = 0; i < 24; i++) {
+                const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+                const val = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+                const label = d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+                const o = document.createElement('option');
+                o.value = val; o.textContent = label; sel.appendChild(o);
+            }
+        }
+
+        function setCompletedFilter(type, btn) {
+            activeCompletedFilter = type;
+            if (btn) {
+                document.querySelectorAll('.date-filter-tab').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            }
+            renderCompletedFilter();
+        }
+
+        function getDateRange(type) {
+            const now = new Date();
+            const todayStr = now.toISOString().split('T')[0];
+            const toDate = s => { const p = s.split('-'); return new Date(parseInt(p[0]), parseInt(p[1]) - 1, parseInt(p[2])); };
+
+            if (type === 'today') { const t = toDate(todayStr); return { from: t, to: t, label: `Today — ${formatDisplayDate(todayStr)}` }; }
+            if (type === 'yesterday') { const y = new Date(now); y.setDate(y.getDate() - 1); const ys = y.toISOString().split('T')[0]; return { from: toDate(ys), to: toDate(ys), label: `Yesterday — ${formatDisplayDate(ys)}` }; }
+            if (type === 'week') { const w = new Date(now); w.setDate(w.getDate() - 6); return { from: toDate(w.toISOString().split('T')[0]), to: toDate(todayStr), label: 'This Week (Last 7 days)' }; }
+            if (type === 'month') { const f = new Date(now.getFullYear(), now.getMonth(), 1); return { from: f, to: toDate(todayStr), label: `This Month — ${now.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' })}` }; }
+            if (type === 'all') { return { from: null, to: null, label: 'All Time' }; }
+
+            if (type === 'custom-month') {
+                const val = document.getElementById('monthPicker').value;
+                if (!val) return null;
+                const [y, m] = val.split('-').map(Number);
+                const from = new Date(y, m - 1, 1), to = new Date(y, m, 0);
+                return { from, to, label: `Month: ${from.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' })}` };
+            }
+            if (type === 'custom-day') {
+                const val = document.getElementById('dayPicker').value;
+                if (!val) return null;
+                const p = val.split('-');
+                const d = new Date(parseInt(p[0]), parseInt(p[1]) - 1, parseInt(p[2]));
+                return { from: d, to: d, label: `Day: ${formatDisplayDate(val)}` };
+            }
+            return null;
+        }
+
+        function inRange(date, from, to) {
+            if (!from && !to) return true;
+            if (!date) return false;
+            const d = parseDate(date);
+            if (!d) return false;
+            const dN = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+            const fN = from ? new Date(from.getFullYear(), from.getMonth(), from.getDate()) : null;
+            const tN = to ? new Date(to.getFullYear(), to.getMonth(), to.getDate()) : null;
+            if (fN && dN < fN) return false;
+            if (tN && dN > tN) return false;
+            return true;
+        }
+
+        function renderCompletedFilter() {
+            const range = getDateRange(activeCompletedFilter);
+            if (!range) {
+                document.getElementById('completed-results').innerHTML = `<div class="empty-state"><div class="empty-icon">📅</div><div class="empty-title">Select a filter</div></div>`;
+                return;
+            }
+
+            const completed = allShows
+                .filter(s => s.status === 'Completed' && inRange(s.completedDate || s.assignDate, range.from, range.to))
+                .sort((a, b) => {
+                    const da = parseDate(a.completedDate || a.assignDate);
+                    const db = parseDate(b.completedDate || b.assignDate);
+                    if (!da && !db) return 0;
+                    if (!da) return 1; if (!db) return -1;
+                    return db - da;
+                });
+
+            document.getElementById('completed-count').textContent = completed.length;
+
+            document.getElementById('completed-summary').innerHTML = `
+<div style="background:linear-gradient(135deg,var(--success-light),#a7f3d0);border:1px solid var(--success);border-radius:var(--radius);padding:12px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+  <span style="font-size:1.4rem">✅</span>
+  <div style="flex:1">
+    <div style="font-weight:800;color:#065f46;font-size:0.95rem">${completed.length} show${completed.length !== 1 ? 's' : ''} completed</div>
+    <div style="font-size:0.78rem;color:#065f46;opacity:0.8;margin-top:2px">📅 ${range.label}</div>
+  </div>
+  ${completed.length > 0 ? `<span style="background:var(--success);color:white;padding:5px 12px;border-radius:20px;font-size:0.78rem;font-weight:700">🎉 ${completed.length} done!</span>` : ''}
+</div>`;
+
+            if (!completed.length) {
+                document.getElementById('completed-results').innerHTML = `<div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-title">No completed shows</div><div class="empty-sub">No shows completed in this period.<br>Try a different date range.</div></div>`;
+                return;
+            }
+
+            let html = '';
+            completed.forEach(show => {
+                const ri = allShows.indexOf(show);
+                const tasksDone = TASK_FIELDS.filter(tf => show[tf.key] === 'Completed').length;
+                html += `
+<div class="completed-show-row" onclick="openEditModal(${ri})">
+  <span style="font-size:1.1rem">🎬</span>
+  <div style="flex:1;min-width:0">
+    <div class="completed-show-name">${esc(show.showName)}</div>
+    <div class="completed-show-meta">
+      ${show.taskDoneBy ? `👤 ${esc(show.taskDoneBy)} &nbsp;·&nbsp; ` : ''}
+      ${sourceTag(show.sourcePlace)}
+      &nbsp;·&nbsp; ✅ ${tasksDone}/${TASK_FIELDS.length} tasks
+    </div>
+  </div>
+  <span class="completed-show-date">✅ ${formatDisplayDate(show.completedDate || show.assignDate)}</span>
+</div>`;
+            });
+            document.getElementById('completed-results').innerHTML = html;
+        }
+
+        // ── Settings ──────────────────────────────────────────
+        async function saveSheetUrl() {
+            const url = document.getElementById('sheetUrl').value.trim();
+            if (!url) { showAlert('url-alert', 'error', '⚠️ Enter a URL!'); return; }
+            if (!url.includes('script.google.com')) { showAlert('url-alert', 'error', '⚠️ Not a valid Apps Script URL!'); return; }
+            if (url.includes('/dev')) { showAlert('url-alert', 'error', '❌ Use the /exec URL, not /dev!'); return; }
+
+            CONFIG.sheetUrl = url;
+            localStorage.setItem('sheetUrl', url);
+            document.getElementById('current-url-text').textContent = url;
+            showAlert('url-alert', 'success', '⏳ Testing connection…');
+
+            const r = await callGet({ action: 'ping' });
+            if (r && r.success) {
+                const rowMatch = r.message.match(/\((\d+) rows?\)/);
+                const rows = rowMatch ? parseInt(rowMatch[1]) : undefined;
+                showAlert('url-alert', 'success', '✅ ' + r.message);
+                setConn('ok', rows);
+                await loadShows();
+            } else {
+                showAlert('url-alert', 'error', '❌ Failed: ' + (r ? r.message : 'No response'));
+                setConn('fail');
+            }
+        }
+
+        function clearSheetUrl() {
+            CONFIG.sheetUrl = '';
+            localStorage.removeItem('sheetUrl');
+            localStorage.removeItem('showsData');
+            document.getElementById('sheetUrl').value = '';
+            document.getElementById('current-url-text').textContent = 'Not configured';
+            allShows = [];
+            renderShows([]);
+            setConn('none');
+            showAlert('url-alert', 'success', '✅ Cleared.');
+        }
+
+        function toggleScript() {
+            const w = document.getElementById('scriptWrapper');
+            const b = document.getElementById('scriptToggleBtn');
+            const v = w.style.display !== 'none';
+            w.style.display = v ? 'none' : 'block';
+            b.textContent = v ? '👁️ Show Script' : '🙈 Hide Script';
+        }
+
+        function copyScript() {
+            const code = document.getElementById('scriptCode').textContent;
+            navigator.clipboard.writeText(code)
+                .then(() => showAlert('url-alert', 'success', '📋 Copied!'))
+                .catch(() => {
+                    const ta = document.createElement('textarea');
+                    ta.value = code;
+                    document.body.appendChild(ta);
+                    ta.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(ta);
+                    showAlert('url-alert', 'success', '📋 Copied!');
+                });
+        }
+
+        // ── Modal backdrop close ───────────────────────────────
+        document.getElementById('editModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeEditModal(); });
+        document.getElementById('workerModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeWorkerModal(); });
+        document.getElementById('deleteModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeDeleteModal(); });
+
+    </script>
+
+</body>
+
+</html>
