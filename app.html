@@ -56,8 +56,8 @@
         }
 
         ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px
+            width: 5px;
+            height: 5px
         }
 
         ::-webkit-scrollbar-track {
@@ -70,7 +70,7 @@
             border-radius: 10px
         }
 
-        /* AUTH CHECK */
+        /* AUTH */
         .auth-check-screen {
             position: fixed;
             inset: 0;
@@ -84,18 +84,18 @@
         }
 
         .auth-check-ring {
-            width: 56px;
-            height: 56px;
+            width: 52px;
+            height: 52px;
             border: 4px solid rgba(255, 255, 255, 0.15);
             border-top-color: #a5b4fc;
             border-radius: 50%;
-            animation: spin 0.8s linear infinite
+            animation: spin .8s linear infinite
         }
 
         .auth-check-text {
             color: rgba(255, 255, 255, 0.7);
             font-weight: 600;
-            font-size: 0.95rem
+            font-size: .95rem
         }
 
         @keyframes spin {
@@ -109,37 +109,37 @@
             position: sticky;
             top: 0;
             z-index: 200;
-            background: rgba(30, 27, 75, 0.85);
+            background: rgba(30, 27, 75, 0.88);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 0 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, .10);
+            padding: 0 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 62px
+            height: 58px
         }
 
         .nav-brand {
             display: flex;
             align-items: center;
-            gap: 10px
+            gap: 9px
         }
 
         .nav-brand-icon {
-            width: 36px;
-            height: 36px;
+            width: 34px;
+            height: 34px;
             background: linear-gradient(135deg, #6c63ff, #4f46e5);
-            border-radius: 10px;
+            border-radius: 9px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
-            box-shadow: 0 4px 12px rgba(108, 99, 255, 0.4)
+            font-size: .95rem;
+            box-shadow: 0 4px 12px rgba(108, 99, 255, .4)
         }
 
         .nav-brand-text {
             font-family: 'Poppins', sans-serif;
-            font-size: 0.95rem;
+            font-size: .9rem;
             font-weight: 800;
             color: white
         }
@@ -147,31 +147,32 @@
         .nav-right {
             display: flex;
             align-items: center;
-            gap: 10px
+            gap: 8px
         }
 
         .user-chip {
             display: flex;
             align-items: center;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            gap: 7px;
+            background: rgba(255, 255, 255, .10);
+            border: 1px solid rgba(255, 255, 255, .15);
             border-radius: 50px;
-            padding: 5px 14px 5px 5px
+            padding: 4px 12px 4px 4px
         }
 
         .user-avatar {
-            width: 30px;
-            height: 30px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             background: linear-gradient(135deg, #a855f7, #6c63ff);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.8rem;
+            font-size: .75rem;
             font-weight: 800;
             color: white;
-            overflow: hidden
+            overflow: hidden;
+            flex-shrink: 0
         }
 
         .user-avatar img {
@@ -182,28 +183,27 @@
         }
 
         .user-name {
-            font-size: 0.82rem;
+            font-size: .8rem;
             font-weight: 600;
-            color: rgba(255, 255, 255, 0.9)
+            color: rgba(255, 255, 255, .9)
         }
 
         .user-domain-badge {
-            background: rgba(16, 185, 129, 0.2);
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            background: rgba(16, 185, 129, .2);
+            border: 1px solid rgba(16, 185, 129, .3);
             border-radius: 20px;
             padding: 2px 8px;
-            font-size: 0.68rem;
+            font-size: .66rem;
             font-weight: 700;
-            color: #6ee7b7;
-            letter-spacing: 0.02em
+            color: #6ee7b7
         }
 
         .user-verified-badge {
-            background: rgba(16, 185, 129, 0.15);
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            background: rgba(16, 185, 129, .15);
+            border: 1px solid rgba(16, 185, 129, .3);
             border-radius: 20px;
             padding: 2px 8px;
-            font-size: 0.68rem;
+            font-size: .66rem;
             font-weight: 700;
             color: #6ee7b7;
             display: flex;
@@ -212,27 +212,27 @@
         }
 
         .logout-btn {
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            padding: 6px 12px;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.78rem;
+            background: rgba(255, 255, 255, .12);
+            border: 1px solid rgba(255, 255, 255, .2);
+            border-radius: 7px;
+            padding: 5px 11px;
+            color: rgba(255, 255, 255, .8);
+            font-size: .76rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all .2s;
             font-family: 'Inter', sans-serif
         }
 
         .logout-btn:hover {
-            background: rgba(239, 68, 68, 0.25);
-            border-color: rgba(239, 68, 68, 0.4);
+            background: rgba(239, 68, 68, .25);
+            border-color: rgba(239, 68, 68, .4);
             color: #fca5a5
         }
 
         /* PAGE */
         .page-body {
-            padding: 24px 20px;
+            padding: 20px;
             max-width: 1400px;
             margin: 0 auto
         }
@@ -240,67 +240,67 @@
         .header {
             text-align: center;
             color: white;
-            margin-bottom: 28px
+            margin-bottom: 22px
         }
 
         .header-badge {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, .12);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, .2);
             border-radius: 50px;
-            padding: 6px 16px;
-            font-size: 0.78rem;
+            padding: 5px 14px;
+            font-size: .75rem;
             font-weight: 600;
-            letter-spacing: 0.08em;
+            letter-spacing: .08em;
             text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 12px
+            color: rgba(255, 255, 255, .9);
+            margin-bottom: 10px
         }
 
         .header h1 {
             font-family: 'Poppins', sans-serif;
-            font-size: clamp(1.6rem, 4vw, 2.5rem);
+            font-size: clamp(1.5rem, 4vw, 2.3rem);
             font-weight: 800;
-            letter-spacing: -0.03em;
+            letter-spacing: -.03em;
             line-height: 1.1;
             background: linear-gradient(135deg, #fff 0%, #c7d2fe 50%, #a5b4fc 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 6px
+            margin-bottom: 5px
         }
 
         .header p {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.58)
+            font-size: .87rem;
+            color: rgba(255, 255, 255, .55)
         }
 
         /* TABS */
         .tabs-wrapper {
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, .08);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, .15);
             border-radius: 50px;
-            padding: 5px;
+            padding: 4px;
             display: inline-flex;
-            gap: 4px;
-            margin-bottom: 26px;
+            gap: 3px;
+            margin-bottom: 22px;
             flex-wrap: wrap
         }
 
         .tab-btn {
-            padding: 9px 20px;
+            padding: 8px 18px;
             border: none;
             border-radius: 50px;
             cursor: pointer;
             font-family: 'Inter', sans-serif;
-            font-size: 0.86rem;
+            font-size: .83rem;
             font-weight: 600;
-            transition: all 0.25s;
+            transition: all .22s;
             background: transparent;
-            color: rgba(255, 255, 255, 0.65);
+            color: rgba(255, 255, 255, .62);
             white-space: nowrap
         }
 
@@ -311,7 +311,7 @@
         }
 
         .tab-btn:hover:not(.active) {
-            background: rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, .12);
             color: white
         }
 
@@ -319,10 +319,10 @@
         .card {
             background: white;
             border-radius: var(--radius-xl);
-            padding: 26px;
-            margin-bottom: 20px;
+            padding: 22px;
+            margin-bottom: 18px;
             box-shadow: var(--shadow-lg);
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, .8);
             position: relative;
             overflow: hidden
         }
@@ -341,64 +341,64 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 18px;
+            margin-bottom: 16px;
             flex-wrap: wrap;
-            gap: 10px
+            gap: 8px
         }
 
         .card-title {
             font-family: 'Poppins', sans-serif;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 700;
             color: var(--gray-800);
-            letter-spacing: -0.02em;
+            letter-spacing: -.02em;
             display: flex;
             align-items: center;
-            gap: 10px
+            gap: 9px
         }
 
         .card-title-icon {
-            width: 32px;
-            height: 32px;
+            width: 30px;
+            height: 30px;
             background: var(--primary-light);
-            border-radius: 9px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.9rem
+            font-size: .85rem
         }
 
         /* FORM */
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 14px
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 12px
         }
 
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 5px
+            gap: 4px
         }
 
         .form-group label {
-            font-size: 0.76rem;
+            font-size: .73rem;
             font-weight: 700;
             color: var(--gray-600);
-            letter-spacing: 0.04em;
+            letter-spacing: .04em;
             text-transform: uppercase
         }
 
         .form-group input,
         .form-group select {
-            padding: 10px 12px;
+            padding: 9px 11px;
             border: 1.5px solid var(--gray-200);
             border-radius: var(--radius);
-            font-size: 0.87rem;
+            font-size: .85rem;
             font-family: 'Inter', sans-serif;
             color: var(--gray-800);
             background: var(--gray-50);
-            transition: all 0.2s;
+            transition: border-color .2s, box-shadow .2s;
             outline: none
         }
 
@@ -406,7 +406,7 @@
         .form-group select:focus {
             border-color: var(--primary);
             background: white;
-            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1)
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, .10)
         }
 
         .form-group input::placeholder {
@@ -417,15 +417,15 @@
         .btn {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 10px 20px;
+            gap: 5px;
+            padding: 9px 18px;
             border: none;
             border-radius: var(--radius);
             cursor: pointer;
             font-family: 'Inter', sans-serif;
-            font-size: 0.84rem;
+            font-size: .82rem;
             font-weight: 600;
-            transition: all 0.22s;
+            transition: all .18s;
             outline: none;
             white-space: nowrap
         }
@@ -433,18 +433,18 @@
         .btn-primary {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
-            box-shadow: 0 4px 12px rgba(108, 99, 255, 0.3)
+            box-shadow: 0 4px 12px rgba(108, 99, 255, .28)
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(108, 99, 255, 0.4)
+            box-shadow: 0 8px 20px rgba(108, 99, 255, .38)
         }
 
         .btn-success {
             background: linear-gradient(135deg, #10b981, #059669);
             color: white;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25)
+            box-shadow: 0 4px 12px rgba(16, 185, 129, .22)
         }
 
         .btn-success:hover {
@@ -454,8 +454,8 @@
         .btn-danger {
             background: linear-gradient(135deg, #ef4444, #dc2626);
             color: white;
-            padding: 6px 11px;
-            font-size: 0.76rem;
+            padding: 5px 10px;
+            font-size: .73rem;
             border-radius: var(--radius-sm)
         }
 
@@ -466,8 +466,8 @@
         .btn-edit {
             background: linear-gradient(135deg, #8b5cf6, #7c3aed);
             color: white;
-            padding: 6px 11px;
-            font-size: 0.76rem;
+            padding: 5px 10px;
+            font-size: .73rem;
             border-radius: var(--radius-sm)
         }
 
@@ -486,37 +486,75 @@
         }
 
         .btn-sm {
-            padding: 7px 13px;
-            font-size: 0.79rem
+            padding: 6px 12px;
+            font-size: .77rem
         }
 
         .btn-danger-full {
             background: linear-gradient(135deg, #ef4444, #dc2626);
             color: white;
-            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.28)
+            box-shadow: 0 4px 12px rgba(239, 68, 68, .25)
         }
 
         .btn-danger-full:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(239, 68, 68, 0.38)
+            box-shadow: 0 8px 20px rgba(239, 68, 68, .35)
+        }
+
+        /* NOTIFY BUTTON */
+        .btn-notify {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            padding: 5px 10px;
+            font-size: .73rem;
+            border-radius: var(--radius-sm);
+            box-shadow: 0 3px 8px rgba(245, 158, 11, .28)
+        }
+
+        .btn-notify:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 14px rgba(245, 158, 11, .38)
+        }
+
+        .btn-notify:disabled {
+            opacity: .5;
+            pointer-events: none
+        }
+
+        .btn-notify-sent {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 5px 10px;
+            font-size: .73rem;
+            border-radius: var(--radius-sm)
+        }
+
+        .notify-spinner {
+            width: 11px;
+            height: 11px;
+            border: 2px solid rgba(255, 255, 255, .4);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin .7s linear infinite;
+            display: inline-block
         }
 
         /* ALERTS */
         .alert {
             display: none;
-            padding: 11px 15px;
+            padding: 10px 14px;
             border-radius: var(--radius);
-            margin-bottom: 14px;
-            font-size: 0.84rem;
+            margin-bottom: 12px;
+            font-size: .82rem;
             font-weight: 500;
             border-left: 4px solid;
-            animation: slideIn 0.3s ease
+            animation: slideIn .25s ease
         }
 
         @keyframes slideIn {
             from {
                 opacity: 0;
-                transform: translateY(-7px)
+                transform: translateY(-6px)
             }
 
             to {
@@ -550,13 +588,13 @@
 
         .tab-content.active {
             display: block;
-            animation: fadeUp 0.3s ease
+            animation: fadeUp .25s ease
         }
 
         @keyframes fadeUp {
             from {
                 opacity: 0;
-                transform: translateY(10px)
+                transform: translateY(8px)
             }
 
             to {
@@ -568,22 +606,22 @@
         /* LOADING */
         .loading {
             display: none;
-            padding: 40px;
+            padding: 36px;
             text-align: center
         }
 
         .spinner-ring {
-            width: 40px;
-            height: 40px;
+            width: 38px;
+            height: 38px;
             border: 3px solid var(--gray-200);
             border-top-color: var(--primary);
             border-radius: 50%;
-            animation: spin 0.75s linear infinite;
-            margin: 0 auto 12px
+            animation: spin .7s linear infinite;
+            margin: 0 auto 10px
         }
 
         .loading-text {
-            font-size: 0.87rem;
+            font-size: .84rem;
             font-weight: 600;
             color: var(--gray-500)
         }
@@ -591,24 +629,24 @@
         /* EMPTY STATE */
         .empty-state {
             text-align: center;
-            padding: 48px 20px;
+            padding: 44px 20px;
             color: var(--gray-400)
         }
 
         .empty-icon {
-            font-size: 3rem;
-            margin-bottom: 12px
+            font-size: 2.8rem;
+            margin-bottom: 10px
         }
 
         .empty-title {
-            font-size: 1rem;
+            font-size: .95rem;
             font-weight: 700;
             color: var(--gray-600);
-            margin-bottom: 6px
+            margin-bottom: 5px
         }
 
         .empty-sub {
-            font-size: 0.83rem;
+            font-size: .8rem;
             color: var(--gray-400);
             line-height: 1.6
         }
@@ -618,17 +656,17 @@
             display: inline-flex;
             align-items: center;
             gap: 5px;
-            padding: 4px 11px;
+            padding: 3px 10px;
             border-radius: 20px;
-            font-size: 0.72rem;
+            font-size: .7rem;
             font-weight: 700;
-            letter-spacing: 0.04em;
+            letter-spacing: .04em;
             text-transform: uppercase
         }
 
         .conn-badge .dot {
-            width: 6px;
-            height: 6px;
+            width: 5px;
+            height: 5px;
             border-radius: 50%
         }
 
@@ -639,7 +677,7 @@
 
         .conn-ok .dot {
             background: var(--success);
-            box-shadow: 0 0 6px var(--success);
+            box-shadow: 0 0 5px var(--success);
             animation: pulseDot 2s infinite
         }
 
@@ -665,11 +703,11 @@
 
             0%,
             100% {
-                box-shadow: 0 0 4px var(--success)
+                box-shadow: 0 0 3px var(--success)
             }
 
             50% {
-                box-shadow: 0 0 10px var(--success)
+                box-shadow: 0 0 8px var(--success)
             }
         }
 
@@ -679,17 +717,33 @@
             justify-content: center;
             background: var(--primary-light);
             color: var(--primary-dark);
-            border-radius: 8px;
-            padding: 2px 9px;
-            font-size: 0.76rem;
+            border-radius: 7px;
+            padding: 2px 8px;
+            font-size: .73rem;
             font-weight: 800
+        }
+
+        /* NEW BADGE */
+        .new-show-badge {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            border-radius: 6px;
+            padding: 1px 6px;
+            font-size: .62rem;
+            font-weight: 800;
+            letter-spacing: .03em;
+            text-transform: uppercase;
+            margin-left: 4px;
+            vertical-align: middle
         }
 
         /* FILTER BAR */
         .filter-bar {
             display: flex;
-            gap: 10px;
-            margin-bottom: 16px;
+            gap: 8px;
+            margin-bottom: 14px;
             flex-wrap: wrap;
             align-items: center
         }
@@ -697,49 +751,49 @@
         .search-wrap {
             position: relative;
             flex: 1;
-            min-width: 180px
+            min-width: 170px
         }
 
         .search-wrap input {
             width: 100%;
-            padding: 9px 12px 9px 34px;
+            padding: 8px 11px 8px 32px;
             border: 1.5px solid var(--gray-200);
             border-radius: var(--radius);
-            font-size: 0.85rem;
+            font-size: .83rem;
             font-family: 'Inter', sans-serif;
             background: var(--gray-50);
             outline: none;
-            transition: all 0.2s
+            transition: all .18s
         }
 
         .search-wrap input:focus {
             border-color: var(--primary);
             background: white;
-            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1)
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, .10)
         }
 
         .search-icon {
             position: absolute;
-            left: 10px;
+            left: 9px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 0.84rem;
+            font-size: .8rem;
             color: var(--gray-400);
             pointer-events: none
         }
 
         .filter-select {
-            padding: 9px 12px;
+            padding: 8px 11px;
             border: 1.5px solid var(--gray-200);
             border-radius: var(--radius);
-            font-size: 0.85rem;
+            font-size: .83rem;
             font-family: 'Inter', sans-serif;
             background: var(--gray-50);
             color: var(--gray-700);
             outline: none;
             font-weight: 500;
             cursor: pointer;
-            transition: all 0.2s
+            transition: all .18s
         }
 
         .filter-select:focus {
@@ -747,20 +801,54 @@
             background: white
         }
 
+        /* SORT BAR */
+        .sort-bar {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 10px;
+            font-size: .76rem;
+            color: var(--gray-500);
+            font-weight: 600
+        }
+
+        .sort-btn {
+            padding: 4px 10px;
+            border: 1.5px solid var(--gray-200);
+            border-radius: 20px;
+            background: var(--gray-50);
+            color: var(--gray-600);
+            font-size: .72rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .15s;
+            font-family: 'Inter', sans-serif
+        }
+
+        .sort-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white
+        }
+
+        .sort-btn:hover:not(.active) {
+            background: var(--gray-100)
+        }
+
         /* TABLE */
         .pipeline-wrap {
             overflow-x: auto;
             border-radius: var(--radius-lg);
             border: 1px solid var(--gray-200);
-            max-height: 68vh;
+            max-height: 70vh;
             overflow-y: auto
         }
 
         .pipeline-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.79rem;
-            min-width: 1200px
+            font-size: .77rem;
+            min-width: 1280px
         }
 
         .pipeline-table thead tr {
@@ -768,13 +856,13 @@
         }
 
         .pipeline-table thead th {
-            padding: 11px 9px;
+            padding: 10px 8px;
             text-align: left;
-            font-size: 0.69rem;
+            font-size: .67rem;
             font-weight: 700;
-            letter-spacing: 0.06em;
+            letter-spacing: .06em;
             text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.85);
+            color: rgba(255, 255, 255, .85);
             white-space: nowrap;
             position: sticky;
             top: 0;
@@ -784,12 +872,12 @@
 
         .pipeline-table thead th.group-header {
             text-align: center;
-            border-left: 2px solid rgba(255, 255, 255, 0.15)
+            border-left: 2px solid rgba(255, 255, 255, .15)
         }
 
         .pipeline-table tbody tr {
             border-bottom: 1px solid var(--gray-100);
-            transition: all 0.15s
+            transition: background .12s
         }
 
         .pipeline-table tbody tr:last-child {
@@ -797,11 +885,19 @@
         }
 
         .pipeline-table tbody tr:hover {
-            background: rgba(108, 99, 255, 0.04)
+            background: rgba(108, 99, 255, .04)
+        }
+
+        .pipeline-table tbody tr.row-new {
+            background: rgba(245, 158, 11, .04)
+        }
+
+        .pipeline-table tbody tr.row-new:hover {
+            background: rgba(245, 158, 11, .08)
         }
 
         .pipeline-table td {
-            padding: 9px;
+            padding: 8px;
             vertical-align: middle;
             color: var(--gray-700)
         }
@@ -811,27 +907,27 @@
         }
 
         .row-done {
-            opacity: 0.62
+            opacity: .6
         }
 
         /* STATUS BADGES */
         .status-badge {
             display: inline-flex;
             align-items: center;
-            gap: 4px;
-            padding: 3px 9px;
+            gap: 3px;
+            padding: 2px 8px;
             border-radius: 20px;
-            font-size: 0.7rem;
+            font-size: .68rem;
             font-weight: 700;
-            letter-spacing: 0.03em;
+            letter-spacing: .03em;
             text-transform: uppercase;
             white-space: nowrap
         }
 
         .status-badge::before {
             content: '';
-            width: 5px;
-            height: 5px;
+            width: 4px;
+            height: 4px;
             border-radius: 50%;
             flex-shrink: 0
         }
@@ -872,29 +968,29 @@
             }
 
             50% {
-                opacity: 0.4
+                opacity: .4
             }
         }
 
         .show-name-cell {
             font-weight: 700;
             color: var(--gray-800);
-            min-width: 130px
+            min-width: 120px
         }
 
         .show-name-cell .sn {
-            font-size: 0.83rem;
+            font-size: .81rem;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            max-width: 190px;
+            max-width: 180px;
             display: block
         }
 
         .table-link {
             color: var(--primary);
             text-decoration: none;
-            font-size: 0.76rem;
+            font-size: .73rem;
             font-weight: 500
         }
 
@@ -903,13 +999,13 @@
         }
 
         .row-num {
-            font-size: 0.73rem;
+            font-size: .7rem;
             font-weight: 700;
             color: var(--gray-400)
         }
 
         .date-cell {
-            font-size: 0.76rem;
+            font-size: .73rem;
             color: var(--gray-500);
             font-weight: 500;
             white-space: nowrap
@@ -918,36 +1014,36 @@
         .source-drive {
             background: #e8f5e9;
             color: #2e7d32;
-            padding: 3px 7px;
-            border-radius: 6px;
-            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 5px;
+            font-size: .68rem;
             font-weight: 700
         }
 
         .source-youtube {
             background: #ffebee;
             color: #c62828;
-            padding: 3px 7px;
-            border-radius: 6px;
-            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 5px;
+            font-size: .68rem;
             font-weight: 700
         }
 
         .source-dailymotion {
             background: #e3f2fd;
             color: #1565c0;
-            padding: 3px 7px;
-            border-radius: 6px;
-            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 5px;
+            font-size: .68rem;
             font-weight: 700
         }
 
         .source-other {
             background: var(--gray-100);
             color: var(--gray-600);
-            padding: 3px 7px;
-            border-radius: 6px;
-            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 5px;
+            font-size: .68rem;
             font-weight: 700
         }
 
@@ -956,7 +1052,7 @@
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(15, 23, 42, 0.6);
+            background: rgba(15, 23, 42, .6);
             backdrop-filter: blur(6px);
             z-index: 1000;
             align-items: center;
@@ -966,7 +1062,7 @@
 
         .modal.active {
             display: flex;
-            animation: fadeIn 0.2s ease
+            animation: fadeIn .18s ease
         }
 
         @keyframes fadeIn {
@@ -982,23 +1078,23 @@
         .modal-content {
             background: white;
             border-radius: var(--radius-xl);
-            padding: 26px;
-            max-width: 640px;
+            padding: 24px;
+            max-width: 620px;
             width: 100%;
             position: relative;
             box-shadow: var(--shadow-xl);
-            animation: scaleIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: scaleIn .22s cubic-bezier(.4, 0, .2, 1);
             max-height: 90vh;
             overflow-y: auto
         }
 
         .modal-content-lg {
-            max-width: 860px
+            max-width: 840px
         }
 
         @keyframes scaleIn {
             from {
-                transform: scale(0.95);
+                transform: scale(.95);
                 opacity: 0
             }
 
@@ -1011,46 +1107,46 @@
         .modal-header {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
-            padding-bottom: 14px;
+            gap: 11px;
+            margin-bottom: 18px;
+            padding-bottom: 13px;
             border-bottom: 1px solid var(--gray-100)
         }
 
         .modal-icon {
-            width: 38px;
-            height: 38px;
+            width: 36px;
+            height: 36px;
             background: var(--primary-light);
-            border-radius: 11px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem
+            font-size: .95rem
         }
 
         .modal-title {
             font-family: 'Poppins', sans-serif;
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-weight: 700;
             color: var(--gray-800)
         }
 
         .modal-close {
             position: absolute;
-            top: 16px;
-            right: 16px;
-            width: 28px;
-            height: 28px;
-            border-radius: 8px;
+            top: 15px;
+            right: 15px;
+            width: 26px;
+            height: 26px;
+            border-radius: 7px;
             background: var(--gray-100);
             border: none;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.9rem;
+            font-size: .85rem;
             color: var(--gray-500);
-            transition: all 0.15s
+            transition: background .15s
         }
 
         .modal-close:hover {
@@ -1059,51 +1155,51 @@
 
         .modal-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
-            gap: 13px
+            grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+            gap: 11px
         }
 
         .modal-field {
-            margin-bottom: 12px
+            margin-bottom: 10px
         }
 
         .modal-label {
             display: block;
-            font-size: 0.73rem;
+            font-size: .7rem;
             font-weight: 700;
             color: var(--gray-600);
-            letter-spacing: 0.05em;
+            letter-spacing: .05em;
             text-transform: uppercase;
-            margin-bottom: 5px
+            margin-bottom: 4px
         }
 
         .modal-input {
             width: 100%;
-            padding: 9px 12px;
+            padding: 8px 11px;
             border: 1.5px solid var(--gray-200);
             border-radius: var(--radius);
-            font-size: 0.87rem;
+            font-size: .85rem;
             font-family: 'Inter', sans-serif;
             color: var(--gray-800);
             background: var(--gray-50);
             outline: none;
-            transition: all 0.2s
+            transition: all .18s
         }
 
         .modal-input:focus {
             border-color: var(--primary);
             background: white;
-            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1)
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, .10)
         }
 
         .modal-section-title {
-            font-size: 0.75rem;
+            font-size: .72rem;
             font-weight: 700;
             color: var(--primary-dark);
             text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin: 16px 0 9px;
-            padding: 7px 11px;
+            letter-spacing: .08em;
+            margin: 14px 0 8px;
+            padding: 6px 10px;
             background: var(--primary-light);
             border-radius: var(--radius-sm);
             border-left: 3px solid var(--primary)
@@ -1111,66 +1207,66 @@
 
         /* DELETE MODAL */
         .delete-modal-content {
-            max-width: 420px
+            max-width: 400px
         }
 
         .delete-modal-icon {
-            width: 60px;
-            height: 60px;
+            width: 56px;
+            height: 56px;
             background: linear-gradient(135deg, #fee2e2, #fecaca);
             border: 2px solid #fca5a5;
-            border-radius: 18px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.7rem;
-            margin: 0 auto 14px
+            font-size: 1.6rem;
+            margin: 0 auto 12px
         }
 
         .delete-modal-title {
             font-family: 'Poppins', sans-serif;
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             font-weight: 800;
             color: var(--gray-800);
             text-align: center;
-            margin-bottom: 8px
+            margin-bottom: 7px
         }
 
         .delete-modal-sub {
-            font-size: 0.85rem;
+            font-size: .82rem;
             color: var(--gray-500);
             text-align: center;
             line-height: 1.7;
-            margin-bottom: 6px
+            margin-bottom: 5px
         }
 
         .delete-show-name-display {
             background: var(--gray-50);
             border: 1.5px solid var(--gray-200);
             border-radius: var(--radius);
-            padding: 10px 14px;
+            padding: 9px 13px;
             text-align: center;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             font-weight: 700;
             color: var(--gray-800);
-            font-size: 0.9rem
+            font-size: .87rem
         }
 
         .delete-warning-text {
             background: var(--warning-light);
             border: 1px solid #fcd34d;
             border-radius: var(--radius);
-            padding: 9px 13px;
-            font-size: 0.79rem;
+            padding: 8px 12px;
+            font-size: .77rem;
             color: #78350f;
             font-weight: 600;
             text-align: center;
-            margin-bottom: 18px
+            margin-bottom: 16px
         }
 
         .delete-modal-btns {
             display: flex;
-            gap: 10px
+            gap: 9px
         }
 
         .delete-modal-btns .btn {
@@ -1178,21 +1274,39 @@
             justify-content: center
         }
 
+        /* NOTIFY MODAL */
+        .notify-modal-content {
+            max-width: 480px
+        }
+
+        .notify-email-chip {
+            background: white;
+            border: 1.5px solid #fcd34d;
+            border-radius: 20px;
+            padding: 3px 11px;
+            font-size: .74rem;
+            font-weight: 600;
+            color: #78350f;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px
+        }
+
         /* STATS */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
-            gap: 14px;
-            margin-bottom: 20px
+            grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
+            gap: 12px;
+            margin-bottom: 18px
         }
 
         .stat-card {
             background: white;
             border-radius: var(--radius-lg);
-            padding: 18px 16px;
+            padding: 16px 14px;
             box-shadow: var(--shadow);
             border: 1px solid var(--gray-100);
-            transition: transform 0.2s, box-shadow 0.2s
+            transition: transform .18s, box-shadow .18s
         }
 
         .stat-card:hover {
@@ -1201,31 +1315,31 @@
         }
 
         .stat-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 9px;
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.95rem;
-            margin-bottom: 11px
+            font-size: .9rem;
+            margin-bottom: 10px
         }
 
         .stat-number {
             font-family: 'Poppins', sans-serif;
-            font-size: 1.9rem;
+            font-size: 1.8rem;
             font-weight: 800;
-            letter-spacing: -0.04em;
+            letter-spacing: -.04em;
             line-height: 1;
             color: var(--gray-800);
             margin-bottom: 2px
         }
 
         .stat-label {
-            font-size: 0.72rem;
+            font-size: .7rem;
             font-weight: 600;
             color: var(--gray-500);
-            letter-spacing: 0.03em;
+            letter-spacing: .03em;
             text-transform: uppercase
         }
 
@@ -1253,9 +1367,9 @@
         .person-row {
             display: flex;
             align-items: center;
-            padding: 12px 0;
+            padding: 11px 0;
             border-bottom: 1px solid var(--gray-100);
-            gap: 12px
+            gap: 11px
         }
 
         .person-row:last-child {
@@ -1263,14 +1377,14 @@
         }
 
         .person-avatar {
-            width: 38px;
-            height: 38px;
-            border-radius: 11px;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 800;
-            font-size: 0.95rem;
+            font-size: .9rem;
             color: white;
             flex-shrink: 0
         }
@@ -1283,11 +1397,11 @@
         .person-name {
             font-weight: 700;
             color: var(--gray-800);
-            font-size: 0.88rem
+            font-size: .85rem
         }
 
         .person-tasks {
-            font-size: 0.74rem;
+            font-size: .72rem;
             color: var(--gray-500);
             margin-top: 2px
         }
@@ -1295,13 +1409,13 @@
         .person-bar-wrap {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 7px;
             flex-shrink: 0
         }
 
         .person-bar {
-            width: 90px;
-            height: 6px;
+            width: 80px;
+            height: 5px;
             background: var(--gray-200);
             border-radius: 10px;
             overflow: hidden
@@ -1310,14 +1424,14 @@
         .person-bar-fill {
             height: 100%;
             border-radius: 10px;
-            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1)
+            transition: width .7s cubic-bezier(.4, 0, .2, 1)
         }
 
         .person-pct {
-            font-size: 0.74rem;
+            font-size: .72rem;
             font-weight: 700;
             color: var(--gray-600);
-            min-width: 30px;
+            min-width: 28px;
             text-align: right
         }
 
@@ -1326,9 +1440,9 @@
             background: var(--gray-50);
             border: 1.5px solid var(--gray-200);
             border-radius: var(--radius-lg);
-            padding: 17px;
-            margin-bottom: 13px;
-            transition: all 0.2s
+            padding: 15px;
+            margin-bottom: 11px;
+            transition: all .18s
         }
 
         .worker-task-card:hover {
@@ -1337,72 +1451,72 @@
         }
 
         .worker-task-card.done {
-            opacity: 0.6
+            opacity: .6
         }
 
         .wtc-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 12px;
+            margin-bottom: 11px;
             flex-wrap: wrap;
-            gap: 8px
+            gap: 7px
         }
 
         .wtc-title {
             font-weight: 700;
-            font-size: 0.93rem;
+            font-size: .9rem;
             color: var(--gray-800)
         }
 
         .wtc-subtitle {
-            font-size: 0.76rem;
+            font-size: .73rem;
             color: var(--gray-500);
             margin-top: 2px
         }
 
         .wtc-tasks {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-            gap: 9px
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 8px
         }
 
         .wtc-task-item {
             background: white;
             border: 1.5px solid var(--gray-200);
             border-radius: var(--radius);
-            padding: 9px 11px;
+            padding: 8px 10px;
             display: flex;
             flex-direction: column;
-            gap: 5px
+            gap: 4px
         }
 
         .wtc-task-label {
-            font-size: 0.71rem;
+            font-size: .69rem;
             font-weight: 700;
             color: var(--gray-600);
             text-transform: uppercase;
-            letter-spacing: 0.04em
+            letter-spacing: .04em
         }
 
         /* DATE FILTER */
         .date-filter-tabs {
             display: flex;
-            gap: 6px;
+            gap: 5px;
             flex-wrap: wrap;
-            margin-bottom: 16px
+            margin-bottom: 14px
         }
 
         .date-filter-tab {
-            padding: 7px 15px;
+            padding: 6px 14px;
             border: 1.5px solid var(--gray-200);
             border-radius: 50px;
             background: var(--gray-50);
             color: var(--gray-600);
-            font-size: 0.81rem;
+            font-size: .79rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s
+            transition: all .18s
         }
 
         .date-filter-tab.active,
@@ -1415,13 +1529,13 @@
         .completed-show-row {
             display: flex;
             align-items: center;
-            gap: 13px;
-            padding: 11px 15px;
+            gap: 12px;
+            padding: 10px 14px;
             border-radius: var(--radius);
             background: var(--gray-50);
             border: 1px solid var(--gray-200);
-            margin-bottom: 7px;
-            transition: all 0.2s;
+            margin-bottom: 6px;
+            transition: all .18s;
             cursor: pointer
         }
 
@@ -1433,11 +1547,11 @@
         .completed-show-name {
             font-weight: 700;
             color: var(--gray-800);
-            font-size: 0.87rem
+            font-size: .84rem
         }
 
         .completed-show-meta {
-            font-size: 0.74rem;
+            font-size: .72rem;
             color: var(--gray-500);
             margin-top: 2px
         }
@@ -1445,9 +1559,9 @@
         .completed-show-date {
             background: var(--success-light);
             color: #065f46;
-            padding: 4px 10px;
+            padding: 3px 9px;
             border-radius: 20px;
-            font-size: 0.73rem;
+            font-size: .71rem;
             font-weight: 700;
             white-space: nowrap
         }
@@ -1455,19 +1569,19 @@
         .divider {
             height: 1px;
             background: linear-gradient(90deg, transparent, var(--gray-200), transparent);
-            margin: 16px 0
+            margin: 14px 0
         }
 
         /* SETTINGS */
         .conn-status-card {
             border-radius: var(--radius-lg);
-            padding: 18px 22px;
+            padding: 16px 20px;
             display: flex;
             align-items: center;
-            gap: 14px;
-            margin-bottom: 18px;
+            gap: 13px;
+            margin-bottom: 16px;
             border: 2px solid;
-            transition: all 0.3s
+            transition: all .25s
         }
 
         .conn-status-card.ok {
@@ -1487,7 +1601,7 @@
 
         .conn-status-title {
             font-family: 'Poppins', sans-serif;
-            font-size: 0.95rem;
+            font-size: .9rem;
             font-weight: 700;
             margin-bottom: 2px
         }
@@ -1505,8 +1619,8 @@
         }
 
         .conn-status-sub {
-            font-size: 0.8rem;
-            opacity: 0.8
+            font-size: .78rem;
+            opacity: .8
         }
 
         .conn-status-card.ok .conn-status-sub {
@@ -1522,8 +1636,8 @@
         }
 
         .pulse-ring {
-            width: 44px;
-            height: 44px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
             flex-shrink: 0;
             display: flex;
@@ -1568,7 +1682,7 @@
         }
 
         .pulse-ring span {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             position: relative;
             z-index: 1
         }
@@ -1589,110 +1703,107 @@
             background: var(--gray-50);
             border: 1.5px solid var(--gray-200);
             border-radius: var(--radius);
-            padding: 11px 13px;
-            margin-bottom: 16px;
+            padding: 10px 12px;
+            margin-bottom: 14px;
             word-break: break-all;
-            font-size: 0.77rem;
+            font-size: .75rem;
             color: var(--gray-600);
             font-family: 'Courier New', monospace
-        }
-
-        .settings-info-box {
-            background: linear-gradient(135deg, var(--primary-light), #ede9fe);
-            border: 1px solid rgba(108, 99, 255, 0.2);
-            border-radius: var(--radius-lg);
-            padding: 16px 18px;
-            margin-bottom: 18px
-        }
-
-        .settings-info-box p {
-            font-size: 0.85rem;
-            color: var(--primary-dark);
-            font-weight: 600;
-            margin-bottom: 6px
-        }
-
-        .settings-info-box ol {
-            padding-left: 16px;
-            color: var(--gray-600);
-            font-size: 0.82rem;
-            line-height: 2
         }
 
         .settings-locked {
             background: linear-gradient(135deg, #d1fae5, #a7f3d0);
             border: 2px solid #10b981;
             border-radius: var(--radius-lg);
-            padding: 18px 20px;
-            margin-bottom: 18px;
+            padding: 16px 18px;
+            margin-bottom: 16px;
             display: flex;
             align-items: center;
-            gap: 14px
+            gap: 13px
         }
 
         .settings-locked-icon {
-            font-size: 2rem;
+            font-size: 1.8rem;
             flex-shrink: 0
         }
 
         .settings-locked-title {
             font-weight: 800;
             color: #065f46;
-            font-size: 0.95rem;
-            margin-bottom: 4px
+            font-size: .9rem;
+            margin-bottom: 3px
         }
 
         .settings-locked-sub {
-            font-size: 0.8rem;
+            font-size: .78rem;
             color: #047857;
             line-height: 1.5
+        }
+
+        .notify-emails-card {
+            background: linear-gradient(135deg, #fffbeb, #fef3c7);
+            border: 2px solid #f59e0b;
+            border-radius: var(--radius-lg);
+            padding: 16px 18px;
+            margin-bottom: 16px
+        }
+
+        .notify-emails-title {
+            font-weight: 800;
+            color: #92400e;
+            font-size: .9rem;
+            margin-bottom: 7px;
+            display: flex;
+            align-items: center;
+            gap: 7px
+        }
+
+        .notify-emails-empty {
+            font-size: .78rem;
+            color: #b45309;
+            font-style: italic
         }
 
         .duplicate-banner {
             background: linear-gradient(135deg, #fef3c7, #fde68a);
             border: 2px solid #f59e0b;
             border-radius: var(--radius);
-            padding: 11px 15px;
-            margin-bottom: 12px;
+            padding: 10px 14px;
+            margin-bottom: 11px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            animation: slideIn 0.3s ease
+            gap: 9px;
+            animation: slideIn .25s ease
         }
 
         .duplicate-banner-text {
             flex: 1;
-            font-size: 0.83rem;
+            font-size: .81rem;
             font-weight: 600;
             color: #78350f
         }
 
-        .duplicate-banner-show {
-            font-weight: 800;
-            color: #92400e
-        }
-
         .user-info-card {
             background: linear-gradient(135deg, var(--primary-light), #ede9fe);
-            border: 1px solid rgba(108, 99, 255, 0.2);
+            border: 1px solid rgba(108, 99, 255, .2);
             border-radius: var(--radius-lg);
-            padding: 18px 20px;
-            margin-bottom: 18px;
+            padding: 16px 18px;
+            margin-bottom: 16px;
             display: flex;
             align-items: center;
-            gap: 14px
+            gap: 13px
         }
 
         .user-info-avatar {
-            width: 52px;
-            height: 52px;
-            border-radius: 14px;
+            width: 48px;
+            height: 48px;
+            border-radius: 13px;
             background: linear-gradient(135deg, #a855f7, #6c63ff);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 800;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: white;
             flex-shrink: 0;
             overflow: hidden
@@ -1702,53 +1813,53 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 14px
+            border-radius: 13px
         }
 
         .user-info-name {
             font-weight: 700;
             color: var(--primary-dark);
-            font-size: 0.95rem
+            font-size: .92rem
         }
 
         .user-info-email {
-            font-size: 0.8rem;
+            font-size: .78rem;
             color: var(--gray-600);
             margin-top: 2px
         }
 
         .user-info-badges {
             display: flex;
-            gap: 6px;
+            gap: 5px;
             flex-wrap: wrap;
-            margin-top: 6px
+            margin-top: 5px
         }
 
         .user-info-badge {
             display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: 3px;
             border-radius: 20px;
-            padding: 2px 8px;
-            font-size: 0.7rem;
+            padding: 2px 7px;
+            font-size: .68rem;
             font-weight: 700
         }
 
         .badge-domain {
-            background: rgba(108, 99, 255, 0.12);
-            border: 1px solid rgba(108, 99, 255, 0.25);
+            background: rgba(108, 99, 255, .12);
+            border: 1px solid rgba(108, 99, 255, .25);
             color: var(--primary-dark)
         }
 
         .badge-verified {
-            background: rgba(16, 185, 129, 0.12);
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            background: rgba(16, 185, 129, .12);
+            border: 1px solid rgba(16, 185, 129, .3);
             color: #059669
         }
 
         @media(max-width:768px) {
             .page-body {
-                padding: 14px 10px
+                padding: 12px 10px
             }
 
             .tabs-wrapper {
@@ -1757,7 +1868,7 @@
             }
 
             .card {
-                padding: 16px 12px
+                padding: 14px 11px
             }
 
             .stats-grid {
@@ -1768,10 +1879,7 @@
                 grid-template-columns: 1fr 1fr
             }
 
-            .nav-brand-text {
-                display: none
-            }
-
+            .nav-brand-text,
             .user-verified-badge {
                 display: none
             }
@@ -1781,7 +1889,7 @@
 
 <body>
 
-    <!-- AUTH CHECK SCREEN -->
+    <!-- AUTH CHECK -->
     <div class="auth-check-screen" id="authCheckScreen">
         <div class="auth-check-ring"></div>
         <div class="auth-check-text" id="authCheckText">Verifying your session…</div>
@@ -1861,7 +1969,7 @@
                             <input type="date" id="taskAssignDate">
                         </div>
                     </div>
-                    <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+                    <div style="margin-top:13px;display:flex;gap:9px;flex-wrap:wrap">
                         <button class="btn btn-primary" onclick="addShow()">➕ Add Show</button>
                         <button class="btn btn-ghost" onclick="loadShows()">🔄 Refresh</button>
                     </div>
@@ -1869,8 +1977,8 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title">
-                            <div class="card-title-icon">📋</div> Pipeline <span class="count-badge"
-                                id="shows-count">0</span>
+                            <div class="card-title-icon">📋</div> Pipeline
+                            <span class="count-badge" id="shows-count">0</span>
                         </div>
                         <button class="btn btn-ghost btn-sm" onclick="saveAllChanges()">💾 Save All</button>
                     </div>
@@ -1890,6 +1998,14 @@
                             <option value="">👤 All People</option>
                         </select>
                     </div>
+                    <div class="sort-bar">
+                        <span>Sort:</span>
+                        <button class="sort-btn active" id="sort-newest" onclick="setSortOrder('newest',this)">🆕 Newest
+                            First</button>
+                        <button class="sort-btn" id="sort-oldest" onclick="setSortOrder('oldest',this)">📅 Oldest
+                            First</button>
+                        <button class="sort-btn" id="sort-az" onclick="setSortOrder('az',this)">A→Z</button>
+                    </div>
                     <div class="loading" id="loading-shows">
                         <div class="spinner-ring"></div>
                         <div class="loading-text">Loading from Google Sheets…</div>
@@ -1906,10 +2022,10 @@
                             <div class="card-title-icon">👷</div> Worker View
                         </div>
                     </div>
-                    <p style="font-size:0.87rem;color:var(--gray-500);margin-bottom:16px;line-height:1.6">Enter your
-                        name to see all tasks assigned to you.</p>
+                    <p style="font-size:.85rem;color:var(--gray-500);margin-bottom:14px;line-height:1.6">Enter your name
+                        to see your assigned tasks.</p>
                     <div id="worker-alert" class="alert"></div>
-                    <div class="form-group" style="max-width:280px">
+                    <div class="form-group" style="max-width:260px">
                         <label>👤 Your Name</label>
                         <input type="text" id="workerNameInput" placeholder="e.g. Masthan, Shibraj…"
                             oninput="loadWorkerView()">
@@ -1992,18 +2108,18 @@
                             Month</button>
                         <button class="date-filter-tab" onclick="setCompletedFilter('all',this)">📋 All Time</button>
                     </div>
-                    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px">
-                        <label style="font-size:0.79rem;font-weight:600;color:var(--gray-600)">📅 Pick Month:</label>
+                    <div style="display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-bottom:14px">
+                        <label style="font-size:.77rem;font-weight:600;color:var(--gray-600)">📅 Pick Month:</label>
                         <select class="filter-select" id="monthPicker"
                             onchange="setCompletedFilter('custom-month',null)">
                             <option value="">— Select Month —</option>
                         </select>
-                        <label style="font-size:0.79rem;font-weight:600;color:var(--gray-600)">📅 Pick Day:</label>
+                        <label style="font-size:.77rem;font-weight:600;color:var(--gray-600)">📅 Pick Day:</label>
                         <input type="date" id="dayPicker" class="filter-select"
                             onchange="setCompletedFilter('custom-day',null)"
-                            style="padding:8px 11px;font-family:Inter,sans-serif">
+                            style="padding:7px 10px;font-family:Inter,sans-serif">
                     </div>
-                    <div id="completed-summary" style="margin-bottom:14px"></div>
+                    <div id="completed-summary" style="margin-bottom:13px"></div>
                     <div id="completed-results">
                         <div class="empty-state">
                             <div class="empty-icon">✅</div>
@@ -2035,16 +2151,36 @@
                         </div>
                     </div>
                 </div>
+                <div class="notify-emails-card">
+                    <div class="notify-emails-title">
+                        📧 Notification Recipients
+                        <span id="notifyEmailsCount"
+                            style="background:#f59e0b;color:white;border-radius:20px;padding:2px 9px;font-size:.7rem">0
+                            emails</span>
+                    </div>
+                    <div style="font-size:.78rem;color:#92400e;margin-bottom:9px;line-height:1.6">
+                        Emails stored in Cloudflare <code
+                            style="background:#fde68a;padding:1px 5px;border-radius:4px">NOTIFICATION_EMAILS</code>
+                        secret.
+                    </div>
+                    <div id="notifyEmailsList" style="display:flex;flex-wrap:wrap;gap:5px;min-height:28px">
+                        <div class="notify-emails-empty">Loading…</div>
+                    </div>
+                    <div style="margin-top:11px;display:flex;gap:7px;flex-wrap:wrap">
+                        <button class="btn btn-sm"
+                            style="background:linear-gradient(135deg,#f59e0b,#d97706);color:white;border:none"
+                            onclick="loadNotifyEmails()">🔄 Refresh</button>
+                        <button class="btn btn-sm"
+                            style="background:linear-gradient(135deg,#6c63ff,#4f46e5);color:white;border:none"
+                            onclick="sendTestNotification()">🧪 Send Test Email</button>
+                    </div>
+                </div>
                 <div class="settings-locked">
                     <div class="settings-locked-icon">🔐</div>
                     <div>
                         <div class="settings-locked-title">Sheet URL is Auto-Configured via Cloudflare</div>
-                        <div class="settings-locked-sub">
-                            Your Google Sheet connection and all API keys are stored as encrypted secrets in the
-                            Cloudflare Worker
-                            (<strong>teamtask.masthan9369.workers.dev</strong>). No manual URL entry is ever needed.
-                            Contact your admin to update secrets.
-                        </div>
+                        <div class="settings-locked-sub">All API keys and Sheet URLs are stored as encrypted secrets in
+                            Cloudflare Worker (<strong>teamtask.masthan9369.workers.dev</strong>).</div>
                     </div>
                 </div>
                 <div class="card">
@@ -2053,131 +2189,13 @@
                             <div class="card-title-icon">⚙️</div> Connection Info
                         </div>
                     </div>
-                    <div class="url-display-box" id="current-url-text">🔐 Configured via Cloudflare Worker — credentials
-                        hidden for security</div>
+                    <div class="url-display-box">🔐 Configured via Cloudflare Worker — credentials hidden for security
+                    </div>
                     <div id="url-alert" class="alert"></div>
-                    <div class="divider"></div>
-                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-                        <p style="font-weight:700;color:var(--gray-700);font-size:0.87rem;margin:0">📋 Apps Script Code
-                        </p>
-                        <button class="btn btn-ghost btn-sm" onclick="toggleScript()" id="scriptToggleBtn">👁️ Show
-                            Script</button>
-                    </div>
-                    <div id="scriptWrapper" style="display:none">
-                        <pre id="scriptCode"
-                            style="background:#0f172a;border-radius:var(--radius-lg);padding:16px;overflow-x:auto;font-family:'Courier New',monospace;font-size:0.74rem;line-height:1.7;color:#e2e8f0;white-space:pre-wrap;max-height:300px;overflow-y:auto;border:1px solid rgba(255,255,255,0.08)">const SHEET_NAME = "Scrapping Discussion";
-
-function doGet(e) {
-  try {
-    const action = e.parameter.action;
-    const ss = SpreadsheetApp.getActiveSpreadsheet();
-    const sheet = ss.getSheetByName(SHEET_NAME);
-    if (!sheet) return jsonOut({ success: false, message: "Sheet not found: " + SHEET_NAME });
-    if (action === "ping") {
-      return jsonOut({ success: true, message: "Connected to " + SHEET_NAME + " (" + (sheet.getLastRow()-1) + " rows)" });
-    }
-    if (action === "getAll") {
-      const lastRow = sheet.getLastRow();
-      if (lastRow <= 1) return jsonOut({ success: true, rows: [] });
-      const data = sheet.getRange(1, 1, lastRow, 20).getValues();
-      function fmtDate(val) {
-        if (!val) return "";
-        if (val instanceof Date && !isNaN(val)) {
-          const d=String(val.getDate()).padStart(2,'0'),m=String(val.getMonth()+1).padStart(2,'0'),y=val.getFullYear();
-          if (y<2000||y>2100) return "";
-          return d+"/"+m+"/"+y;
-        }
-        const s=String(val).trim();
-        return (s==="0"||s==="NaN")?"":s;
-      }
-      function clean(val) {
-        if (val===null||val===undefined) return "";
-        const s=String(val).trim();
-        return (s==="0"||s==="false")?"":s;
-      }
-      const rows=data.slice(1).map((row,i)=>({
-        rowNum:clean(row[0])||String(i+1), showName:clean(row[1]),
-        status:clean(row[2])||"Pending", taskDoneBy:clean(row[3]),
-        sourcePlace:clean(row[4]), scrapedFile:clean(row[5]),
-        chineseFile:clean(row[6]), chineseBy:clean(row[7]),
-        chineseSrt:clean(row[8]), chineseSrtBy:clean(row[9]),
-        englishSrt:clean(row[10]), englishSrtBy:clean(row[11]),
-        merging:clean(row[12]), mergingBy:clean(row[13]),
-        subtitleDocx:clean(row[14]), subtitleDocxBy:clean(row[15]),
-        toolScript:clean(row[16]), toolScriptBy:clean(row[17]),
-        assignDate:fmtDate(row[18]), completedDate:fmtDate(row[19]),
-        _sheetRowIndex:i+2
-      })).filter(r=>r.showName!=="");
-      return jsonOut({ success:true, rows:rows, total:rows.length });
-    }
-    return jsonOut({ success:false, message:"Unknown action: "+action });
-  } catch(err) { return jsonOut({ success:false, message:"Error: "+err.toString() }); }
-}
-
-function doPost(e) {
-  try {
-    const data=JSON.parse(e.postData.contents), action=data.action;
-    const ss=SpreadsheetApp.getActiveSpreadsheet();
-    const sheet=ss.getSheetByName(SHEET_NAME);
-    if (!sheet) return jsonOut({ success:false, message:"Sheet not found" });
-    if (action==="addRow") {
-      sheet.appendRow([sheet.getLastRow(),data.showName||"",data.status||"Pending",data.taskDoneBy||"",
-        data.sourcePlace||"",data.scrapedFile||"",data.chineseFile||"",data.chineseBy||"",
-        data.chineseSrt||"",data.chineseSrtBy||"",data.englishSrt||"",data.englishSrtBy||"",
-        data.merging||"",data.mergingBy||"",data.subtitleDocx||"",data.subtitleDocxBy||"",
-        data.toolScript||"",data.toolScriptBy||"",data.assignDate||"",data.completedDate||""]);
-      SpreadsheetApp.flush();
-      return jsonOut({ success:true, message:"Added" });
-    }
-    if (action==="updateRow") {
-      const allData=sheet.getDataRange().getValues(), idx=parseInt(data.sheetRowIndex);
-      const makeRow=(orig)=>[orig,data.showName||"",data.status||"Pending",data.taskDoneBy||"",
-        data.sourcePlace||"",data.scrapedFile||"",data.chineseFile||"",data.chineseBy||"",
-        data.chineseSrt||"",data.chineseSrtBy||"",data.englishSrt||"",data.englishSrtBy||"",
-        data.merging||"",data.mergingBy||"",data.subtitleDocx||"",data.subtitleDocxBy||"",
-        data.toolScript||"",data.toolScriptBy||"",data.assignDate||"",data.completedDate||""];
-      if (idx>=2&&idx<=allData.length) {
-        const rn=String(allData[idx-1][1]).trim().toLowerCase(),dn=String(data.oldShowName||data.showName||"").trim().toLowerCase();
-        if (rn===dn||rn===String(data.showName||"").trim().toLowerCase()) {
-          sheet.getRange(idx,1,1,20).setValues([makeRow(allData[idx-1][0])]);
-          SpreadsheetApp.flush(); return jsonOut({ success:true, message:"Updated row "+idx });
-        }
-      }
-      for (let i=1;i<allData.length;i++) {
-        const rn=String(allData[i][1]).trim().toLowerCase(),dn=String(data.oldShowName||data.showName||"").trim().toLowerCase();
-        if (rn===dn) { sheet.getRange(i+1,1,1,20).setValues([makeRow(allData[i][0])]); SpreadsheetApp.flush(); return jsonOut({ success:true, message:"Updated row "+(i+1) }); }
-      }
-      return jsonOut({ success:false, message:"Not found: "+data.showName });
-    }
-    if (action==="deleteRow") {
-      const allData=sheet.getDataRange().getValues(), idx=parseInt(data.sheetRowIndex);
-      if (idx>=2&&idx<=allData.length) {
-        if (String(allData[idx-1][1]).trim().toLowerCase()===String(data.showName||"").trim().toLowerCase()) {
-          sheet.deleteRow(idx); SpreadsheetApp.flush(); return jsonOut({ success:true, message:"Deleted row "+idx });
-        }
-      }
-      for (let i=allData.length-1;i>=1;i--) {
-        if (String(allData[i][1]).trim().toLowerCase()===String(data.showName||"").trim().toLowerCase()) {
-          sheet.deleteRow(i+1); SpreadsheetApp.flush(); return jsonOut({ success:true, message:"Deleted row "+(i+1) });
-        }
-      }
-      return jsonOut({ success:false, message:"Not found: "+data.showName });
-    }
-    return jsonOut({ success:false, message:"Unknown action: "+action });
-  } catch(err) { return jsonOut({ success:false, message:"Error: "+err.toString() }); }
-}
-
-function jsonOut(obj) {
-  return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
-}</pre>
-                        <button class="btn btn-ghost" onclick="copyScript()"
-                            style="margin-top:10px;font-size:0.79rem;padding:6px 13px">📋 Copy Script</button>
-                    </div>
                 </div>
             </div>
-
-        </div><!-- /page-body -->
-    </div><!-- /mainApp -->
+        </div>
+    </div>
 
     <!-- EDIT MODAL -->
     <div class="modal" id="editModal">
@@ -2187,7 +2205,7 @@ function jsonOut(obj) {
                 <div class="modal-icon">✏️</div>
                 <div>
                     <div class="modal-title">Edit Show</div>
-                    <div style="font-size:0.78rem;color:var(--gray-500);margin-top:2px" id="editModalSubtitle"></div>
+                    <div style="font-size:.76rem;color:var(--gray-500);margin-top:2px" id="editModalSubtitle"></div>
                 </div>
             </div>
             <input type="hidden" id="editIdx">
@@ -2276,7 +2294,7 @@ function jsonOut(obj) {
                 <div class="modal-field"><label class="modal-label">Tool Script — By</label><input class="modal-input"
                         type="text" id="em-toolScriptBy"></div>
             </div>
-            <div style="display:flex;gap:10px;margin-top:8px">
+            <div style="display:flex;gap:9px;margin-top:7px">
                 <button class="btn btn-primary" onclick="saveEditModal()" style="flex:1;justify-content:center">💾 Save
                     Changes</button>
                 <button class="btn btn-ghost" onclick="closeEditModal()">Cancel</button>
@@ -2292,8 +2310,7 @@ function jsonOut(obj) {
                 <div class="delete-modal-title">Delete Show?</div>
                 <div class="delete-modal-sub">You are about to permanently delete:</div>
                 <div class="delete-show-name-display" id="deleteShowName">—</div>
-                <div class="delete-warning-text">⚠️ This action <strong>cannot be undone</strong>. Data will be
-                    permanently removed.</div>
+                <div class="delete-warning-text">⚠️ This action <strong>cannot be undone</strong>.</div>
                 <div class="delete-modal-btns">
                     <button class="btn btn-ghost" onclick="closeDeleteModal()">✕ Cancel</button>
                     <button class="btn btn-danger-full" id="deleteConfirmBtn">🗑️ Yes, Delete It</button>
@@ -2310,14 +2327,14 @@ function jsonOut(obj) {
                 <div class="modal-icon">✏️</div>
                 <div>
                     <div class="modal-title">Update Task</div>
-                    <div style="font-size:0.78rem;color:var(--gray-500);margin-top:2px" id="workerModalTitle"></div>
+                    <div style="font-size:.76rem;color:var(--gray-500);margin-top:2px" id="workerModalTitle"></div>
                 </div>
             </div>
             <input type="hidden" id="wm-showIdx">
             <input type="hidden" id="wm-taskKey">
             <div class="modal-field">
                 <label class="modal-label">Task</label>
-                <div id="wm-taskLabel" style="font-weight:700;color:var(--gray-700);padding:8px 0;font-size:0.9rem">
+                <div id="wm-taskLabel" style="font-weight:700;color:var(--gray-700);padding:7px 0;font-size:.88rem">
                 </div>
             </div>
             <div class="modal-field">
@@ -2329,38 +2346,60 @@ function jsonOut(obj) {
                 </select>
             </div>
             <button class="btn btn-success" onclick="saveWorkerUpdate()"
-                style="width:100%;justify-content:center;margin-top:6px">✅ Save Update</button>
+                style="width:100%;justify-content:center;margin-top:5px">✅ Save Update</button>
         </div>
     </div>
 
-    <!-- ══ FIREBASE AUTH MODULE ══ -->
+    <!-- NOTIFICATION MODAL -->
+    <div class="modal" id="notifyModal">
+        <div class="modal-content notify-modal-content">
+            <button class="modal-close" onclick="closeNotifyModal()">✕</button>
+            <div class="modal-header">
+                <div class="modal-icon" style="background:linear-gradient(135deg,#fef3c7,#fde68a)">📧</div>
+                <div>
+                    <div class="modal-title" id="notifyModalTitle">Send Notification</div>
+                    <div style="font-size:.76rem;color:var(--gray-500);margin-top:2px" id="notifyModalSubtitle"></div>
+                </div>
+            </div>
+            <div id="notifyShowPreview"
+                style="background:var(--gray-50);border:1.5px solid var(--gray-200);border-radius:var(--radius);padding:12px 14px;margin-bottom:14px">
+            </div>
+            <div style="margin-bottom:13px">
+                <div
+                    style="font-size:.72rem;font-weight:700;color:var(--gray-600);text-transform:uppercase;letter-spacing:.05em;margin-bottom:7px">
+                    📧 Recipients</div>
+                <div id="notifyRecipientsList" style="display:flex;flex-wrap:wrap;gap:5px;min-height:30px"><span
+                        style="font-size:.78rem;color:var(--gray-400);font-style:italic">Loading emails…</span></div>
+                <div id="notifyEmailCount" style="font-size:.72rem;color:var(--gray-500);margin-top:5px"></div>
+            </div>
+            <div id="notify-modal-alert" class="alert"></div>
+            <div style="display:flex;gap:9px;margin-top:3px">
+                <button class="btn btn-success" id="notifySendBtn" onclick="executeSendNotification()"
+                    style="flex:1;justify-content:center">📧 Send Notification</button>
+                <button class="btn btn-ghost" onclick="closeNotifyModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FIREBASE AUTH -->
     <script type="module">
         const WORKER_URL = 'https://teamtask.masthan9369.workers.dev';
-
-        // ── Fetch config from Cloudflare Worker ──────────────────
         async function fetchConfig() {
             try {
                 const r = await fetch(`${WORKER_URL}/config`);
                 if (!r.ok) throw new Error(`Worker HTTP ${r.status}`);
                 return await r.json();
-            } catch (e) {
-                console.error('Config fetch failed:', e);
-                return null;
-            }
+            } catch (e) { console.error('Config fetch failed:', e); return null; }
         }
-
         const cfg = await fetchConfig();
         if (!cfg || !cfg.firebaseConfig) {
             document.getElementById('authCheckText').textContent = '❌ Failed to load config. Check Worker.';
             throw new Error('Config load failed');
         }
-
-        // Expose to app logic
         window.WORKER_URL = WORKER_URL;
         window.SHEET_CONFIGURED = !!cfg.sheetUrl;
         const ALLOWED_DOMAIN = cfg.allowedDomain || '@dashverse.ai';
 
-        // ── Firebase ─────────────────────────────────────────────
         const { initializeApp } = await import('https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js');
         const { getAuth, onAuthStateChanged, signOut } = await import('https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js');
 
@@ -2371,77 +2410,69 @@ function jsonOut(obj) {
             const checkScreen = document.getElementById('authCheckScreen');
             const mainApp = document.getElementById('mainApp');
             const checkText = document.getElementById('authCheckText');
-
-            if (!user) {
-                localStorage.removeItem('stm_fb_session');
-                window.location.href = 'auth.html';
-                return;
-            }
+            if (!user) { localStorage.removeItem('stm_fb_session'); window.location.href = 'auth.html'; return; }
             if (!user.emailVerified) {
                 checkText.textContent = 'Email not verified. Redirecting…';
-                signOut(auth);
-                localStorage.removeItem('stm_fb_session');
-                setTimeout(() => { window.location.href = 'auth.html'; }, 1200);
-                return;
+                signOut(auth); localStorage.removeItem('stm_fb_session');
+                setTimeout(() => { window.location.href = 'auth.html'; }, 1200); return;
             }
             if (!user.email.endsWith(ALLOWED_DOMAIN)) {
                 checkText.textContent = 'Access denied. Redirecting…';
-                signOut(auth);
-                localStorage.removeItem('stm_fb_session');
-                setTimeout(() => { window.location.href = 'auth.html'; }, 1200);
-                return;
+                signOut(auth); localStorage.removeItem('stm_fb_session');
+                setTimeout(() => { window.location.href = 'auth.html'; }, 1200); return;
             }
-
-            // ✅ Valid user
-            const session = {
-                uid: user.uid, email: user.email,
-                name: user.displayName || user.email.split('@')[0],
-                photoURL: user.photoURL || '', emailVerified: true
-            };
+            const session = { uid: user.uid, email: user.email, name: user.displayName || user.email.split('@')[0], photoURL: user.photoURL || '', emailVerified: true };
             localStorage.setItem('stm_fb_session', JSON.stringify(session));
-
             const initials = session.name.charAt(0).toUpperCase();
             const nameEl = document.getElementById('userDisplayName');
             const avatarEl = document.getElementById('userAvatarEl');
             if (nameEl) nameEl.textContent = session.name;
             if (avatarEl) avatarEl.innerHTML = session.photoURL ? `<img src="${session.photoURL}" alt="${initials}">` : initials;
-
-            const sNameEl = document.getElementById('settingsUserName');
-            const sEmailEl = document.getElementById('settingsUserEmail');
-            const sAvEl = document.getElementById('settingsUserAvatar');
-            if (sNameEl) sNameEl.textContent = session.name;
-            if (sEmailEl) sEmailEl.textContent = session.email;
-            if (sAvEl) sAvEl.innerHTML = session.photoURL ? `<img src="${session.photoURL}" alt="${initials}">` : initials;
-
+            ['settingsUserName', 'settingsUserEmail', 'settingsUserAvatar'].forEach((id, i) => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                if (id === 'settingsUserName') el.textContent = session.name;
+                if (id === 'settingsUserEmail') el.textContent = session.email;
+                if (id === 'settingsUserAvatar') el.innerHTML = session.photoURL ? `<img src="${session.photoURL}" alt="${initials}">` : initials;
+            });
+            window.CURRENT_USER_NAME = session.name;
             checkScreen.style.display = 'none';
             mainApp.style.display = 'block';
             window.initApp();
         });
     </script>
 
-    <!-- ══ APP LOGIC ══ -->
+    <!-- APP LOGIC -->
     <script>
-        // ── State ─────────────────────────────────────────────────
+        // ── State ──────────────────────────────────────────────────────
         let allShows = [];
         let pendingDeletes = {};
         let deleteTarget = null;
         let activeCompletedFilter = 'today';
+        let notificationEmails = [];
+        let notifyTarget = null;
+        let currentSortOrder = 'newest'; // 'newest' | 'oldest' | 'az'
+        // Track newly added shows this session (by showName lowercase)
+        const newlyAdded = new Set();
+        const notifiedMandatory = new Set(
+            JSON.parse(localStorage.getItem('_notifiedMandatory') || '[]')
+        );
 
         const WORKER = 'https://teamtask.masthan9369.workers.dev';
 
         const TASK_FIELDS = [
-            { key: 'chineseFile', label: '🇨🇳 Chinese File', byKey: 'chineseBy' },
-            { key: 'chineseSrt', label: '📝 Chinese SRT', byKey: 'chineseSrtBy' },
-            { key: 'englishSrt', label: '📝 English SRT', byKey: 'englishSrtBy' },
-            { key: 'merging', label: '🔀 Merging', byKey: 'mergingBy' },
-            { key: 'subtitleDocx', label: '📄 Subtitle DOCX', byKey: 'subtitleDocxBy' },
-            { key: 'toolScript', label: '🛠️ Tool Script', byKey: 'toolScriptBy' },
+            { key: 'chineseFile', label: 'Chinese File', byKey: 'chineseBy' },
+            { key: 'chineseSrt', label: 'Chinese SRT', byKey: 'chineseSrtBy' },
+            { key: 'englishSrt', label: 'English SRT', byKey: 'englishSrtBy' },
+            { key: 'merging', label: 'Merging', byKey: 'mergingBy' },
+            { key: 'subtitleDocx', label: 'Subtitle DOCX', byKey: 'subtitleDocxBy' },
+            { key: 'toolScript', label: 'Tool Script', byKey: 'toolScriptBy' },
         ];
-
+        const MANDATORY_TASK_KEYS = ['chineseFile', 'chineseSrt', 'englishSrt', 'merging'];
         const AVATAR_COLORS = ['#6c63ff', '#f59e0b', '#10b981', '#ef4444', '#3b82f6', '#8b5cf6', '#06b6d4', '#f97316'];
 
-        // ── Helpers ────────────────────────────────────────────────
-        function showKey(s) { return (s.showName + '||' + (s.assignDate || '')).toLowerCase().trim(); }
+        // ── Helpers ────────────────────────────────────────────────────
+        const showKey = s => (s.showName + '||' + (s.assignDate || '')).toLowerCase().trim();
         function esc(s) {
             if (!s) return '';
             return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -2456,8 +2487,7 @@ function jsonOut(obj) {
         function inputToDate(v) {
             if (!v) return '';
             const p = v.split('-');
-            if (p.length === 3) return `${p[2]}/${p[1]}/${p[0]}`;
-            return v;
+            return p.length === 3 ? `${p[2]}/${p[1]}/${p[0]}` : v;
         }
         function parseDate(v) {
             if (!v) return null;
@@ -2474,7 +2504,7 @@ function jsonOut(obj) {
             return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
         }
         function sourceTag(src) {
-            if (!src) return '<em style="color:var(--gray-400);font-size:0.76rem">—</em>';
+            if (!src) return '<em style="color:var(--gray-400);font-size:.73rem">—</em>';
             const s = src.toLowerCase();
             const cls = s === 'drive' ? 'source-drive' : s === 'youtube' ? 'source-youtube' : s === 'dailymotion' ? 'source-dailymotion' : 'source-other';
             return `<span class="${cls}">${esc(src)}</span>`;
@@ -2486,17 +2516,40 @@ function jsonOut(obj) {
             el.textContent = msg;
             el.style.display = 'block';
             clearTimeout(el._t);
-            el._t = setTimeout(() => el.style.display = 'none', 7000);
+            el._t = setTimeout(() => el.style.display = 'none', 6000);
         }
         function statusBadgeClass(s) {
-            if (!s) return '';
             if (s === 'Completed') return 'st-completed-badge';
             if (s === 'In Progress') return 'st-progress-badge';
             if (s === 'Pending') return 'st-pending-badge';
             return '';
         }
+        function areMandatoryTasksDone(show) {
+            return MANDATORY_TASK_KEYS.every(k => show[k] === 'Completed');
+        }
 
-        // ── Duplicate check ────────────────────────────────────────
+        // ── Sort ───────────────────────────────────────────────────────
+        function setSortOrder(order, btn) {
+            currentSortOrder = order;
+            document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            filterShows();
+        }
+
+        function applySortOrder(shows) {
+            const arr = [...shows];
+            if (currentSortOrder === 'newest') {
+                // Sort by _sheetRowIndex descending (highest row = newest)
+                arr.sort((a, b) => (b._sheetRowIndex || 0) - (a._sheetRowIndex || 0));
+            } else if (currentSortOrder === 'oldest') {
+                arr.sort((a, b) => (a._sheetRowIndex || 0) - (b._sheetRowIndex || 0));
+            } else if (currentSortOrder === 'az') {
+                arr.sort((a, b) => (a.showName || '').localeCompare(b.showName || ''));
+            }
+            return arr;
+        }
+
+        // ── Duplicate check ────────────────────────────────────────────
         function checkDuplicate(val) {
             const dw = document.getElementById('duplicate-warning');
             if (!dw) return;
@@ -2505,11 +2558,11 @@ function jsonOut(obj) {
             const exists = allShows.find(s => s.showName.trim().toLowerCase() === v);
             if (exists) {
                 dw.style.display = 'block';
-                dw.innerHTML = `<div class="duplicate-banner"><span style="font-size:1.1rem">⚠️</span><span class="duplicate-banner-text">A show named <span class="duplicate-banner-show">"${esc(exists.showName)}"</span> already exists!</span><button onclick="document.getElementById('duplicate-warning').style.display='none'" style="background:none;border:none;cursor:pointer;font-size:1rem;color:#78350f">✕</button></div>`;
+                dw.innerHTML = `<div class="duplicate-banner"><span>⚠️</span><span class="duplicate-banner-text">A show named <strong>"${esc(exists.showName)}"</strong> already exists!</span><button onclick="document.getElementById('duplicate-warning').style.display='none'" style="background:none;border:none;cursor:pointer;font-size:.95rem;color:#78350f">✕</button></div>`;
             } else { dw.style.display = 'none'; }
         }
 
-        // ── Connection badge ───────────────────────────────────────
+        // ── Connection badge ───────────────────────────────────────────
         function setConn(state, rowCount) {
             const b = document.getElementById('conn-badge');
             if (b) {
@@ -2533,7 +2586,7 @@ function jsonOut(obj) {
             } else if (state === 'fail') {
                 icon.textContent = '✕';
                 title.textContent = '❌ Connection Failed';
-                sub.textContent = 'Could not reach Google Sheets via Worker. Check Worker SHEET_URL secret.';
+                sub.textContent = 'Could not reach Google Sheets via Worker.';
             } else {
                 icon.textContent = '⚡';
                 title.textContent = 'Connecting via Cloudflare…';
@@ -2541,16 +2594,17 @@ function jsonOut(obj) {
             }
         }
 
-        // ── Init ───────────────────────────────────────────────────
+        // ── Init ───────────────────────────────────────────────────────
         window.initApp = function () {
             const ad = document.getElementById('taskAssignDate');
             if (ad) ad.value = new Date().toISOString().split('T')[0];
             setConn('none');
             populateMonthPicker();
             loadShows();
+            loadNotifyEmails();
         };
 
-        // ── Tab switching ──────────────────────────────────────────
+        // ── Tab switching ──────────────────────────────────────────────
         function switchTab(name, btn) {
             document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -2560,7 +2614,7 @@ function jsonOut(obj) {
             if (name === 'completed-filter') renderCompletedFilter();
         }
 
-        // ── API — all via Cloudflare Worker ───────────────────────
+        // ── API ────────────────────────────────────────────────────────
         async function callGet(params = {}) {
             try {
                 const url = new URL(`${WORKER}/sheet`);
@@ -2570,7 +2624,6 @@ function jsonOut(obj) {
                 return JSON.parse(await r.text());
             } catch (e) { console.error('GET error:', e); return null; }
         }
-
         async function callPost(action, data = {}) {
             try {
                 const r = await fetch(`${WORKER}/sheet`, {
@@ -2582,30 +2635,144 @@ function jsonOut(obj) {
                 return JSON.parse(await r.text());
             } catch (e) { console.error('POST error:', e); return null; }
         }
+        async function callSendNotification(payload) {
+            try {
+                const r = await fetch(`${WORKER}/send-notification`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (!r.ok) throw new Error('HTTP ' + r.status);
+                return JSON.parse(await r.text());
+            } catch (e) { console.error('Notification error:', e); return { success: false, message: e.message }; }
+        }
 
+        // ── Notification emails ────────────────────────────────────────
+        async function loadNotifyEmails() {
+            try {
+                const r = await fetch(`${WORKER}/notify-emails`);
+                const data = await r.json();
+                if (data.success) { notificationEmails = data.emails || []; renderNotifyEmailsInSettings(); }
+            } catch (e) { console.warn('Could not load notify emails:', e); }
+        }
+        function renderNotifyEmailsInSettings() {
+            const listEl = document.getElementById('notifyEmailsList');
+            const countEl = document.getElementById('notifyEmailsCount');
+            if (!listEl) return;
+            const n = notificationEmails.length;
+            if (countEl) countEl.textContent = `${n} email${n !== 1 ? 's' : ''}`;
+            if (n === 0) {
+                listEl.innerHTML = `<div class="notify-emails-empty">No emails configured. Add NOTIFICATION_EMAILS secret to Cloudflare Worker.</div>`;
+                return;
+            }
+            listEl.innerHTML = notificationEmails.map(e => `<span class="notify-email-chip">📧 ${esc(e)}</span>`).join('');
+        }
+        async function sendTestNotification() {
+            if (notificationEmails.length === 0) { showAlert('url-alert', 'warning', '⚠️ No notification emails configured.'); return; }
+            showAlert('url-alert', 'success', '⏳ Sending test email…');
+            const r = await callSendNotification({ type: 'test', senderName: window.CURRENT_USER_NAME || 'Team Member', emails: notificationEmails });
+            if (r && r.success) showAlert('url-alert', 'success', `✅ Test email sent to ${r.sent || notificationEmails.length} recipient(s)!`);
+            else showAlert('url-alert', 'error', '❌ Test failed: ' + (r ? r.message : 'no response'));
+        }
+
+        // ── Notification modal ─────────────────────────────────────────
+        function openNotifyModal(showIdx, type) {
+            const show = allShows[showIdx]; if (!show) return;
+            if (notificationEmails.length === 0) loadNotifyEmails();
+            notifyTarget = { showIdx, show, type };
+            const titleEl = document.getElementById('notifyModalTitle');
+            const subtitleEl = document.getElementById('notifyModalSubtitle');
+            const previewEl = document.getElementById('notifyShowPreview');
+            const recipEl = document.getElementById('notifyRecipientsList');
+            const countEl = document.getElementById('notifyEmailCount');
+
+            if (type === 'new_show') {
+                titleEl.textContent = '📧 Notify: New Show Added';
+                subtitleEl.textContent = '🎬 ' + show.showName;
+                previewEl.innerHTML = `<div style="font-weight:700;color:var(--gray-800);font-size:.88rem;margin-bottom:7px">🎬 ${esc(show.showName)}</div><div style="display:flex;gap:7px;flex-wrap:wrap;font-size:.76rem;color:var(--gray-600)">${show.sourcePlace ? `<span>${sourceTag(show.sourcePlace)}</span>` : ''} ${show.taskDoneBy ? `<span>👤 ${esc(show.taskDoneBy)}</span>` : ''} ${show.assignDate ? `<span>📅 ${esc(show.assignDate)}</span>` : ''}</div>`;
+            } else {
+                titleEl.textContent = '🎉 Notify: Mandatory Tasks Done';
+                subtitleEl.textContent = '🎬 ' + show.showName;
+                previewEl.innerHTML = `<div style="font-weight:700;color:var(--gray-800);font-size:.88rem;margin-bottom:9px">🎉 ${esc(show.showName)} — All 4 mandatory tasks done!</div>`
+                    + MANDATORY_TASK_KEYS.map(k => {
+                        const tf = TASK_FIELDS.find(t => t.key === k);
+                        const by = show[tf.byKey] || '';
+                        return `<div style="display:flex;align-items:center;gap:5px;padding:3px 0;border-bottom:1px solid var(--gray-100);font-size:.78rem"><span style="color:var(--success)">✅</span><span style="font-weight:600;color:var(--gray-700)">${tf ? tf.label : k}</span>${by ? `<span style="color:var(--gray-500);margin-left:auto">by ${esc(by)}</span>` : ''}</div>`;
+                    }).join('');
+            }
+
+            if (notificationEmails.length > 0) {
+                recipEl.innerHTML = notificationEmails.map(e => `<span class="notify-email-chip">📧 ${esc(e)}</span>`).join('');
+                if (countEl) countEl.textContent = `${notificationEmails.length} recipient(s) will be notified`;
+            } else {
+                recipEl.innerHTML = `<span style="font-size:.78rem;color:var(--danger);font-weight:600">⚠️ No emails configured in NOTIFICATION_EMAILS Worker secret.</span>`;
+                if (countEl) countEl.textContent = '';
+            }
+
+            const alertEl = document.getElementById('notify-modal-alert');
+            if (alertEl) alertEl.style.display = 'none';
+            const sendBtn = document.getElementById('notifySendBtn');
+            if (sendBtn) { sendBtn.disabled = false; sendBtn.innerHTML = '📧 Send Notification'; sendBtn.style.background = ''; }
+            document.getElementById('notifyModal').classList.add('active');
+        }
+
+        async function executeSendNotification() {
+            if (!notifyTarget) return;
+            if (notificationEmails.length === 0) { showAlert('notify-modal-alert', 'error', '⚠️ No emails configured. Add NOTIFICATION_EMAILS to Worker secrets.'); return; }
+            const sendBtn = document.getElementById('notifySendBtn');
+            sendBtn.disabled = true;
+            sendBtn.innerHTML = '<span class="notify-spinner"></span> Sending…';
+            const { show, type } = notifyTarget;
+            const completedBy = show.chineseBy || show.mergingBy || window.CURRENT_USER_NAME || 'Team Member';
+            const payload = {
+                type, senderName: window.CURRENT_USER_NAME || 'Team Member', emails: notificationEmails,
+                showData: {
+                    showName: show.showName || '', sourcePlace: show.sourcePlace || '', taskDoneBy: show.taskDoneBy || '',
+                    assignDate: show.assignDate || '', scrapedFile: show.scrapedFile || '', completedDate: show.completedDate || '',
+                    completedBy, chineseBy: show.chineseBy || '', chineseSrtBy: show.chineseSrtBy || '',
+                    englishSrtBy: show.englishSrtBy || '', mergingBy: show.mergingBy || ''
+                }
+            };
+            const r = await callSendNotification(payload);
+            if (r && r.success) {
+                if (type === 'mandatory_completed') {
+                    notifiedMandatory.add(showKey(show));
+                    try { localStorage.setItem('_notifiedMandatory', JSON.stringify([...notifiedMandatory])); } catch (e) { }
+                }
+                sendBtn.disabled = false;
+                sendBtn.innerHTML = `✅ Sent to ${r.sent || notificationEmails.length}!`;
+                sendBtn.style.background = 'linear-gradient(135deg,#10b981,#059669)';
+                showAlert('notify-modal-alert', 'success', `✅ Notification sent to ${r.sent || notificationEmails.length} recipient(s)!`);
+                setTimeout(() => { closeNotifyModal(); renderShows(allShows); }, 1800);
+            } else {
+                sendBtn.disabled = false;
+                sendBtn.innerHTML = '📧 Send Notification';
+                showAlert('notify-modal-alert', 'error', '❌ Failed: ' + (r ? r.message : 'no response'));
+            }
+        }
+        function closeNotifyModal() { document.getElementById('notifyModal').classList.remove('active'); notifyTarget = null; }
+
+        // ── Local storage ──────────────────────────────────────────────
         function saveLocal() { try { localStorage.setItem('showsData', JSON.stringify(allShows)); } catch (e) { } }
         function loadLocal() { try { return JSON.parse(localStorage.getItem('showsData') || '[]'); } catch (e) { return []; } }
 
-        // ── Load shows ─────────────────────────────────────────────
+        // ── Load shows ─────────────────────────────────────────────────
         async function loadShows() {
             document.getElementById('loading-shows').style.display = 'block';
             document.getElementById('shows-container').innerHTML = '';
             let rawRows = [], fromSheet = false;
-
             const data = await callGet({ action: 'getAll' });
             if (data && data.success) {
                 rawRows = data.rows || []; fromSheet = true; setConn('ok', rawRows.length);
             } else {
                 setConn('fail'); rawRows = loadLocal();
-                if (data && data.message) showAlert('add-alert', 'warning', '⚠️ Sheet: ' + data.message);
-                else if (!data) showAlert('add-alert', 'warning', '⚠️ Could not reach Worker. Showing cached data.');
+                if (!data) showAlert('add-alert', 'warning', '⚠️ Could not reach Worker. Showing cached data.');
             }
-
             allShows = rawRows.filter(row => !pendingDeletes[showKey(row)]);
             if (fromSheet) saveLocal();
             document.getElementById('loading-shows').style.display = 'none';
             buildPersonFilter();
-            renderShows(allShows);
+            filterShows();
             updateStats();
         }
 
@@ -2624,133 +2791,129 @@ function jsonOut(obj) {
             if (cur) sel.value = cur;
         }
 
-        // ── Add show ───────────────────────────────────────────────
+        // ── Add show ───────────────────────────────────────────────────
         async function addShow() {
             const showName = document.getElementById('showName').value.trim();
             const showLink = document.getElementById('showLink').value.trim();
             const sourcePlace = document.getElementById('sourcePlace').value;
             const taskDoneBy = document.getElementById('taskDoneBy').value.trim();
             const adVal = document.getElementById('taskAssignDate').value;
-
             if (!showName || !showLink) { showAlert('add-alert', 'error', '⚠️ Show Name and Scraped File Link are required!'); return; }
-            const dup = allShows.find(s => s.showName.trim().toLowerCase() === showName.toLowerCase());
-            if (dup) { showAlert('add-alert', 'error', `❌ "${showName}" already exists!`); return; }
-
+            if (allShows.find(s => s.showName.trim().toLowerCase() === showName.toLowerCase())) {
+                showAlert('add-alert', 'error', `❌ "${showName}" already exists!`); return;
+            }
             const assignDate = adVal ? inputToDate(adVal) : inputToDate(new Date().toISOString().split('T')[0]);
             const newShow = {
-                rowNum: allShows.length + 1, showName, status: 'Pending',
-                taskDoneBy, sourcePlace, scrapedFile: showLink,
-                chineseFile: '', chineseBy: '', chineseSrt: '', chineseSrtBy: '',
-                englishSrt: '', englishSrtBy: '', merging: '', mergingBy: '',
-                subtitleDocx: '', subtitleDocxBy: '', toolScript: '', toolScriptBy: '',
-                assignDate, completedDate: ''
+                rowNum: String(allShows.length + 1), showName, status: 'Pending', taskDoneBy, sourcePlace, scrapedFile: showLink,
+                chineseFile: '', chineseBy: '', chineseSrt: '', chineseSrtBy: '', englishSrt: '', englishSrtBy: '',
+                merging: '', mergingBy: '', subtitleDocx: '', subtitleDocxBy: '', toolScript: '', toolScriptBy: '',
+                assignDate, completedDate: '', _sheetRowIndex: 999999 // temp high index = top of "newest" sort
             };
-
             allShows.push(newShow);
+            newlyAdded.add(showName.toLowerCase());
             saveLocal();
-            document.getElementById('showName').value = '';
-            document.getElementById('showLink').value = '';
+            // Reset form
+            ['showName', 'showLink', 'taskDoneBy'].forEach(id => document.getElementById(id).value = '');
             document.getElementById('sourcePlace').value = '';
-            document.getElementById('taskDoneBy').value = '';
             document.getElementById('taskAssignDate').value = new Date().toISOString().split('T')[0];
             document.getElementById('duplicate-warning').style.display = 'none';
-            buildPersonFilter(); renderShows(allShows); updateStats();
+            buildPersonFilter(); filterShows(); updateStats();
+            showAlert('add-alert', 'success', '⏳ Saving to Google Sheets…');
 
-            showAlert('add-alert', 'success', '⏳ Saving to Google Sheets via Cloudflare…');
             const r = await callPost('addRow', newShow);
             if (r && r.success) {
-                showAlert('add-alert', 'success', '✅ Saved to Google Sheets!');
+                showAlert('add-alert', 'success', '✅ Saved! Opening notification prompt…');
                 setConn('ok');
-                setTimeout(loadShows, 1500);
+                setTimeout(async () => {
+                    await loadShows();
+                    const addedIdx = allShows.findIndex(s => s.showName.toLowerCase() === newShow.showName.toLowerCase());
+                    if (addedIdx >= 0) openNotifyModal(addedIdx, 'new_show');
+                }, 1400);
             } else {
                 showAlert('add-alert', 'warning', '⚠️ Saved locally. Sheet: ' + (r ? r.message : 'no response'));
                 setConn('fail');
             }
         }
 
-        // ── Render table ───────────────────────────────────────────
+        // ── Render table (optimised with DocumentFragment) ─────────────
         function renderShows(shows) {
             const container = document.getElementById('shows-container');
             const countEl = document.getElementById('shows-count');
             if (countEl) countEl.textContent = shows.length;
-
             if (!shows || shows.length === 0) {
-                container.innerHTML = `<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-title">No shows found</div><div class="empty-sub">Add a show above or wait for data to load.</div></div>`;
+                container.innerHTML = `<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-title">No shows found</div><div class="empty-sub">Add a show above or adjust filters.</div></div>`;
                 return;
             }
 
-            let html = `<div class="pipeline-wrap"><table class="pipeline-table">
-<thead><tr>
-  <th rowspan="2">#</th><th rowspan="2">Show Name</th><th rowspan="2">Source</th>
-  <th rowspan="2">Scraped Link</th><th rowspan="2">Done By</th><th rowspan="2">Status</th>
-  <th rowspan="2">Assign Date</th><th rowspan="2">Done Date</th>
-  <th class="group-header" colspan="2">🇨🇳 Chinese File</th>
-  <th class="group-header" colspan="2">📝 Chinese SRT</th>
-  <th class="group-header" colspan="2">📝 English SRT</th>
-  <th class="group-header" colspan="2">🔀 Merging</th>
-  <th class="group-header" colspan="2">📄 Subtitle DOCX</th>
-  <th class="group-header" colspan="2">🛠️ Tool Script</th>
-  <th rowspan="2">Actions</th>
-</tr><tr>
-  <th>Status</th><th>By</th><th>Status</th><th>By</th>
-  <th>Status</th><th>By</th><th>Status</th><th>By</th>
-  <th>Status</th><th>By</th><th>Status</th><th>By</th>
-</tr></thead><tbody>`;
-
+            // Build HTML string — fast single-pass
+            let rows = '';
             shows.forEach((show, vi) => {
                 const ri = allShows.indexOf(show);
-                const rc = show.status === 'Completed' ? 'row-done' : '';
+                const rc = show.status === 'Completed' ? 'row-done' : (newlyAdded.has(show.showName.toLowerCase()) ? 'row-new' : '');
                 const sc = statusBadgeClass(show.status);
-                const sl = show.scrapedFile ? (show.scrapedFile.length > 28 ? show.scrapedFile.substring(0, 28) + '…' : show.scrapedFile) : '';
+                const sl = show.scrapedFile ? (show.scrapedFile.length > 26 ? show.scrapedFile.substring(0, 26) + '…' : show.scrapedFile) : '';
+                const isNew = newlyAdded.has(show.showName.toLowerCase());
+                const mandatoryDone = areMandatoryTasksDone(show);
+                const alreadyNotified = notifiedMandatory.has(showKey(show));
+                let notifyBtn = '';
+                if (mandatoryDone && !alreadyNotified) {
+                    notifyBtn = `<button class="btn btn-notify" title="Mandatory tasks done — notify team" onclick="openNotifyModal(${ri},'mandatory_completed')">🔔 Notify</button>`;
+                } else if (mandatoryDone && alreadyNotified) {
+                    notifyBtn = `<span class="btn-notify-sent btn" style="cursor:default" title="Already notified">✅ Notified</span>`;
+                }
 
-                html += `<tr class="${rc}">
-  <td><span class="row-num">${vi + 1}</span></td>
-  <td><div class="show-name-cell"><span class="sn" title="${esc(show.showName)}">🎬 ${esc(show.showName)}</span></div></td>
-  <td>${sourceTag(show.sourcePlace)}</td>
-  <td>${show.scrapedFile ? `<a href="${esc(show.scrapedFile)}" target="_blank" class="table-link">🔗 ${esc(sl)}</a>` : '<em style="color:var(--gray-400);font-size:0.76rem">—</em>'}</td>
-  <td><span style="font-size:0.79rem;font-weight:600;color:var(--gray-700)">${esc(show.taskDoneBy) || '<em style="color:var(--gray-400)">—</em>'}</span></td>
-  <td><span class="status-badge ${sc}">${show.status || 'Pending'}</span></td>
-  <td><span class="date-cell">${esc(show.assignDate) || '—'}</span></td>
-  <td><span class="date-cell">${esc(show.completedDate) || '—'}</span></td>`;
-
+                let taskCols = '';
                 TASK_FIELDS.forEach(tf => {
                     const sv = show[tf.key] || '', bv = show[tf.byKey] || '', sc2 = statusBadgeClass(sv);
-                    html += `<td class="group-sep">${sv ? `<span class="status-badge ${sc2}">${sv}</span>` : '<em style="color:var(--gray-400);font-size:0.76rem">—</em>'}</td>
-  <td><span style="font-size:0.76rem;color:var(--gray-600);font-weight:500">${esc(bv) || '<em style="color:var(--gray-400)">—</em>'}</span></td>`;
+                    taskCols += `<td class="group-sep">${sv ? `<span class="status-badge ${sc2}">${sv}</span>` : '<em style="color:var(--gray-400);font-size:.71rem">—</em>'}</td><td><span style="font-size:.73rem;color:var(--gray-600);font-weight:500">${esc(bv) || '<em style="color:var(--gray-400)">—</em>'}</span></td>`;
                 });
 
-                html += `<td><div style="display:flex;gap:4px;flex-wrap:wrap">
-    <button class="btn btn-edit" onclick="openEditModal(${ri})">✏️</button>
-    <button class="btn btn-danger" onclick="confirmDelete(${ri})">🗑️</button>
-  </div></td></tr>`;
+                rows += `<tr class="${rc}">
+<td><span class="row-num">${vi + 1}</span></td>
+<td><div class="show-name-cell"><span class="sn" title="${esc(show.showName)}">🎬 ${esc(show.showName)}${isNew ? '<span class="new-show-badge">NEW</span>' : ''}</span></div></td>
+<td>${sourceTag(show.sourcePlace)}</td>
+<td>${show.scrapedFile ? `<a href="${esc(show.scrapedFile)}" target="_blank" class="table-link">🔗 ${esc(sl)}</a>` : '<em style="color:var(--gray-400);font-size:.73rem">—</em>'}</td>
+<td><span style="font-size:.77rem;font-weight:600;color:var(--gray-700)">${esc(show.taskDoneBy) || '<em style="color:var(--gray-400)">—</em>'}</span></td>
+<td><span class="status-badge ${sc}">${show.status || 'Pending'}</span></td>
+<td><span class="date-cell">${esc(show.assignDate) || '—'}</span></td>
+<td><span class="date-cell">${esc(show.completedDate) || '—'}</span></td>
+${taskCols}
+<td><div style="display:flex;gap:3px;flex-wrap:wrap;align-items:center"><button class="btn btn-edit" onclick="openEditModal(${ri})">✏️</button><button class="btn btn-danger" onclick="confirmDelete(${ri})">🗑️</button>${notifyBtn}</div></td>
+</tr>`;
             });
 
-            html += `</tbody></table></div>`;
-            container.innerHTML = html;
+            container.innerHTML = `<div class="pipeline-wrap"><table class="pipeline-table">
+<thead><tr>
+<th rowspan="2">#</th><th rowspan="2">Show Name</th><th rowspan="2">Source</th><th rowspan="2">Scraped Link</th><th rowspan="2">Done By</th><th rowspan="2">Status</th><th rowspan="2">Assign Date</th><th rowspan="2">Done Date</th>
+<th class="group-header" colspan="2">Chinese File</th><th class="group-header" colspan="2">Chinese SRT</th><th class="group-header" colspan="2">English SRT</th><th class="group-header" colspan="2">Merging</th><th class="group-header" colspan="2">Subtitle DOCX</th><th class="group-header" colspan="2">Tool Script</th>
+<th rowspan="2">Actions</th>
+</tr><tr>
+<th>Status</th><th>By</th><th>Status</th><th>By</th><th>Status</th><th>By</th><th>Status</th><th>By</th><th>Status</th><th>By</th><th>Status</th><th>By</th>
+</tr></thead><tbody>${rows}</tbody></table></div>`;
         }
 
         function filterShows() {
             const s = document.getElementById('searchInput').value.toLowerCase();
             const st = document.getElementById('filterStatus').value;
             const per = document.getElementById('filterPerson').value.toLowerCase();
-            renderShows(allShows.filter(show => {
+            let filtered = allShows.filter(show => {
                 const ms = !s || show.showName.toLowerCase().includes(s) || (show.taskDoneBy || '').toLowerCase().includes(s) || TASK_FIELDS.some(tf => (show[tf.byKey] || '').toLowerCase().includes(s));
                 const mt = !st || show.status === st;
                 const mp = !per || (show.taskDoneBy || '').toLowerCase().includes(per) || TASK_FIELDS.some(tf => (show[tf.byKey] || '').toLowerCase().includes(per));
                 return ms && mt && mp;
-            }));
+            });
+            filtered = applySortOrder(filtered);
+            renderShows(filtered);
         }
 
-        // ── Delete ─────────────────────────────────────────────────
+        // ── Delete ─────────────────────────────────────────────────────
         function confirmDelete(index) {
-            const show = allShows[index];
-            if (!show) return;
+            const show = allShows[index]; if (!show) return;
             deleteTarget = { index, show };
             document.getElementById('deleteShowName').textContent = '🎬 ' + show.showName;
             document.getElementById('deleteModal').classList.add('active');
             document.getElementById('deleteConfirmBtn').onclick = executeDelete;
         }
-
         async function executeDelete() {
             if (!deleteTarget) return;
             const { index, show } = deleteTarget;
@@ -2758,27 +2921,19 @@ function jsonOut(obj) {
             const key = showKey(show);
             pendingDeletes[key] = true;
             allShows.splice(index, 1);
-            saveLocal(); buildPersonFilter(); renderShows(allShows); updateStats();
+            newlyAdded.delete(show.showName.toLowerCase());
+            saveLocal(); buildPersonFilter(); filterShows(); updateStats();
             showAlert('add-alert', 'success', `⏳ Deleting "${show.showName}"…`);
-
             const r = await callPost('deleteRow', { showName: show.showName, assignDate: show.assignDate || '', sheetRowIndex: show._sheetRowIndex || null });
-            if (r && r.success) {
-                delete pendingDeletes[key];
-                showAlert('add-alert', 'success', `✅ "${show.showName}" deleted!`);
-                setConn('ok');
-            } else {
-                showAlert('add-alert', 'warning', `⚠️ Removed locally. Sheet: ${r ? r.message : 'no response'}`);
-                setConn('fail');
-            }
+            if (r && r.success) { delete pendingDeletes[key]; showAlert('add-alert', 'success', `✅ "${show.showName}" deleted!`); setConn('ok'); }
+            else { showAlert('add-alert', 'warning', `⚠️ Removed locally. Sheet: ${r ? r.message : 'no response'}`); setConn('fail'); }
             deleteTarget = null;
         }
-
         function closeDeleteModal() { document.getElementById('deleteModal').classList.remove('active'); }
 
-        // ── Edit modal ─────────────────────────────────────────────
+        // ── Edit modal ─────────────────────────────────────────────────
         function openEditModal(idx) {
-            const s = allShows[idx];
-            if (!s) return;
+            const s = allShows[idx]; if (!s) return;
             document.getElementById('editIdx').value = idx;
             document.getElementById('editModalSubtitle').textContent = '🎬 ' + s.showName;
             ['showName', 'scrapedFile', 'taskDoneBy'].forEach(f => { document.getElementById('em-' + f).value = s[f] || ''; });
@@ -2788,19 +2943,17 @@ function jsonOut(obj) {
             document.getElementById('em-completedDate').value = dateToInput(s.completedDate);
             TASK_FIELDS.forEach(tf => {
                 document.getElementById('em-' + tf.key).value = s[tf.key] || '';
-                const byId = 'em-' + tf.byKey;
-                const byEl = document.getElementById(byId);
+                const byEl = document.getElementById('em-' + tf.byKey);
                 if (byEl) byEl.value = s[tf.byKey] || '';
             });
             document.getElementById('editModal').classList.add('active');
         }
-
         async function saveEditModal() {
             const idx = parseInt(document.getElementById('editIdx').value);
             const old = { ...allShows[idx] };
+            const prevMandatoryDone = areMandatoryTasksDone(old);
             const aRaw = document.getElementById('em-assignDate').value;
             const cRaw = document.getElementById('em-completedDate').value;
-
             allShows[idx] = {
                 ...old,
                 showName: document.getElementById('em-showName').value.trim(),
@@ -2823,17 +2976,18 @@ function jsonOut(obj) {
                 toolScript: document.getElementById('em-toolScript').value,
                 toolScriptBy: document.getElementById('em-toolScriptBy').value.trim(),
             };
-
-            saveLocal(); closeEditModal(); buildPersonFilter(); renderShows(allShows); filterShows(); updateStats();
-
+            saveLocal(); closeEditModal(); buildPersonFilter(); filterShows(); updateStats();
+            const nowMandatoryDone = areMandatoryTasksDone(allShows[idx]);
+            if (!prevMandatoryDone && nowMandatoryDone && !notifiedMandatory.has(showKey(allShows[idx]))) {
+                setTimeout(() => openNotifyModal(idx, 'mandatory_completed'), 350);
+            }
             const r = await callPost('updateRow', { ...allShows[idx], oldShowName: old.showName });
             if (r && r.success) { setConn('ok'); showAlert('add-alert', 'success', '✅ Updated in Google Sheets!'); }
             else { setConn('fail'); showAlert('add-alert', 'warning', '⚠️ Update: ' + (r ? r.message : 'no response')); }
         }
-
         function closeEditModal() { document.getElementById('editModal').classList.remove('active'); }
 
-        // ── Save all ───────────────────────────────────────────────
+        // ── Save all ───────────────────────────────────────────────────
         async function saveAllChanges() {
             showAlert('add-alert', 'success', '⏳ Syncing all rows…');
             let ok = 0, fail = 0;
@@ -2846,7 +3000,7 @@ function jsonOut(obj) {
             setConn(fail === 0 ? 'ok' : 'fail');
         }
 
-        // ── Worker view ────────────────────────────────────────────
+        // ── Worker view ────────────────────────────────────────────────
         function loadWorkerView() {
             const name = document.getElementById('workerNameInput').value.trim().toLowerCase();
             const container = document.getElementById('worker-shows-container');
@@ -2869,27 +3023,19 @@ function jsonOut(obj) {
                 const allDone = myTasks.length > 0 && myTasks.every(tf => show[tf.key] === 'Completed');
                 const sc = statusBadgeClass(show.status);
                 html += `<div class="card worker-task-card ${allDone ? 'done' : ''}">
-  <div class="wtc-header">
-    <div>
-      <div class="wtc-title">🎬 ${esc(show.showName)}</div>
-      <div class="wtc-subtitle">${show.scrapedFile ? `<a href="${esc(show.scrapedFile)}" target="_blank" class="table-link">🔗 File</a> &nbsp;·&nbsp; ` : ''}${sourceTag(show.sourcePlace)}${show.assignDate ? ` &nbsp;·&nbsp; 📅 ${esc(show.assignDate)}` : ''}</div>
-    </div>
-    <span class="status-badge ${sc}">${show.status || 'Pending'}</span>
-  </div>
-  <div class="wtc-tasks">`;
+<div class="wtc-header">
+<div><div class="wtc-title">🎬 ${esc(show.showName)}</div><div class="wtc-subtitle">${show.scrapedFile ? `<a href="${esc(show.scrapedFile)}" target="_blank" class="table-link">🔗 File</a> &nbsp;·&nbsp; ` : ''} ${sourceTag(show.sourcePlace)} ${show.assignDate ? ` &nbsp;·&nbsp; 📅 ${esc(show.assignDate)}` : ''}</div></div>
+<span class="status-badge ${sc}">${show.status || 'Pending'}</span>
+</div>
+<div class="wtc-tasks">`;
                 myTasks.forEach(tf => {
                     const sv = show[tf.key] || 'Pending', sc2 = statusBadgeClass(sv);
-                    html += `<div class="wtc-task-item">
-      <div class="wtc-task-label">${tf.label}</div>
-      <span class="status-badge ${sc2}">${sv}</span>
-      <button class="btn btn-edit" style="margin-top:3px;font-size:0.73rem;padding:4px 9px" onclick="openWorkerModal(${ri},'${tf.key}','${esc(tf.label)}')">✏️ Update</button>
-    </div>`;
+                    html += `<div class="wtc-task-item"><div class="wtc-task-label">${tf.label}</div><span class="status-badge ${sc2}">${sv}</span><button class="btn btn-edit" style="margin-top:3px;font-size:.7rem;padding:4px 8px" onclick="openWorkerModal(${ri},'${tf.key}','${esc(tf.label)}')">✏️ Update</button></div>`;
                 });
                 html += `</div></div>`;
             });
             container.innerHTML = html;
         }
-
         function openWorkerModal(idx, taskKey, taskLabel) {
             const show = allShows[idx]; if (!show) return;
             document.getElementById('wm-showIdx').value = idx;
@@ -2899,122 +3045,77 @@ function jsonOut(obj) {
             document.getElementById('wm-status').value = show[taskKey] || 'Pending';
             document.getElementById('workerModal').classList.add('active');
         }
-
         async function saveWorkerUpdate() {
             const idx = parseInt(document.getElementById('wm-showIdx').value);
             const taskKey = document.getElementById('wm-taskKey').value;
-            const newStatus = document.getElementById('wm-status').value;
+            const newSt = document.getElementById('wm-status').value;
             const old = { ...allShows[idx] };
-            allShows[idx][taskKey] = newStatus;
+            const prevMandatoryDone = areMandatoryTasksDone(old);
+            allShows[idx][taskKey] = newSt;
             const taskVals = TASK_FIELDS.map(tf => allShows[idx][tf.key] || '');
             const anyActive = taskVals.some(s => s === 'In Progress' || s === 'Completed');
             const allDone = taskVals.filter(Boolean).length > 0 && taskVals.every(s => s === 'Completed');
-            if (allDone) {
-                allShows[idx].status = 'Completed';
-                if (!allShows[idx].completedDate) allShows[idx].completedDate = inputToDate(new Date().toISOString().split('T')[0]);
-            } else if (anyActive) {
-                allShows[idx].status = 'In Progress';
+            if (allDone) { allShows[idx].status = 'Completed'; if (!allShows[idx].completedDate) allShows[idx].completedDate = inputToDate(new Date().toISOString().split('T')[0]); }
+            else if (anyActive) allShows[idx].status = 'In Progress';
+            saveLocal(); closeWorkerModal(); loadWorkerView(); filterShows(); updateStats();
+            const nowMandatoryDone = areMandatoryTasksDone(allShows[idx]);
+            if (!prevMandatoryDone && nowMandatoryDone && !notifiedMandatory.has(showKey(allShows[idx]))) {
+                setTimeout(() => openNotifyModal(idx, 'mandatory_completed'), 350);
             }
-            saveLocal(); closeWorkerModal(); loadWorkerView(); renderShows(allShows); updateStats();
             const r = await callPost('updateRow', { ...allShows[idx], oldShowName: old.showName });
             if (r && r.success) showAlert('worker-alert', 'success', '✅ Updated in Google Sheets!');
             else showAlert('worker-alert', 'warning', '⚠️ Saved locally. ' + (r ? r.message : ''));
         }
-
         function closeWorkerModal() { document.getElementById('workerModal').classList.remove('active'); }
 
-        // ── Dashboard ──────────────────────────────────────────────
+        // ── Dashboard ──────────────────────────────────────────────────
         function loadDashboard() { loadShows(); }
-
         function updateStats() {
-            const t = allShows.length;
-            const c = allShows.filter(s => s.status === 'Completed').length;
-            const ip = allShows.filter(s => s.status === 'In Progress').length;
-            const p = allShows.filter(s => !s.status || s.status === 'Pending').length;
-            let tasks = 0;
-            allShows.forEach(s => TASK_FIELDS.forEach(tf => { if (s[tf.key]) tasks++; }));
+            const t = allShows.length, c = allShows.filter(s => s.status === 'Completed').length,
+                ip = allShows.filter(s => s.status === 'In Progress').length, p = allShows.filter(s => !s.status || s.status === 'Pending').length;
+            let tasks = 0; allShows.forEach(s => TASK_FIELDS.forEach(tf => { if (s[tf.key]) tasks++; }));
             const setN = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
-            setN('stat-total', t); setN('stat-completed', c); setN('stat-progress', ip);
-            setN('stat-pending', p); setN('stat-tasks', tasks);
-            renderTeamPerformance();
-            renderTaskOverview();
+            setN('stat-total', t); setN('stat-completed', c); setN('stat-progress', ip); setN('stat-pending', p); setN('stat-tasks', tasks);
+            renderTeamPerformance(); renderTaskOverview();
         }
-
         function renderTeamPerformance() {
-            const container = document.getElementById('team-performance');
-            if (!container) return;
+            const container = document.getElementById('team-performance'); if (!container) return;
             const wm = {};
-            allShows.forEach(show => {
-                TASK_FIELDS.forEach(tf => {
-                    const w = (show[tf.byKey] || '').trim(); if (!w) return;
-                    if (!wm[w]) wm[w] = { total: 0, done: 0, progress: 0 };
-                    wm[w].total++;
-                    if (show[tf.key] === 'Completed') wm[w].done++;
-                    else if (show[tf.key] === 'In Progress') wm[w].progress++;
-                });
-            });
+            allShows.forEach(show => { TASK_FIELDS.forEach(tf => { const w = (show[tf.byKey] || '').trim(); if (!w) return; if (!wm[w]) wm[w] = { total: 0, done: 0, progress: 0 }; wm[w].total++; if (show[tf.key] === 'Completed') wm[w].done++; else if (show[tf.key] === 'In Progress') wm[w].progress++; }); });
             const people = Object.keys(wm).sort();
-            if (!people.length) {
-                container.innerHTML = `<div class="empty-state"><div class="empty-icon">👥</div><div class="empty-title">No data</div><div class="empty-sub">Assign tasks to see performance.</div></div>`;
-                return;
-            }
+            if (!people.length) { container.innerHTML = `<div class="empty-state"><div class="empty-icon">👥</div><div class="empty-title">No data</div><div class="empty-sub">Assign tasks to see performance.</div></div>`; return; }
             container.innerHTML = '';
             people.forEach((person, i) => {
-                const d = wm[person], pct = d.total > 0 ? Math.round((d.done / d.total) * 100) : 0;
-                const col = AVATAR_COLORS[i % AVATAR_COLORS.length];
+                const d = wm[person], pct = d.total > 0 ? Math.round((d.done / d.total) * 100) : 0, col = AVATAR_COLORS[i % AVATAR_COLORS.length];
                 const row = document.createElement('div'); row.className = 'person-row';
-                row.innerHTML = `<div class="person-avatar" style="background:${col}">${person.charAt(0).toUpperCase()}</div>
-  <div class="person-info"><div class="person-name">${esc(person)}</div><div class="person-tasks">${d.total} tasks · ${d.done} done · ${d.progress} in progress</div></div>
-  <div class="person-bar-wrap"><div class="person-bar"><div class="person-bar-fill" style="width:${pct}%;background:${col}"></div></div><span class="person-pct">${pct}%</span></div>`;
+                row.innerHTML = `<div class="person-avatar" style="background:${col}">${person.charAt(0).toUpperCase()}</div><div class="person-info"><div class="person-name">${esc(person)}</div><div class="person-tasks">${d.total} tasks · ${d.done} done · ${d.progress} in progress</div></div><div class="person-bar-wrap"><div class="person-bar"><div class="person-bar-fill" style="width:${pct}%;background:${col}"></div></div><span class="person-pct">${pct}%</span></div>`;
                 container.appendChild(row);
             });
         }
-
         function renderTaskOverview() {
-            const container = document.getElementById('task-overview');
-            if (!container) return;
-            if (!allShows.length) {
-                container.innerHTML = `<div class="empty-state"><div class="empty-icon">📈</div><div class="empty-title">No data</div></div>`;
-                return;
-            }
-            let html = `<div style="overflow-x:auto"><table class="pipeline-table" style="min-width:480px"><thead><tr><th>Task</th><th>Total</th><th style="color:#d1fae5">✅ Done</th><th style="color:#bfdbfe">🔄 Progress</th><th style="color:#fde68a">⏳ Rest</th><th>Completion</th></tr></thead><tbody>`;
+            const container = document.getElementById('task-overview'); if (!container) return;
+            if (!allShows.length) { container.innerHTML = `<div class="empty-state"><div class="empty-icon">📈</div><div class="empty-title">No data</div></div>`; return; }
+            let html = `<div style="overflow-x:auto"><table class="pipeline-table" style="min-width:420px"><thead><tr><th>Task</th><th>Total</th><th style="color:#d1fae5">✅ Done</th><th style="color:#bfdbfe">🔄 Progress</th><th style="color:#fde68a">⏳ Rest</th><th>Completion</th></tr></thead><tbody>`;
             TASK_FIELDS.forEach(tf => {
                 const vals = allShows.map(s => s[tf.key] || ''), total = allShows.length;
-                const done = vals.filter(v => v === 'Completed').length;
-                const inpr = vals.filter(v => v === 'In Progress').length;
-                const rest = total - done - inpr;
+                const done = vals.filter(v => v === 'Completed').length, inpr = vals.filter(v => v === 'In Progress').length, rest = total - done - inpr;
                 const pct = total > 0 ? Math.round((done / total) * 100) : 0;
-                html += `<tr>
-  <td style="font-weight:700;font-size:0.84rem">${tf.label}</td>
-  <td><span class="count-badge">${total}</span></td>
-  <td><span class="status-badge st-completed-badge">${done}</span></td>
-  <td><span class="status-badge st-progress-badge">${inpr}</span></td>
-  <td><span class="status-badge st-pending-badge">${rest}</span></td>
-  <td><div style="display:flex;align-items:center;gap:7px"><div style="flex:1;height:6px;background:var(--gray-200);border-radius:10px;overflow:hidden;min-width:70px"><div style="width:${pct}%;height:100%;background:var(--success);border-radius:10px"></div></div><span style="font-size:0.76rem;font-weight:700;color:var(--gray-600);min-width:30px">${pct}%</span></div></td>
-</tr>`;
+                html += `<tr><td style="font-weight:700;font-size:.82rem">${tf.label}${MANDATORY_TASK_KEYS.includes(tf.key) ? '<span style="background:#fef3c7;color:#92400e;font-size:.6rem;padding:1px 5px;border-radius:8px;margin-left:3px;font-weight:700">★</span>' : ''}</td><td><span class="count-badge">${total}</span></td><td><span class="status-badge st-completed-badge">${done}</span></td><td><span class="status-badge st-progress-badge">${inpr}</span></td><td><span class="status-badge st-pending-badge">${rest}</span></td><td><div style="display:flex;align-items:center;gap:6px"><div style="flex:1;height:5px;background:var(--gray-200);border-radius:10px;overflow:hidden;min-width:60px"><div style="width:${pct}%;height:100%;background:var(--success);border-radius:10px"></div></div><span style="font-size:.73rem;font-weight:700;color:var(--gray-600);min-width:28px">${pct}%</span></div></td></tr>`;
             });
-            html += `</tbody></table></div>`;
-            container.innerHTML = html;
+            container.innerHTML = html + `</tbody></table></div>`;
         }
 
-        // ── Completed filter ───────────────────────────────────────
+        // ── Completed filter ───────────────────────────────────────────
         function populateMonthPicker() {
             const sel = document.getElementById('monthPicker'); if (!sel) return;
             const now = new Date(); sel.innerHTML = '<option value="">— Select Month —</option>';
-            for (let i = 0; i < 24; i++) {
-                const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
-                const val = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
-                const label = d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
-                const o = document.createElement('option'); o.value = val; o.textContent = label; sel.appendChild(o);
-            }
+            for (let i = 0; i < 24; i++) { const d = new Date(now.getFullYear(), now.getMonth() - i, 1); const val = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`; const lbl = d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' }); const o = document.createElement('option'); o.value = val; o.textContent = lbl; sel.appendChild(o); }
         }
-
         function setCompletedFilter(type, btn) {
             activeCompletedFilter = type;
             if (btn) { document.querySelectorAll('.date-filter-tab').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
             renderCompletedFilter();
         }
-
         function getDateRange(type) {
             const now = new Date(), todayStr = now.toISOString().split('T')[0];
             const toDate = s => { const p = s.split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); };
@@ -3022,97 +3123,53 @@ function jsonOut(obj) {
             if (type === 'yesterday') { const y = new Date(now); y.setDate(y.getDate() - 1); const ys = y.toISOString().split('T')[0]; return { from: toDate(ys), to: toDate(ys), label: `Yesterday — ${formatDisplayDate(ys)}` }; }
             if (type === 'week') { const w = new Date(now); w.setDate(w.getDate() - 6); return { from: toDate(w.toISOString().split('T')[0]), to: toDate(todayStr), label: 'This Week (Last 7 days)' }; }
             if (type === 'month') { const f = new Date(now.getFullYear(), now.getMonth(), 1); return { from: f, to: toDate(todayStr), label: `This Month — ${now.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' })}` }; }
-            if (type === 'all') { return { from: null, to: null, label: 'All Time' }; }
-            if (type === 'custom-month') {
-                const val = document.getElementById('monthPicker').value; if (!val) return null;
-                const [y, m] = val.split('-').map(Number);
-                return { from: new Date(y, m - 1, 1), to: new Date(y, m, 0), label: `Month: ${new Date(y, m - 1, 1).toLocaleDateString('en-GB', { month: 'long', year: 'numeric' })}` };
-            }
-            if (type === 'custom-day') {
-                const val = document.getElementById('dayPicker').value; if (!val) return null;
-                const p = val.split('-'); const d = new Date(+p[0], +p[1] - 1, +p[2]);
-                return { from: d, to: d, label: `Day: ${formatDisplayDate(val)}` };
-            }
+            if (type === 'all') return { from: null, to: null, label: 'All Time' };
+            if (type === 'custom-month') { const val = document.getElementById('monthPicker').value; if (!val) return null; const [y, m] = val.split('-').map(Number); return { from: new Date(y, m - 1, 1), to: new Date(y, m, 0), label: `Month: ${new Date(y, m - 1, 1).toLocaleDateString('en-GB', { month: 'long', year: 'numeric' })}` }; }
+            if (type === 'custom-day') { const val = document.getElementById('dayPicker').value; if (!val) return null; const p = val.split('-'); const d = new Date(+p[0], +p[1] - 1, +p[2]); return { from: d, to: d, label: `Day: ${formatDisplayDate(val)}` }; }
             return null;
         }
-
         function inRange(date, from, to) {
-            if (!from && !to) return true;
-            if (!date) return false;
+            if (!from && !to) return true; if (!date) return false;
             const d = parseDate(date); if (!d) return false;
             const dN = new Date(d.getFullYear(), d.getMonth(), d.getDate());
             const fN = from ? new Date(from.getFullYear(), from.getMonth(), from.getDate()) : null;
             const tN = to ? new Date(to.getFullYear(), to.getMonth(), to.getDate()) : null;
-            if (fN && dN < fN) return false;
-            if (tN && dN > tN) return false;
-            return true;
+            if (fN && dN < fN) return false; if (tN && dN > tN) return false; return true;
         }
-
         function renderCompletedFilter() {
             const range = getDateRange(activeCompletedFilter);
-            if (!range) {
-                document.getElementById('completed-results').innerHTML = `<div class="empty-state"><div class="empty-icon">📅</div><div class="empty-title">Select a filter</div></div>`;
-                return;
-            }
-            const completed = allShows
-                .filter(s => s.status === 'Completed' && inRange(s.completedDate || s.assignDate, range.from, range.to))
-                .sort((a, b) => { const da = parseDate(a.completedDate || a.assignDate), db = parseDate(b.completedDate || b.assignDate); if (!da && !db) return 0; if (!da) return 1; if (!db) return -1; return db - da; });
-
+            if (!range) { document.getElementById('completed-results').innerHTML = `<div class="empty-state"><div class="empty-icon">📅</div><div class="empty-title">Select a filter</div></div>`; return; }
+            const completed = allShows.filter(s => s.status === 'Completed' && inRange(s.completedDate || s.assignDate, range.from, range.to)).sort((a, b) => { const da = parseDate(a.completedDate || a.assignDate), db = parseDate(b.completedDate || b.assignDate); if (!da && !db) return 0; if (!da) return 1; if (!db) return -1; return db - da; });
             document.getElementById('completed-count').textContent = completed.length;
-            document.getElementById('completed-summary').innerHTML = `
-<div style="background:linear-gradient(135deg,var(--success-light),#a7f3d0);border:1px solid var(--success);border-radius:var(--radius);padding:12px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-  <span style="font-size:1.4rem">✅</span>
-  <div style="flex:1"><div style="font-weight:800;color:#065f46;font-size:0.95rem">${completed.length} show${completed.length !== 1 ? 's' : ''} completed</div><div style="font-size:0.78rem;color:#065f46;opacity:0.8;margin-top:2px">📅 ${range.label}</div></div>
-  ${completed.length > 0 ? `<span style="background:var(--success);color:white;padding:5px 12px;border-radius:20px;font-size:0.78rem;font-weight:700">🎉 ${completed.length} done!</span>` : ''}
-</div>`;
-
-            if (!completed.length) {
-                document.getElementById('completed-results').innerHTML = `<div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-title">No completed shows</div><div class="empty-sub">No shows completed in this period.<br>Try a different date range.</div></div>`;
-                return;
-            }
+            document.getElementById('completed-summary').innerHTML = `<div style="background:linear-gradient(135deg,var(--success-light),#a7f3d0);border:1px solid var(--success);border-radius:var(--radius);padding:11px 15px;display:flex;align-items:center;gap:11px;flex-wrap:wrap"><span style="font-size:1.3rem">✅</span><div style="flex:1"><div style="font-weight:800;color:#065f46;font-size:.92rem">${completed.length} show${completed.length !== 1 ? 's' : ''} completed</div><div style="font-size:.76rem;color:#065f46;opacity:.8;margin-top:2px">📅 ${range.label}</div></div>${completed.length > 0 ? `<span style="background:var(--success);color:white;padding:4px 11px;border-radius:20px;font-size:.76rem;font-weight:700">🎉 ${completed.length} done!</span>` : ''}</div>`;
+            if (!completed.length) { document.getElementById('completed-results').innerHTML = `<div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-title">No completed shows</div><div class="empty-sub">No shows completed in this period.<br>Try a different date range.</div></div>`; return; }
             let html = '';
             completed.forEach(show => {
-                const ri = allShows.indexOf(show);
-                const tasksDone = TASK_FIELDS.filter(tf => show[tf.key] === 'Completed').length;
-                html += `<div class="completed-show-row" onclick="openEditModal(${ri})">
-  <span style="font-size:1.1rem">🎬</span>
-  <div style="flex:1;min-width:0">
-    <div class="completed-show-name">${esc(show.showName)}</div>
-    <div class="completed-show-meta">${show.taskDoneBy ? `👤 ${esc(show.taskDoneBy)} &nbsp;·&nbsp; ` : ''}${sourceTag(show.sourcePlace)} &nbsp;·&nbsp; ✅ ${tasksDone}/${TASK_FIELDS.length} tasks</div>
-  </div>
-  <span class="completed-show-date">✅ ${formatDisplayDate(show.completedDate || show.assignDate)}</span>
-</div>`;
+                const ri = allShows.indexOf(show), tasksDone = TASK_FIELDS.filter(tf => show[tf.key] === 'Completed').length;
+                html += `<div class="completed-show-row" onclick="openEditModal(${ri})"><span style="font-size:1rem">🎬</span><div style="flex:1;min-width:0"><div class="completed-show-name">${esc(show.showName)}</div><div class="completed-show-meta">${show.taskDoneBy ? `👤 ${esc(show.taskDoneBy)} &nbsp;·&nbsp; ` : ''}${sourceTag(show.sourcePlace)} &nbsp;·&nbsp; ✅ ${tasksDone}/${TASK_FIELDS.length} tasks</div></div><span class="completed-show-date">✅ ${formatDisplayDate(show.completedDate || show.assignDate)}</span></div>`;
             });
             document.getElementById('completed-results').innerHTML = html;
         }
 
-        // ── Settings helpers ───────────────────────────────────────
-        function toggleScript() {
-            const w = document.getElementById('scriptWrapper'), b = document.getElementById('scriptToggleBtn');
-            const v = w.style.display !== 'none';
-            w.style.display = v ? 'none' : 'block';
-            b.textContent = v ? '👁️ Show Script' : '🙈 Hide Script';
-        }
-        function copyScript() {
-            const code = document.getElementById('scriptCode').textContent;
-            navigator.clipboard.writeText(code)
-                .then(() => showAlert('url-alert', 'success', '📋 Copied!'))
-                .catch(() => { const ta = document.createElement('textarea'); ta.value = code; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); showAlert('url-alert', 'success', '📋 Copied!'); });
-        }
-
-        // ── Logout ─────────────────────────────────────────────────
+        // ── Logout ─────────────────────────────────────────────────────
         function handleLogout() {
             localStorage.removeItem('stm_fb_session');
             if (window._fbSignOut) window._fbSignOut().finally(() => { window.location.href = 'auth.html'; });
             else window.location.href = 'auth.html';
         }
 
-        // ── Modal backdrop close ───────────────────────────────────
-        document.getElementById('editModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeEditModal(); });
-        document.getElementById('workerModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeWorkerModal(); });
-        document.getElementById('deleteModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeDeleteModal(); });
+        // ── Modal backdrop close ───────────────────────────────────────
+        ['editModal', 'workerModal', 'deleteModal', 'notifyModal'].forEach(id => {
+            document.getElementById(id).addEventListener('click', e => {
+                if (e.target === e.currentTarget) {
+                    if (id === 'editModal') closeEditModal();
+                    else if (id === 'workerModal') closeWorkerModal();
+                    else if (id === 'deleteModal') closeDeleteModal();
+                    else if (id === 'notifyModal') closeNotifyModal();
+                }
+            });
+        });
     </script>
-
 </body>
 
 </html>
