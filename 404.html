@@ -5,21 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 — Page Not Found</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        *,
-        *::before,
-        *::after {
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 35%, #4c1d95 65%, #6d28d9 100%);
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1e1b4b, #4c1d95, #6d28d9);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -28,56 +24,16 @@
             padding: 20px;
             color: white;
             text-align: center;
-            overflow: hidden
-        }
-
-        .bg-circles {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            overflow: hidden
-        }
-
-        .circle {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.04);
-            animation: drift ease-in-out infinite alternate
-        }
-
-        @keyframes drift {
-            from {
-                transform: translate(0, 0)
-            }
-
-            to {
-                transform: translate(40px, 30px)
-            }
         }
 
         .error-code {
-            font-family: 'Poppins', sans-serif;
             font-size: clamp(6rem, 18vw, 14rem);
             font-weight: 900;
-            letter-spacing: -0.06em;
-            line-height: 1;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.04));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            position: relative;
-            margin-bottom: 8px;
-            animation: slideDown 0.8s ease both;
-            filter: drop-shadow(0 0 60px rgba(108, 99, 255, 0.4))
-        }
-
-        .error-code::after {
-            content: '404';
-            position: absolute;
-            inset: 0;
             background: linear-gradient(135deg, #a5b4fc, #c084fc, #f472b6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            clip-path: inset(0 0 60% 0)
+            line-height: 1;
+            animation: slideDown 0.8s ease both;
         }
 
         @keyframes slideDown {
@@ -92,11 +48,16 @@
             }
         }
 
-        .error-icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            animation: bounce 2s ease infinite;
-            display: block
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
         }
 
         @keyframes bounce {
@@ -111,109 +72,70 @@
             }
         }
 
-        .error-title {
-            font-family: 'Poppins', sans-serif;
+        .icon {
+            font-size: 3.5rem;
+            margin: 10px 0;
+            animation: bounce 2s ease infinite
+        }
+
+        h1 {
             font-size: clamp(1.4rem, 3vw, 2rem);
             font-weight: 800;
-            color: white;
-            margin-bottom: 14px;
-            letter-spacing: -0.03em;
-            animation: fadeUp 0.8s 0.2s ease both
+            margin-bottom: 12px;
+            animation: fadeUp 0.8s 0.2s ease both;
         }
 
-        .error-sub {
-            font-size: clamp(0.9rem, 2vw, 1.05rem);
+        p {
             color: rgba(255, 255, 255, 0.6);
+            max-width: 440px;
             line-height: 1.7;
-            max-width: 480px;
-            margin: 0 auto 40px;
-            animation: fadeUp 0.8s 0.3s ease both
-        }
-
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px)
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0)
-            }
+            margin-bottom: 36px;
+            animation: fadeUp 0.8s 0.3s ease both;
         }
 
         .btn-group {
             display: flex;
-            gap: 14px;
+            gap: 12px;
             flex-wrap: wrap;
             justify-content: center;
-            animation: fadeUp 0.8s 0.4s ease both
+            animation: fadeUp 0.8s 0.4s ease both;
         }
 
-        .err-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 14px 30px;
+        a.btn {
+            padding: 13px 28px;
             border-radius: 50px;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.95rem;
             font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
+            font-size: 0.92rem;
             text-decoration: none;
-            border: none
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        a.btn:hover {
+            transform: translateY(-4px)
         }
 
         .btn-home {
             background: white;
-            color: #4f46e5;
-            box-shadow: 0 8px 30px rgba(255, 255, 255, 0.15)
-        }
-
-        .btn-home:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 16px 48px rgba(255, 255, 255, 0.25)
+            color: #4f46e5
         }
 
         .btn-back {
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
             border: 1.5px solid rgba(255, 255, 255, 0.2);
             color: white
         }
 
-        .btn-back:hover {
-            background: rgba(255, 255, 255, 0.18);
-            transform: translateY(-4px)
-        }
-
-        .suggestions {
-            margin-top: 52px;
-            animation: fadeUp 0.8s 0.5s ease both
-        }
-
-        .suggestions-title {
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.4);
-            margin-bottom: 16px
-        }
-
-        .suggestions-links {
+        .links {
+            margin-top: 44px;
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
-            justify-content: center
+            justify-content: center;
+            animation: fadeUp 0.8s 0.5s ease both;
         }
 
-        .sug-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 18px;
+        .links a {
+            padding: 8px 16px;
             background: rgba(255, 255, 255, 0.07);
             border: 1px solid rgba(255, 255, 255, 0.12);
             border-radius: 50px;
@@ -221,58 +143,51 @@
             font-size: 0.84rem;
             font-weight: 600;
             text-decoration: none;
-            transition: all 0.2s
+            transition: background 0.2s, transform 0.2s;
         }
 
-        .sug-link:hover {
-            background: rgba(255, 255, 255, 0.14);
+        .links a:hover {
+            background: rgba(255, 255, 255, 0.15);
             color: white;
             transform: translateY(-2px)
         }
 
-        .redirect-notice {
-            margin-top: 36px;
+        .notice {
+            margin-top: 30px;
             font-size: 0.82rem;
             color: rgba(255, 255, 255, 0.4);
-            animation: fadeUp 0.8s 0.6s ease both
+            animation: fadeUp 0.8s 0.6s ease both;
         }
 
-        .redirect-notice strong {
+        .notice strong {
             color: rgba(255, 255, 255, 0.7)
         }
     </style>
 </head>
 
 <body>
-    <div class="bg-circles">
-        <div class="circle" style="width:500px;height:500px;top:-200px;left:-150px;animation-duration:8s"></div>
-        <div class="circle"
-            style="width:350px;height:350px;bottom:-100px;right:-100px;animation-duration:11s;animation-delay:3s"></div>
-        <div class="circle" style="width:200px;height:200px;top:40%;right:10%;animation-duration:9s;animation-delay:1s">
-        </div>
-    </div>
     <div class="error-code">404</div>
-    <span class="error-icon">🔍</span>
-    <h1 class="error-title">Oops! Page Not Found</h1>
-    <p class="error-sub">The page you're looking for doesn't exist or has been moved. It might have been deleted or you
-        may have typed the wrong URL.</p>
+    <span class="icon">🔍</span>
+    <h1>Oops! Page Not Found</h1>
+    <p>The page you're looking for doesn't exist or has been moved. You may have typed the wrong URL.</p>
+
     <div class="btn-group">
-        <a href="index.html" class="err-btn btn-home">🏠 Back to Home</a>
-        <a href="javascript:history.back()" class="err-btn btn-back">← Go Back</a>
+        <a href="index.html" class="btn btn-home">🏠 Back to Home</a>
+        <a href="javascript:history.back()" class="btn btn-back">← Go Back</a>
     </div>
-    <div class="suggestions">
-        <div class="suggestions-title">Maybe you were looking for</div>
-        <div class="suggestions-links">
-            <a href="index.html" class="sug-link">🏠 Home</a>
-            <a href="auth.html" class="sug-link">🔑 Sign In</a>
-            <a href="auth.html?tab=register" class="sug-link">✨ Register</a>
-            <a href="app.html" class="sug-link">📊 Dashboard</a>
-        </div>
+
+    <div class="links">
+        <a href="index.html">🏠 Home</a>
+        <a href="auth.html">🔑 Sign In</a>
+        <a href="auth.html?tab=register">✨ Register</a>
+        <a href="app.html">📊 Dashboard</a>
     </div>
-    <div class="redirect-notice">Redirecting to home in <strong id="countdown">10</strong>s</div>
+
+    <div class="notice">Redirecting to home in <strong id="cd">10</strong>s</div>
+
     <script>
-        let count = 10; const cd = document.getElementById('countdown');
-        const timer = setInterval(() => { count--; if (cd) cd.textContent = count; if (count <= 0) { clearInterval(timer); window.location.href = 'index.html'; } }, 1000);
+        let n = 10, el = document.getElementById('cd');
+        setInterval(() => { el.textContent = --n; if (!n) location.href = 'index.html' }, 1000);
     </script>
 </body>
 
