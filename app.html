@@ -170,8 +170,6 @@
         .source-other{background:var(--gray-100);color:var(--gray-600);padding:2px 6px;border-radius:5px;font-size:.68rem;font-weight:700}
         .comment-cell{max-width:140px;font-size:.72rem;color:var(--gray-600);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
         .comment-bubble{background:linear-gradient(135deg,#f0f9ff,#e0f2fe);border:1px solid #bae6fd;border-radius:8px;padding:4px 8px;font-size:.71rem;color:#0c4a6e;max-width:140px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:inline-block}
-
-        /* BULK ADD */
         .bulk-row{background:var(--gray-50);border:1.5px solid var(--gray-200);border-radius:var(--radius-lg);padding:14px;margin-bottom:10px;position:relative;transition:all .18s}
         .bulk-row:hover{border-color:var(--primary);box-shadow:0 2px 8px rgba(108,99,255,.08)}
         .bulk-row-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
@@ -185,23 +183,17 @@
         .bulk-result-ok{background:var(--success-light);color:#065f46;border:1px solid #a7f3d0}
         .bulk-result-fail{background:var(--danger-light);color:#7f1d1d;border:1px solid #fca5a5}
         .bulk-result-warn{background:var(--warning-light);color:#78350f;border:1px solid #fcd34d}
-
-        /* COMMENT SECTION IN BULK ROW */
         .comment-section{margin-top:10px;border-top:1.5px dashed var(--gray-200);padding-top:10px}
         .comment-section-label{font-size:.71rem;font-weight:700;color:var(--gray-500);letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:5px}
         .comment-textarea{width:100%;padding:9px 12px;border:1.5px solid var(--gray-200);border-radius:var(--radius);font-size:.83rem;font-family:'Inter',sans-serif;color:var(--gray-800);background:white;outline:none;transition:all .18s;resize:vertical;min-height:68px;line-height:1.6}
         .comment-textarea:focus{border-color:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,.10);background:white}
         .comment-char-count{font-size:.68rem;color:var(--gray-400);text-align:right;margin-top:3px}
-
-        /* NOTIFICATION SUMMARY CARD */
         .notify-summary-card{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:2px solid #10b981;border-radius:var(--radius-lg);padding:16px;margin-top:12px}
         .notify-summary-title{font-weight:800;color:#065f46;font-size:.9rem;margin-bottom:10px;display:flex;align-items:center;gap:7px}
         .notify-summary-item{display:flex;align-items:center;gap:8px;padding:7px 10px;background:white;border-radius:var(--radius);margin-bottom:6px;border:1px solid rgba(16,185,129,.2)}
         .notify-summary-item:last-child{margin-bottom:0}
         .notify-summary-item.fail{background:#fff5f5;border-color:rgba(239,68,68,.2)}
         .notify-summary-item.warn{background:#fffbeb;border-color:rgba(245,158,11,.2)}
-
-        /* MODAL */
         .modal{display:none;position:fixed;inset:0;background:rgba(15,23,42,.6);backdrop-filter:blur(6px);z-index:1000;align-items:center;justify-content:center;padding:20px}
         .modal.active{display:flex;animation:fadeIn .18s ease}
         @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -320,6 +312,10 @@
         .badge-domain{background:rgba(108,99,255,.12);border:1px solid rgba(108,99,255,.25);color:var(--primary-dark)}
         .badge-verified{background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:#059669}
         .duplicate-banner{background:linear-gradient(135deg,#fef3c7,#fde68a);border:2px solid #f59e0b;border-radius:var(--radius);padding:10px 14px;margin-bottom:11px;display:flex;align-items:center;gap:9px;animation:slideIn .25s ease}
+        /* Team loading indicator */
+        .team-loading{display:flex;align-items:center;gap:10px;padding:16px;color:var(--gray-500);font-size:.84rem;font-weight:600}
+        .team-loading-ring{width:20px;height:20px;border:2px solid var(--gray-200);border-top-color:var(--primary);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
+        .sheet-sync-badge{display:inline-flex;align-items:center;gap:4px;background:linear-gradient(135deg,#d1fae5,#a7f3d0);border:1px solid #10b981;border-radius:20px;padding:3px 10px;font-size:.68rem;font-weight:700;color:#065f46}
         @media(max-width:768px){.page-body{padding:12px 10px}.tabs-wrapper{width:100%;justify-content:center}.card{padding:14px 11px}.stats-grid{grid-template-columns:repeat(2,1fr)}.wtc-tasks{grid-template-columns:1fr 1fr}.nav-brand-text,.user-verified-badge{display:none}}
     </style>
 </head>
@@ -531,26 +527,34 @@
             </div>
             <div class="card">
                 <div class="card-header">
-                    <div class="card-title"><div class="card-title-icon">👥</div> Team Members <span class="count-badge" id="team-count">0</span></div>
+                    <div class="card-title">
+                        <div class="card-title-icon">👥</div>
+                        Team Members
+                        <span class="count-badge" id="team-count">0</span>
+                        <span class="sheet-sync-badge">☁️ Saved to Sheet</span>
+                    </div>
                     <button class="btn btn-ghost btn-sm" onclick="loadTeamMembers()">🔄 Refresh</button>
+                </div>
+                <div id="team-alert" class="alert"></div>
+                <div style="background:linear-gradient(135deg,#dbeafe,#eff6ff);border:1.5px solid #93c5fd;border-radius:var(--radius);padding:10px 13px;margin-bottom:14px;font-size:.78rem;color:#1e40af;display:flex;align-items:center;gap:7px">
+                    ☁️ <strong>Team members are stored in Google Sheets</strong> — they persist across all devices, browsers and sessions.
                 </div>
                 <div class="add-member-form">
                     <div class="add-member-title">➕ Add Team Member</div>
                     <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:end">
                         <div class="form-group">
                             <label>👤 Name</label>
-                            <input type="text" id="new-member-name">
+                            <input type="text" id="new-member-name" placeholder="e.g. John Doe">
                         </div>
                         <div class="form-group">
                             <label>📧 Email</label>
-                            <input type="email" id="new-member-email">
+                            <input type="email" id="new-member-email" placeholder="john@dashverse.ai">
                         </div>
-                        <button class="btn btn-primary" onclick="addTeamMember()" style="height:40px">➕ Add</button>
+                        <button class="btn btn-primary" onclick="addTeamMember()" id="add-member-btn" style="height:40px">➕ Add</button>
                     </div>
-                    <div id="team-alert" class="alert" style="margin-top:8px;margin-bottom:0"></div>
                 </div>
                 <div id="team-members-table">
-                    <div class="empty-state" style="padding:20px"><div class="empty-icon">👥</div><div class="empty-title">No team members yet</div><div class="empty-sub">Add members above to enable notifications.</div></div>
+                    <div class="team-loading"><div class="team-loading-ring"></div> Loading team members from Sheet…</div>
                 </div>
                 <div style="margin-top:12px;padding:10px 13px;background:var(--info-light);border:1px solid #93c5fd;border-radius:var(--radius);font-size:.78rem;color:#1e40af">
                     💡 <strong>How it works:</strong> When a show is assigned to a person, <strong>only that person's email</strong> gets the notification.
@@ -598,7 +602,6 @@
             <div class="modal-field"><label class="modal-label">Assign Date</label><input class="modal-input" type="date" id="em-assignDate"></div>
             <div class="modal-field"><label class="modal-label">Completed Date</label><input class="modal-input" type="date" id="em-completedDate"></div>
         </div>
-        <!-- Comment field in edit modal -->
         <div class="modal-field" style="margin-top:4px">
             <label class="modal-label">💬 Comment / Notes</label>
             <textarea class="modal-textarea" id="em-comment" rows="3" style="background:linear-gradient(135deg,#f0f9ff,#e0f2fe);border-color:#bae6fd"></textarea>
@@ -709,11 +712,11 @@ let currentSortOrder='newest';
 let dashActiveFilter='all';
 let bulkRowCount=0;
 let teamMembers=[];
+let teamMembersLoaded=false;
 
 const newlyAdded=new Set();
 const notifiedMandatory=new Set(JSON.parse(localStorage.getItem('_notifiedMandatory')||'[]'));
 const WORKER='https://teamtask.masthan9369.workers.dev';
-const LS_TEAM_KEY='stm_team_members';
 
 const TASK_FIELDS=[
     {key:'chineseFile',label:'Chinese File',byKey:'chineseBy'},
@@ -740,66 +743,144 @@ function showAlert(id,type,msg){ const el=document.getElementById(id); if(!el) r
 function sbClass(s){ if(s==='Completed') return 'st-completed-badge'; if(s==='In Progress') return 'st-progress-badge'; if(s==='Pending') return 'st-pending-badge'; return ''; }
 function mandatoryDone(show){ return MANDATORY.every(k=>show[k]==='Completed'); }
 
-/* ─── TEAM MEMBERS ─── */
-function loadTeamMembers(){
-    try{ teamMembers=JSON.parse(localStorage.getItem(LS_TEAM_KEY)||'[]'); }catch(e){ teamMembers=[]; }
+/* ─── TEAM MEMBERS — SHEET BACKED ─── */
+async function loadTeamMembers(){
+    const el=document.getElementById('team-members-table');
+    if(el) el.innerHTML=`<div class="team-loading"><div class="team-loading-ring"></div> Loading team members from Google Sheets…</div>`;
+    
+    try{
+        const data=await callGet({action:'getTeamMembers'});
+        if(data&&data.success){
+            teamMembers=data.members||[];
+            teamMembersLoaded=true;
+            // Also cache locally as backup
+            try{ localStorage.setItem('stm_team_members_cache',JSON.stringify(teamMembers)); }catch(e){}
+        } else {
+            // Fallback to local cache
+            try{ teamMembers=JSON.parse(localStorage.getItem('stm_team_members_cache')||'[]'); }catch(e){ teamMembers=[]; }
+            teamMembersLoaded=true;
+            if(el) showAlert('team-alert','warning','⚠️ Could not reach Sheet. Showing cached data.');
+        }
+    } catch(e){
+        try{ teamMembers=JSON.parse(localStorage.getItem('stm_team_members_cache')||'[]'); }catch(e2){ teamMembers=[]; }
+        teamMembersLoaded=true;
+    }
+    
     renderTeamMembersTable();
     rebuildAllPersonSelects();
 }
-function saveTeamMembers(){ try{ localStorage.setItem(LS_TEAM_KEY,JSON.stringify(teamMembers)); }catch(e){} }
-function addTeamMember(){
+
+async function addTeamMember(){
     const nameEl=document.getElementById('new-member-name');
     const emailEl=document.getElementById('new-member-email');
+    const btn=document.getElementById('add-member-btn');
     const name=nameEl.value.trim();
     const email=emailEl.value.trim().toLowerCase();
+    
     if(!name){ showAlert('team-alert','error','⚠️ Name is required.'); return; }
     if(!email||!email.includes('@')){ showAlert('team-alert','error','⚠️ Valid email is required.'); return; }
     if(teamMembers.find(m=>m.name.toLowerCase()===name.toLowerCase())){ showAlert('team-alert','error',`⚠️ "${name}" already exists.`); return; }
     if(teamMembers.find(m=>m.email===email)){ showAlert('team-alert','error',`⚠️ Email "${email}" already used.`); return; }
-    teamMembers.push({name,email});
-    saveTeamMembers();
-    nameEl.value=''; emailEl.value='';
-    renderTeamMembersTable();
-    rebuildAllPersonSelects();
-    showAlert('team-alert','success',`✅ ${name} added!`);
+    
+    if(btn){ btn.disabled=true; btn.innerHTML='<span class="notify-spinner"></span> Saving…'; }
+    
+    const r=await callPost('addTeamMember',{name,email});
+    
+    if(btn){ btn.disabled=false; btn.innerHTML='➕ Add'; }
+    
+    if(r&&r.success){
+        teamMembers.push({name,email});
+        try{ localStorage.setItem('stm_team_members_cache',JSON.stringify(teamMembers)); }catch(e){}
+        nameEl.value=''; emailEl.value='';
+        renderTeamMembersTable();
+        rebuildAllPersonSelects();
+        showAlert('team-alert','success',`✅ ${name} added and saved to Sheet!`);
+    } else {
+        showAlert('team-alert','error','❌ Failed to save: '+(r?r.message:'no response')+'. Check Sheet connection.');
+    }
 }
-function removeTeamMember(idx){
+
+async function removeTeamMember(idx){
     const m=teamMembers[idx]; if(!m) return;
     if(!confirm(`Remove ${m.name} (${m.email})?`)) return;
-    teamMembers.splice(idx,1);
-    saveTeamMembers();
-    renderTeamMembersTable();
-    rebuildAllPersonSelects();
+    
+    const r=await callPost('removeTeamMember',{name:m.name,email:m.email});
+    
+    if(r&&r.success){
+        teamMembers.splice(idx,1);
+        try{ localStorage.setItem('stm_team_members_cache',JSON.stringify(teamMembers)); }catch(e){}
+        renderTeamMembersTable();
+        rebuildAllPersonSelects();
+        showAlert('team-alert','success',`✅ ${m.name} removed.`);
+    } else {
+        showAlert('team-alert','error','❌ Remove failed: '+(r?r.message:'no response'));
+    }
 }
+
 function renderTeamMembersTable(){
     const el=document.getElementById('team-members-table'); if(!el) return;
     const countEl=document.getElementById('team-count');
     if(countEl) countEl.textContent=teamMembers.length;
-    if(!teamMembers.length){ el.innerHTML=`<div class="empty-state" style="padding:20px"><div class="empty-icon">👥</div><div class="empty-title">No team members yet</div><div class="empty-sub">Add members above to enable notifications.</div></div>`; return; }
+    if(!teamMembers.length){ 
+        el.innerHTML=`<div class="empty-state" style="padding:20px"><div class="empty-icon">👥</div><div class="empty-title">No team members yet</div><div class="empty-sub">Add members above — they'll be saved to Google Sheets permanently.</div></div>`; 
+        return; 
+    }
     let rows='';
     teamMembers.forEach((m,i)=>{
         const col=COLORS[i%COLORS.length];
-        rows+=`<tr><td><div style="display:flex;align-items:center;gap:9px"><div style="width:30px;height:30px;border-radius:8px;background:${col};display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:.8rem;flex-shrink:0">${m.name.charAt(0).toUpperCase()}</div><span style="font-weight:700;color:var(--gray-800)">${esc(m.name)}</span></div></td><td><span class="email-mono">${esc(m.email)}</span></td><td><span style="font-size:.72rem;color:var(--gray-500)">${allShows.filter(s=>s.taskDoneBy===m.name).length} shows</span></td><td><button class="btn btn-danger" onclick="removeTeamMember(${i})">🗑️ Remove</button></td></tr>`;
+        rows+=`<tr>
+<td><div style="display:flex;align-items:center;gap:9px">
+<div style="width:30px;height:30px;border-radius:8px;background:${col};display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:.8rem;flex-shrink:0">${m.name.charAt(0).toUpperCase()}</div>
+<span style="font-weight:700;color:var(--gray-800)">${esc(m.name)}</span>
+</div></td>
+<td><span class="email-mono">${esc(m.email)}</span></td>
+<td><span style="font-size:.72rem;color:var(--gray-500)">${allShows.filter(s=>s.taskDoneBy===m.name).length} shows</span></td>
+<td><button class="btn btn-danger" onclick="removeTeamMember(${i})">🗑️ Remove</button></td>
+</tr>`;
     });
-    el.innerHTML=`<table class="team-table"><thead><tr><th>👤 Name</th><th>📧 Email</th><th>📺 Shows</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
+    el.innerHTML=`<table class="team-table">
+<thead><tr><th>👤 Name</th><th>📧 Email</th><th>📺 Shows</th><th>Actions</th></tr></thead>
+<tbody>${rows}</tbody>
+</table>`;
 }
-function getPersonEmail(name){ if(!name) return null; const m=teamMembers.find(tm=>tm.name.toLowerCase()===name.trim().toLowerCase()); return m?m.email:null; }
+
+function getPersonEmail(name){ 
+    if(!name) return null; 
+    const m=teamMembers.find(tm=>tm.name.toLowerCase()===name.trim().toLowerCase()); 
+    return m?m.email:null; 
+}
+
 function personOptionsHtml(selected=''){
     let html='<option value="">— Select Person —</option>';
-    teamMembers.forEach(m=>{ html+=`<option value="${esc(m.name)}" ${selected===m.name?'selected':''}>${esc(m.name)} — ${esc(m.email)}</option>`; });
+    teamMembers.forEach(m=>{ 
+        html+=`<option value="${esc(m.name)}" ${selected===m.name?'selected':''}>${esc(m.name)} — ${esc(m.email)}</option>`; 
+    });
     return html;
 }
+
 function rebuildAllPersonSelects(){
-    const em=document.getElementById('em-taskDoneBy'); if(em){ const v=em.value; em.innerHTML=personOptionsHtml(v); }
-    TASK_FIELDS.forEach(tf=>{ const el=document.getElementById('em-'+tf.byKey); if(el){ const v=el.value; el.innerHTML=personOptionsHtml(v); } });
-    document.querySelectorAll('[data-bulk-person]').forEach(sel=>{ const v=sel.value; sel.innerHTML=personOptionsHtml(v); });
+    const em=document.getElementById('em-taskDoneBy'); 
+    if(em){ const v=em.value; em.innerHTML=personOptionsHtml(v); }
+    TASK_FIELDS.forEach(tf=>{ 
+        const el=document.getElementById('em-'+tf.byKey); 
+        if(el){ const v=el.value; el.innerHTML=personOptionsHtml(v); } 
+    });
+    document.querySelectorAll('[data-bulk-person]').forEach(sel=>{ 
+        const v=sel.value; sel.innerHTML=personOptionsHtml(v); 
+    });
     rebuildWorkerDropdown();
 }
+
 function rebuildWorkerDropdown(){
     const sel=document.getElementById('workerNameInput'); if(!sel) return;
     const cv=sel.value;
     sel.innerHTML='<option value="">— Select your name —</option>';
-    teamMembers.forEach(m=>{ const o=document.createElement('option'); o.value=m.name; o.textContent=`${m.name} (${m.email})`; sel.appendChild(o); });
+    teamMembers.forEach(m=>{ 
+        const o=document.createElement('option'); 
+        o.value=m.name; 
+        o.textContent=`${m.name} (${m.email})`; 
+        sel.appendChild(o); 
+    });
     if(cv) sel.value=cv;
 }
 
@@ -812,62 +893,56 @@ function addBulkRow(){
     const d=document.createElement('div');
     d.className='bulk-row'; d.id=`bulk-row-${idx}`;
     d.innerHTML=`
-    <div class="bulk-row-header">
-        <div style="display:flex;align-items:center;gap:8px">
-            <div class="bulk-row-num">${idx}</div>
-            <span style="font-size:.82rem;font-weight:700;color:var(--gray-700)">Show #${idx}</span>
-        </div>
-        ${idx>1?`<button style="background:linear-gradient(135deg,#ef4444,#dc2626);color:white;border:none;border-radius:6px;padding:5px 10px;font-size:.73rem;font-weight:600;cursor:pointer" onclick="removeBulkRow(${idx})">✕ Remove</button>`:''}
+<div class="bulk-row-header">
+    <div style="display:flex;align-items:center;gap:8px">
+        <div class="bulk-row-num">${idx}</div>
+        <span style="font-size:.82rem;font-weight:700;color:var(--gray-700)">Show #${idx}</span>
     </div>
-    <div class="form-grid">
-        <div class="form-group">
-            <label>📺 Show Name <span style="color:#dc2626">*</span></label>
-            <input type="text" id="bulk-name-${idx}" oninput="checkBulkDup(this,${idx})">
-        </div>
-        <div class="form-group">
-            <label>🔗 Scraped File Link <span style="color:#dc2626">*</span></label>
-            <input type="url" id="bulk-link-${idx}">
-        </div>
-        <div class="form-group">
-            <label>📦 Source</label>
-            <select id="bulk-source-${idx}">
-                <option value="">— Select —</option>
-                <option value="Drive">Drive</option>
-                <option value="YouTube">YouTube</option>
-                <option value="Dailymotion">Dailymotion</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>👤 Assign To (gets email)</label>
-            <select id="bulk-person-${idx}" data-bulk-person="${idx}">
-                ${personOptionsHtml()}
-            </select>
-        </div>
-        <div class="form-group">
-            <label>🗓️ Assign Date</label>
-            <input type="date" id="bulk-date-${idx}" value="${today}">
-        </div>
+    ${idx>1?`<button style="background:linear-gradient(135deg,#ef4444,#dc2626);color:white;border:none;border-radius:6px;padding:5px 10px;font-size:.73rem;font-weight:600;cursor:pointer" onclick="removeBulkRow(${idx})">✕ Remove</button>`:''}
+</div>
+<div class="form-grid">
+    <div class="form-group">
+        <label>📺 Show Name <span style="color:#dc2626">*</span></label>
+        <input type="text" id="bulk-name-${idx}" oninput="checkBulkDup(this,${idx})">
     </div>
-    <div id="bulk-dup-${idx}" style="display:none;margin-top:7px"></div>
-    <div class="comment-section">
-        <div class="comment-section-label">
-            <span>💬</span> Comment / Notes
-            <span style="color:var(--gray-400);font-weight:400;font-size:.68rem;margin-left:4px">(optional)</span>
-        </div>
-        <textarea
-            class="comment-textarea"
-            id="bulk-comment-${idx}"
-            rows="2"
-            maxlength="500"
-            oninput="updateCharCount(this,'bulk-char-${idx}')"
-        ></textarea>
-        <div class="comment-char-count" id="bulk-char-${idx}">0 / 500</div>
-    </div>`;
+    <div class="form-group">
+        <label>🔗 Scraped File Link <span style="color:#dc2626">*</span></label>
+        <input type="url" id="bulk-link-${idx}">
+    </div>
+    <div class="form-group">
+        <label>📦 Source</label>
+        <select id="bulk-source-${idx}">
+            <option value="">— Select —</option>
+            <option value="Drive">Drive</option>
+            <option value="YouTube">YouTube</option>
+            <option value="Dailymotion">Dailymotion</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>👤 Assign To (gets email)</label>
+        <select id="bulk-person-${idx}" data-bulk-person="${idx}">
+            ${personOptionsHtml()}
+        </select>
+    </div>
+    <div class="form-group">
+        <label>🗓️ Assign Date</label>
+        <input type="date" id="bulk-date-${idx}" value="${today}">
+    </div>
+</div>
+<div id="bulk-dup-${idx}" style="display:none;margin-top:7px"></div>
+<div class="comment-section">
+    <div class="comment-section-label">
+        <span>💬</span> Comment / Notes
+        <span style="color:var(--gray-400);font-weight:400;font-size:.68rem;margin-left:4px">(optional)</span>
+    </div>
+    <textarea class="comment-textarea" id="bulk-comment-${idx}" rows="2" maxlength="500" oninput="updateCharCount(this,'bulk-char-${idx}')"></textarea>
+    <div class="comment-char-count" id="bulk-char-${idx}">0 / 500</div>
+</div>`;
     c.appendChild(d);
     updateBulkCount();
 }
 
-function updateCharCount(ta, countId){
+function updateCharCount(ta,countId){
     const el=document.getElementById(countId);
     if(el) el.textContent=`${ta.value.length} / ${ta.maxLength}`;
 }
@@ -887,7 +962,7 @@ async function addAllShows(){
         const nEl=document.getElementById(`bulk-name-${id}`);
         const lEl=document.getElementById(`bulk-link-${id}`);
         if(!nEl||!lEl) return;
-        const showName=nEl.value.trim(), showLink=lEl.value.trim();
+        const showName=nEl.value.trim(),showLink=lEl.value.trim();
         if(!showName||!showLink){ nEl.style.borderColor=!showName?'#ef4444':''; lEl.style.borderColor=!showLink?'#ef4444':''; hasErr=true; return; }
         const sourcePlace=document.getElementById(`bulk-source-${id}`)?.value||'';
         const taskDoneBy=document.getElementById(`bulk-person-${id}`)?.value||'';
@@ -906,11 +981,10 @@ async function addAllShows(){
     const ni=document.getElementById('bulk-notify-items');
     pw.style.display='block'; rc.innerHTML=''; ns.style.display='none'; ni.innerHTML='';
 
-    let saved=0, failed=0;
+    let saved=0,failed=0;
     const notifyResults=[];
     const savedShows=[];
 
-    // Phase 1: Save
     for(let i=0;i<toAdd.length;i++){
         const item=toAdd[i];
         pf.style.width=Math.round(((i/toAdd.length)*70))+'%';
@@ -943,7 +1017,6 @@ async function addAllShows(){
         if(i<toAdd.length-1) await new Promise(res=>setTimeout(res,300));
     }
 
-    // Phase 2: Notify
     if(savedShows.length>0){
         pt.textContent=`📧 Sending notifications for ${savedShows.length} show(s)…`;
         pf.style.width='75%';
@@ -966,11 +1039,9 @@ async function addAllShows(){
         }
     }
 
-    // Phase 3: Results
     pf.style.width='100%';
     const notifySent=notifyResults.filter(r=>r.status==='sent').length;
     const notifyFailed=notifyResults.filter(r=>r.status==='failed').length;
-    const notifyNoPerson=notifyResults.filter(r=>r.status==='no_person').length;
     const notifyNoEmail=notifyResults.filter(r=>r.status==='no_email').length;
     pt.textContent=`Done! ✅ ${saved} saved · 📧 ${notifySent} notified${notifyFailed>0?` · ❌ ${notifyFailed} failed`:''}${failed>0?` · ⚠️ ${failed} save failed`:''}`;
 
@@ -1015,9 +1086,11 @@ window.initApp=function(){
     setConn('none');
     populateMonthPicker();
     populateDashMonthPicker();
-    loadTeamMembers();
-    addBulkRow();
-    loadShows();
+    // Load team members FIRST, then shows
+    loadTeamMembers().then(()=>{
+        addBulkRow();
+        loadShows();
+    });
 };
 
 /* ─── TABS ─── */
@@ -1068,6 +1141,7 @@ function openNotifyModal(showIdx,type){
     if(sendBtn){ sendBtn.disabled=!recipients.length; sendBtn.innerHTML=recipients.length?'📧 Send Notification':'❌ No Recipient'; sendBtn.style.background=recipients.length?'':'linear-gradient(135deg,#94a3b8,#64748b)'; }
     document.getElementById('notifyModal').classList.add('active');
 }
+
 async function executeSendNotification(){
     if(!notifyTarget) return;
     const{show,type,recipients,assignedName,assignedEmail}=notifyTarget;
@@ -1103,6 +1177,7 @@ async function loadShows(){
     document.getElementById('loading-shows').style.display='none';
     buildPersonFilter(); filterShows(); updateStats(); renderTeamMembersTable();
 }
+
 function buildPersonFilter(){
     const sel=document.getElementById('filterPerson'); const cv=sel.value;
     sel.innerHTML='<option value="">👤 All People</option>';
@@ -1132,7 +1207,6 @@ function renderShows(shows){
         else if(mDone&&alerted) nb=`<span class="btn-notify-sent btn" style="cursor:default">✅ Notified</span>`;
         let tCols='';
         TASK_FIELDS.forEach(tf=>{ const sv=show[tf.key]||'',bv=show[tf.byKey]||'',sc2=sbClass(sv); tCols+=`<td class="group-sep">${sv?`<span class="status-badge ${sc2}">${sv}</span>`:'<em style="color:var(--gray-400);font-size:.71rem">—</em>'}</td><td><span style="font-size:.73rem;color:var(--gray-600);font-weight:500">${esc(bv)||'<em style="color:var(--gray-400)">—</em>'}</span></td>`; });
-        // Comment cell
         const commentHtml=show.comment?`<span class="comment-bubble" title="${esc(show.comment)}">💬 ${esc(show.comment.substring(0,30))}${show.comment.length>30?'…':''}</span>`:'<em style="color:var(--gray-400);font-size:.71rem">—</em>';
         rows+=`<tr class="${rc}">
 <td><span class="row-num">${vi+1}</span></td>
@@ -1155,6 +1229,7 @@ ${tCols}
 <tr><th>Status</th><th>By</th><th>Status</th><th>By</th><th>Status</th><th>By</th><th>Status</th><th>By</th><th>Status</th><th>By</th><th>Status</th><th>By</th></tr>
 </thead><tbody>${rows}</tbody></table></div>`;
 }
+
 function filterShows(){
     const s=document.getElementById('searchInput').value.toLowerCase();
     const st=document.getElementById('filterStatus').value;
