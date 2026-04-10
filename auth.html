@@ -973,8 +973,8 @@
                         task stages</span>
                 </div>
                 <div class="feature-item">
-                    <div class="feature-dot fd-green">✉️</div><span class="feature-text">Email verification — accounts
-                        are verified</span>
+                    <div class="feature-dot fd-green">📧</div><span class="feature-text">Email notifications — new show
+                        & task completion</span>
                 </div>
                 <div class="feature-item">
                     <div class="feature-dot fd-blue">📊</div><span class="feature-text">Live dashboard with team
@@ -1135,11 +1135,10 @@
         </div>
     </div>
 
-    <!-- FIREBASE MODULE — config loaded from Cloudflare Worker -->
+    <!-- FIREBASE MODULE -->
     <script type="module">
         const WORKER_URL = 'https://teamtask.masthan9369.workers.dev';
 
-        // ── Fetch config from Worker ──────────────────────────
         async function fetchConfig() {
             try {
                 const r = await fetch(`${WORKER_URL}/config`);
@@ -1156,7 +1155,6 @@
             const el = document.getElementById('authMsg');
             el.className = 'auth-msg error';
             el.textContent = '❌ Failed to load app configuration. Please try again later.';
-            // Disable all buttons
             document.querySelectorAll('.submit-btn, .google-btn').forEach(b => b.disabled = true);
             throw new Error('Config load failed');
         }
@@ -1164,7 +1162,6 @@
         window.WORKER_URL = WORKER_URL;
         const ALLOWED_DOMAIN = cfg.allowedDomain || '@dashverse.ai';
 
-        // ── Firebase imports ──────────────────────────────────
         const { initializeApp } = await import('https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js');
         const {
             getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword,
@@ -1180,13 +1177,11 @@
         const googleProvider = new GoogleAuthProvider();
         googleProvider.setCustomParameters({ prompt: 'select_account', hd: 'dashverse.ai' });
 
-        // ── State ─────────────────────────────────────────────
         let pendingEmail = '';
-        let pendingPassword = '';
         let resendTimer = null;
         let resendCooldown = 0;
 
-        // ── Helpers ───────────────────────────────────────────
+        // ── Helpers ──────────────────────────────────────────
         function getFriendlyError(code) {
             const map = {
                 'auth/user-not-found': 'No account found with this email. Please register first.',
@@ -1234,15 +1229,30 @@
             document.getElementById('authLoadingText').textContent = text || 'Loading…';
             document.getElementById('authLoadingOverlay').classList.add('active');
         }
+
+        // Register user in sheet after login (fire-and-forget)
+        async function registerUserInSheet(name, email) {
+            try {
+                await fetch(`${WORKER_URL}/sheet`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'registerUser', name, email })
+                });
+            } catch (e) { }
+        }
+
         function saveSessionAndRedirect(user) {
-            localStorage.setItem('stm_fb_session', JSON.stringify({
+            const session = {
                 uid: user.uid, email: user.email,
                 name: user.displayName || user.email.split('@')[0],
                 photoURL: user.photoURL || '', emailVerified: true
-            }));
+            };
+            localStorage.setItem('stm_fb_session', JSON.stringify(session));
+            registerUserInSheet(session.name, session.email);
             showLoadingOverlay('✅ Verified! Redirecting to dashboard…');
             setTimeout(() => { window.location.href = 'app.html'; }, 900);
         }
+
         function startResendCooldown(seconds = 60) {
             resendCooldown = seconds;
             const btn = document.getElementById('resendBtn');
@@ -1259,28 +1269,26 @@
                 }
             }, 1000);
         }
+
         function showVerifyScreen(email, password) {
             pendingEmail = email;
-            pendingPassword = password;
             document.getElementById('verifyEmailDisplay').textContent = email;
             document.getElementById('verifyPassword').value = password || '';
             document.getElementById('authTabsBar').style.display = 'none';
-            ['loginForm', 'registerForm', 'resetForm'].forEach(id => {
-                document.getElementById(id).style.display = 'none';
-            });
+            ['loginForm', 'registerForm', 'resetForm'].forEach(id => { document.getElementById(id).style.display = 'none'; });
             document.getElementById('verifyForm').style.display = 'block';
             clearMsg();
             startResendCooldown(60);
         }
 
-        // ── Auth state observer ───────────────────────────────
+        // ── Auth state observer ──────────────────────────────
         onAuthStateChanged(auth, async user => {
             if (user && user.emailVerified && user.email && user.email.endsWith(ALLOWED_DOMAIN)) {
                 saveSessionAndRedirect(user);
             }
         });
 
-        // ── Google Sign-In ────────────────────────────────────
+        // ── Google Sign-In ───────────────────────────────────
         window.handleGoogleSignIn = async function () {
             clearMsg();
             setGoogleBtnsLoading(true);
@@ -1302,7 +1310,7 @@
             }
         };
 
-        // ── Email Login ───────────────────────────────────────
+        // ── Email Login ──────────────────────────────────────
         window.handleEmailLogin = async function () {
             clearMsg();
             const email = document.getElementById('loginEmail').value.trim().toLowerCase();
@@ -1329,7 +1337,7 @@
             }
         };
 
-        // ── Email Register ────────────────────────────────────
+        // ── Email Register ───────────────────────────────────
         window.handleEmailRegister = async function () {
             clearMsg();
             const name = document.getElementById('regName').value.trim();
@@ -1354,7 +1362,7 @@
             }
         };
 
-        // ── Check Email Verified ──────────────────────────────
+        // ── Check Email Verified ─────────────────────────────
         window.checkEmailVerified = async function () {
             const email = pendingEmail || document.getElementById('verifyEmailDisplay').textContent.trim();
             const pw = document.getElementById('verifyPassword').value;
@@ -1381,7 +1389,7 @@
             }
         };
 
-        // ── Resend Verification ───────────────────────────────
+        // ── Resend Verification ──────────────────────────────
         window.resendVerificationEmail = async function () {
             const email = pendingEmail || document.getElementById('verifyEmailDisplay').textContent.trim();
             const pw = document.getElementById('verifyPassword').value;
@@ -1405,14 +1413,14 @@
             }
         };
 
-        // ── Cancel Verification ───────────────────────────────
+        // ── Cancel Verification ──────────────────────────────
         window.cancelVerification = function () {
-            pendingEmail = ''; pendingPassword = '';
+            pendingEmail = '';
             clearInterval(resendTimer);
             switchAuthTab('register');
         };
 
-        // ── Password Reset ────────────────────────────────────
+        // ── Password Reset ───────────────────────────────────
         window.handlePasswordReset = async function () {
             clearMsg();
             const email = document.getElementById('resetEmail').value.trim().toLowerCase();
@@ -1429,10 +1437,9 @@
             }
         };
 
-        // ── Expose clearMsg ───────────────────────────────────
         window._clearAuthMsg = clearMsg;
 
-        // ── Enter key support ─────────────────────────────────
+        // ── Enter key support ────────────────────────────────
         document.getElementById('loginEmail')?.addEventListener('keydown', e => { if (e.key === 'Enter') window.handleEmailLogin(); });
         document.getElementById('loginPassword')?.addEventListener('keydown', e => { if (e.key === 'Enter') window.handleEmailLogin(); });
         ['regName', 'regEmail', 'regPassword', 'regConfirm'].forEach(id => {
