@@ -2107,7 +2107,7 @@
             <div class="header">
                 <div class="header-badge">✦ Team Workflow Tool</div>
                 <h1>Show Task Manager</h1>
-                <p>Scrapping Discussion — manage pipeline from scraping to final delivery</p>
+                <p>Source discussion — manage the pipeline from source intake to final delivery</p>
             </div>
 
             <div style="text-align:center">
@@ -2156,8 +2156,12 @@
                                 oninput="checkDuplicate(this.value)">
                         </div>
                         <div class="form-group">
-                            <label>🔗 Scraped File Link <span style="color:#dc2626">*</span></label>
-                            <input type="url" id="showLink" placeholder="https://drive.google.com/...">
+                            <label>🔗 Source File Link <span style="color:#dc2626">*</span></label>
+                            <input type="url" id="sourceFileLink" placeholder="https://example.com/source-file">
+                        </div>
+                        <div class="form-group">
+                            <label>📄 Drive Link</label>
+                            <input type="url" id="driveLink" placeholder="https://drive.google.com/...">
                         </div>
                         <div class="form-group">
                             <label>📦 Source Place</label>
@@ -2527,8 +2531,10 @@
             <div class="modal-grid">
                 <div class="modal-field"><label class="modal-label">Show Name *</label><input class="modal-input"
                         type="text" id="em-showName"></div>
-                <div class="modal-field"><label class="modal-label">Scraped File Link</label><input class="modal-input"
-                        type="url" id="em-scrapedFile"></div>
+                <div class="modal-field"><label class="modal-label">Source File Link</label><input class="modal-input"
+                        type="url" id="em-sourceFileLink"></div>
+                <div class="modal-field"><label class="modal-label">Drive Link</label><input class="modal-input"
+                        type="url" id="em-driveLink"></div>
                 <div class="modal-field"><label class="modal-label">Source Place</label>
                     <select class="modal-input" id="em-sourcePlace">
                         <option value="">— Select —</option>
@@ -2815,6 +2821,17 @@
             const s = src.toLowerCase();
             const cls = s === 'drive' ? 'source-drive' : s === 'youtube' ? 'source-youtube' : s === 'dailymotion' ? 'source-dailymotion' : 'source-other';
             return `<span class="${cls}">${esc(src)}</span>`;
+        }
+        function getSourceFileLink(show) {
+            return (show && (show.sourceFileLink || show.scrapedFile || '')).trim();
+        }
+        function getDriveLink(show) {
+            return (show && (show.driveLink || '')).trim();
+        }
+        function renderLinkCell(link, label = 'Open Link') {
+            if (!link) return '<em style="color:var(--gray-400);font-size:0.76rem">—</em>';
+            const short = link.length > 28 ? link.substring(0, 28) + '…' : link;
+            return `<a href="${esc(link)}" target="_blank" class="table-link" rel="noopener noreferrer" title="${esc(label)}">🔗 ${esc(short)}</a>`;
         }
         function showAlert(id, type, msg) {
             const el = document.getElementById(id); if (!el) return;
@@ -3152,7 +3169,14 @@
                 if (!data) showAlert('add-alert', 'warning', '⚠️ Could not reach Worker. Showing cached data.');
                 else if (data.message) showAlert('add-alert', 'warning', '⚠️ Sheet: ' + data.message);
             }
-            allShows = rawRows.filter(row => !pendingDeletes[showKey(row)]);
+            allShows = rawRows
+                .map(row => ({
+                    ...row,
+                    sourceFileLink: (row.sourceFileLink || row.scrapedFile || '').trim(),
+                    scrapedFile: (row.scrapedFile || row.sourceFileLink || '').trim(),
+                    driveLink: (row.driveLink || '').trim()
+                }))
+                .filter(row => !pendingDeletes[showKey(row)]);
             if (fromSheet) saveLocal();
             document.getElementById('loading-shows').style.display = 'none';
             buildPersonFilter(); renderShows(allShows); updateStats();
@@ -3175,13 +3199,14 @@
         // ── Add show ──────────────────────────────────────────────────
         async function addShow() {
             const showName = document.getElementById('showName').value.trim();
-            const showLink = document.getElementById('showLink').value.trim();
+            const sourceFileLink = document.getElementById('sourceFileLink').value.trim();
+            const driveLink = document.getElementById('driveLink').value.trim();
             const sourcePlace = document.getElementById('sourcePlace').value;
             const taskDoneBy = document.getElementById('taskDoneBy').value;
             const adVal = document.getElementById('taskAssignDate').value;
             const comment = document.getElementById('showComment').value.trim(); // ← NEW
 
-            if (!showName || !showLink) { showAlert('add-alert', 'error', '⚠️ Show Name and Scraped File Link are required!'); return; }
+            if (!showName || !sourceFileLink) { showAlert('add-alert', 'error', '⚠️ Show Name and Source File Link are required!'); return; }
             if (!taskDoneBy) { showAlert('add-alert', 'error', '⚠️ Please select a team member to assign this show to!'); return; }
             const dup = allShows.find(s => s.showName.trim().toLowerCase() === showName.toLowerCase());
             if (dup) { showAlert('add-alert', 'error', `❌ "${showName}" already exists!`); return; }
@@ -3189,7 +3214,7 @@
             const assignDate = adVal ? inputToDate(adVal) : inputToDate(new Date().toISOString().split('T')[0]);
             const newShow = {
                 rowNum: allShows.length + 1, showName, status: 'Pending',
-                taskDoneBy, sourcePlace, scrapedFile: showLink,
+                taskDoneBy, sourcePlace, sourceFileLink, scrapedFile: sourceFileLink, driveLink,
                 chineseFile: '', chineseBy: '', chineseSrt: '', chineseSrtBy: '',
                 englishSrt: '', englishSrtBy: '', merging: '', mergingBy: '',
                 subtitleDocx: '', subtitleDocxBy: '', toolScript: '', toolScriptBy: '',
@@ -3203,7 +3228,8 @@
 
             // Clear form
             document.getElementById('showName').value = '';
-            document.getElementById('showLink').value = '';
+            document.getElementById('sourceFileLink').value = '';
+            document.getElementById('driveLink').value = ''; 
             document.getElementById('taskDoneBy').value = '';
             document.getElementById('sourcePlace').value = '';
             document.getElementById('taskAssignDate').value = new Date().toISOString().split('T')[0];
@@ -3247,7 +3273,8 @@
                 const ri = allShows.indexOf(show);
                 const rc = show.status === 'Completed' ? 'row-done' : '';
                 const sc = statusBadgeClass(show.status);
-                const sl = show.scrapedFile ? (show.scrapedFile.length > 28 ? show.scrapedFile.substring(0, 28) + '…' : show.scrapedFile) : '';
+                const sourceFileLink = getSourceFileLink(show);
+                const driveLink = getDriveLink(show);
                 const originalIndex = allShows.indexOf(show);
                 const isNew = sortNewestFirst && originalIndex >= (totalOriginal - 3) && totalOriginal > 3;
                 const commentCell = show.comment
@@ -3262,7 +3289,7 @@
 <td><span class="row-num">${vi + 1}</span></td>
 <td><div class="show-name-cell"><span class="sn" title="${esc(show.showName)}">🎬 ${esc(show.showName)}${isNew ? '<span class="new-row-badge">NEW</span>' : ''}</span></div></td>
 <td>${sourceTag(show.sourcePlace)}</td>
-<td>${show.scrapedFile ? `<a href="${esc(show.scrapedFile)}" target="_blank" class="table-link">🔗 ${esc(sl)}</a>` : '<em style="color:var(--gray-400);font-size:0.76rem">—</em>'}</td>
+<td>${renderLinkCell(sourceFileLink, 'Source File Link')}</td><td>${renderLinkCell(driveLink, 'Drive Link')}</td>
 <td><span style="font-size:0.79rem;font-weight:600;color:var(--gray-700)">${esc(show.taskDoneBy) || '<em style="color:var(--gray-400)">—</em>'}</span></td>
 <td><span class="status-badge ${sc}">${show.status || 'Pending'}</span></td>
 <td><span class="date-cell">${esc(show.assignDate) || '—'}</span></td>
@@ -3277,7 +3304,7 @@ ${taskCells}
             container.innerHTML = `<div class="pipeline-wrap"><table class="pipeline-table">
 <thead><tr>
 <th rowspan="2">#</th><th rowspan="2">Show Name</th><th rowspan="2">Source</th>
-<th rowspan="2">Scraped Link</th><th rowspan="2">Assigned To</th><th rowspan="2">Status</th>
+<th rowspan="2">Source File Link</th><th rowspan="2">Drive Link</th><th rowspan="2">Assigned To</th><th rowspan="2">Status</th>
 <th rowspan="2">Assign Date</th><th rowspan="2">Done Date</th><th rowspan="2">💬 Comment</th>
 <th class="group-header" colspan="2">🇨🇳 Chinese File</th>
 <th class="group-header" colspan="2">📝 Chinese SRT</th>
@@ -3341,7 +3368,8 @@ ${taskCells}
             document.getElementById('editIdx').value = idx;
             document.getElementById('editModalSubtitle').textContent = '🎬 ' + s.showName;
             document.getElementById('em-showName').value = s.showName || '';
-            document.getElementById('em-scrapedFile').value = s.scrapedFile || '';
+            document.getElementById('em-sourceFileLink').value = getSourceFileLink(s);
+            document.getElementById('em-driveLink').value = getDriveLink(s);
             document.getElementById('em-sourcePlace').value = s.sourcePlace || '';
             document.getElementById('em-status').value = s.status || 'Pending';
             document.getElementById('em-assignDate').value = dateToInput(s.assignDate);
@@ -3377,7 +3405,9 @@ ${taskCells}
             allShows[idx] = {
                 ...old,
                 showName: document.getElementById('em-showName').value.trim(),
-                scrapedFile: document.getElementById('em-scrapedFile').value.trim(),
+                sourceFileLink: document.getElementById('em-sourceFileLink').value.trim(),
+                scrapedFile: document.getElementById('em-sourceFileLink').value.trim(),
+                driveLink: document.getElementById('em-driveLink').value.trim(),
                 sourcePlace: document.getElementById('em-sourcePlace').value,
                 taskDoneBy: document.getElementById('em-taskDoneBy').value,
                 status: document.getElementById('em-status').value,
@@ -3450,6 +3480,8 @@ ${taskCells}
                 const myTasks = TASK_FIELDS.filter(tf => (show[tf.byKey] || '').toLowerCase().includes(name));
                 const allDone = myTasks.length > 0 && myTasks.every(tf => show[tf.key] === 'Completed');
                 const sc = statusBadgeClass(show.status);
+                const sourceFileLink = getSourceFileLink(show);
+                const driveLink = getDriveLink(show);
                 const taskHTML = myTasks.map(tf => {
                     const sv = show[tf.key] || 'Pending', sc2 = statusBadgeClass(sv);
                     return `<div class="wtc-task-item">
@@ -3463,7 +3495,7 @@ ${taskCells}
                 return `<div class="card worker-task-card ${allDone ? 'done' : ''}">
 <div class="wtc-header">
 <div><div class="wtc-title">🎬 ${esc(show.showName)}</div>
-<div class="wtc-subtitle">${show.scrapedFile ? `<a href="${esc(show.scrapedFile)}" target="_blank" class="table-link">🔗 File</a> &nbsp;·&nbsp; ` : ''}${sourceTag(show.sourcePlace)}${show.assignDate ? ` &nbsp;·&nbsp; 📅 ${esc(show.assignDate)}` : ''}</div></div>
+<div class="wtc-subtitle">${sourceFileLink ? `<a href="${esc(sourceFileLink)}" target="_blank" class="table-link" rel="noopener noreferrer">🔗 Source File</a> &nbsp;·&nbsp; ` : ''}${driveLink ? `<a href="${esc(driveLink)}" target="_blank" class="table-link" rel="noopener noreferrer">📄 Drive Link</a> &nbsp;·&nbsp; ` : ''}${sourceTag(show.sourcePlace)}${show.assignDate ? ` &nbsp;·&nbsp; 📅 ${esc(show.assignDate)}` : ''}</div></div>
 <span class="status-badge ${sc}">${show.status || 'Pending'}</span>
 </div>
 ${commentHTML}
@@ -3648,11 +3680,13 @@ ${completed.length > 0 ? `<span style="background:var(--success);color:white;pad
             const html = completed.map(show => {
                 const ri = allShows.indexOf(show);
                 const tasksDone = TASK_FIELDS.filter(tf => show[tf.key] === 'Completed').length;
+                const sourceFileLink = getSourceFileLink(show);
+                const driveLink = getDriveLink(show);
                 return `<div class="completed-show-row" onclick="openEditModal(${ri})">
 <span style="font-size:1.1rem">🎬</span>
 <div style="flex:1;min-width:0">
 <div class="completed-show-name">${esc(show.showName)}</div>
-<div class="completed-show-meta">${show.taskDoneBy ? `👤 ${esc(show.taskDoneBy)} &nbsp;·&nbsp; ` : ''}${sourceTag(show.sourcePlace)} &nbsp;·&nbsp; ✅ ${tasksDone}/${TASK_FIELDS.length} tasks${show.comment ? ` &nbsp;·&nbsp; 💬 ${esc(show.comment.substring(0, 30))}${show.comment.length > 30 ? '…' : ''}` : ''}</div>
+<div class="completed-show-meta">${show.taskDoneBy ? `👤 ${esc(show.taskDoneBy)} &nbsp;·&nbsp; ` : ''}${sourceFileLink ? `<a href="${esc(sourceFileLink)}" target="_blank" class="table-link" rel="noopener noreferrer">🔗 Source</a> &nbsp;·&nbsp; ` : ''}${driveLink ? `<a href="${esc(driveLink)}" target="_blank" class="table-link" rel="noopener noreferrer">📄 Drive</a> &nbsp;·&nbsp; ` : ''}${sourceTag(show.sourcePlace)} &nbsp;·&nbsp; ✅ ${tasksDone}/${TASK_FIELDS.length} tasks${show.comment ? ` &nbsp;·&nbsp; 💬 ${esc(show.comment.substring(0, 30))}${show.comment.length > 30 ? '…' : ''}` : ''}</div>
 </div>
 <span class="completed-show-date">✅ ${formatDisplayDate(show.completedDate || show.assignDate)}</span>
 </div>`;
